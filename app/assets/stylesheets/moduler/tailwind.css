@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/aspect-ratio";
+@plugin "@tailwindcss/typography";
+
+@source inline('bg-yellow-100');
+@source inline('bg-red-100');
+@source inline('bg-green-100');
+
+@theme {
+    --color-custom: #000;
+    --font-custom: "Arial", sans-serif;
+}
+
+.prose-100 {
+    max-width: 100%;
+}
