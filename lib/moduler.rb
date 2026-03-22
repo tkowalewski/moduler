@@ -1,6 +1,9 @@
 require "moduler/version"
 require "moduler/engine"
+require "moduler/configuration"
 
 module Moduler
-  # Your code goes here...
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
 end
