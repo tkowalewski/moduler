@@ -271,12 +271,12 @@ PLATFORMS
   arm64-darwin
 
 DEPENDENCIES
+  importmap-rails (~> 2.2, >= 2.2.3)
   moduler!
   pg
   propshaft
   puma
   rubocop-rails-omakase
-  tailwindcss-rails
 
 BUNDLED WITH
    2.6.8
