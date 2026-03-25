@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "importmap-rails", "~> 2.2", ">= 2.2.3"
   spec.add_dependency "stimulus-rails", "~> 1.3", ">= 1.3.4"
   spec.add_dependency "tailwindcss-rails", "~> 4.4"
+  spec.add_dependency "bcrypt", "~> 3.1", ">= 3.1.22"
 end
