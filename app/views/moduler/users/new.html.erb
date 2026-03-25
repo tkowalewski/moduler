@@ -1,0 +1,53 @@
+<div class="flex min-h-full">
+  <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <div>
+        <h2 class="mt-8 text-2xl/9 font-bold tracking-tight text-gray-900"><%= t(".title") %></h2>
+        <p class="mt-2 text-sm/6 text-gray-500">
+          <%= t(".subtitle") %>
+          <%= link_to t(".action.sign_in"), moduler.new_session_path, class: "font-semibold text-custom hover:text-custom" %>
+        </p>
+      </div>
+
+      <div class="mt-10">
+        <div>
+          <%= form_for @user, url: moduler.user_path, class: "space-y-6", data: { turbo: false } do |form| %>
+            <div class="mt-2">
+              <label for="email" class="block text-sm/6 font-medium text-gray-900"><%= t(".label.email_address") %></label>
+              <div class="mt-2">
+                <%= form.email_field :email_address, autofocus: true, placeholder: t(".placeholder.email_address"), class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-custom sm:text-sm/6" %>
+              </div>
+              <% if form.error?(:email_address) %>
+                <%= form.error(:email_address, class: "text-red-500 text-sm mt-1") %>
+              <% end %>
+            </div>
+
+            <div class="mt-2">
+              <label for="password" class="block text-sm/6 font-medium text-gray-900"><%= t(".label.password") %></label>
+              <div class="mt-2">
+                <%= form.password_field :password, placeholder: t(".placeholder.password"), class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-custom sm:text-sm/6" %>
+              </div>
+              <% if form.error?(:password) %>
+                <%= form.error(:password, class: "text-red-500 text-sm mt-1") %>
+              <% end %>
+            </div>
+
+            <div class="mt-2">
+              <label for="password_confirmation" class="block text-sm/6 font-medium text-gray-900"><%= t(".label.password_confirmation") %></label>
+              <div class="mt-2">
+                <%= form.password_field :password_confirmation, placeholder: t(".placeholder.password_confirmation"), class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-custom sm:text-sm/6" %>
+              </div>
+              <% if form.error?(:password_confirmation) %>
+                <%= form.error(:password_confirmation, class: "text-red-500 text-sm mt-1") %>
+              <% end %>
+            </div>
+
+            <div class="mt-4">
+              <button type="submit" class="cursor-pointer flex w-full justify-center rounded-md bg-custom px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-custom focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom"><%= t(".action.sign_up") %></button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,11 @@ ActiveRecord::Migrator.migrations_paths = [ File.expand_path("../test/dummy/db/m
 ActiveRecord::Migrator.migrations_paths << File.expand_path("../db/migrate", __dir__)
 require "rails/test_help"
 
+require "bcrypt"
+# Use the minimum BCrypt cost factor in tests so that fixture password digests
+# are generated quickly without sacrificing correctness.
+BCrypt::Engine.cost = BCrypt::Engine::MIN_COST
+
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
   ActiveSupport::TestCase.fixture_paths = [ File.expand_path("fixtures", __dir__) ]

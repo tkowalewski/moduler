@@ -1,0 +1,17 @@
+en:
+  moduler:
+    sessions:
+      new:
+        title: Sign in to your account
+        subtitle: Enter your email and password to sign in.
+        action:
+          sign_in: Sign in
+          sign_up: Sign up
+        label:
+          email_address: Email address
+          password: Password
+        placeholder:
+          email_address: Enter your email address
+          password: Enter your password
+      create:
+        invalid_credentials: Invalid credentials

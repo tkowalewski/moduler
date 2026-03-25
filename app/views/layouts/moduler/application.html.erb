@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Moduler</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>Moduler</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= yield :head %>
+    <%= yield :head %>
 
-  <%= stylesheet_link_tag "moduler/tailwind", media: "all" %>
-  <%= stylesheet_link_tag "moduler/application", media: "all" %>
-  <%= javascript_importmap_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+    <%= stylesheet_link_tag "moduler/tailwind", media: "all" %>
+    <%= stylesheet_link_tag "moduler/application", media: "all" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
 </html>

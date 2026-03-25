@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+active:
+  user: default
+  ip_address: "127.0.0.1"
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+  signed_in_at: <%= 1.hour.ago %>
+  signed_out_at:
+
+signed_out:
+  user: default
+  ip_address: "192.168.1.1"
+  user_agent: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)"
+  signed_in_at: <%= 2.hours.ago %>
+  signed_out_at: <%= 1.hour.ago %>
