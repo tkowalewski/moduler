@@ -7,12 +7,10 @@
 
     <%= yield :head %>
 
-    <%= stylesheet_link_tag "moduler/tailwind", media: "all" %>
-    <%= stylesheet_link_tag "moduler/application", media: "all" %>
+    <%= stylesheet_link_tags_if_exist "moduler/tailwind", "moduler/application", media: "all" %>
 
-    <!-- Include host application stylesheets -->
-    <%= stylesheet_link_tag "tailwind", media: "all" %>
-    <%= stylesheet_link_tag "application", media: "all" %>
+    <%# Include host application stylesheets %>
+    <%= stylesheet_link_tags_if_exist "tailwind", "application", media: "all" %>
 
     <%= javascript_importmap_tags "moduler/application" %>
   </head>
