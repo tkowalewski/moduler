@@ -1,3 +1,7 @@
+require "importmap-rails"
+require "stimulus-rails"
+require "tailwindcss-rails"
+
 module Moduler
   class Engine < ::Rails::Engine
     isolate_namespace Moduler
