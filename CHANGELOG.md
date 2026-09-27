@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-27
+
 ### Added
 
 - Routing DSL for host applications: `moduler "/path"` mounts the engine at the given path, and an optional block adds routes inside the engine's route set:
@@ -48,5 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/tkowalewski/moduler/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/tkowalewski/moduler/releases/tag/0.1.0
