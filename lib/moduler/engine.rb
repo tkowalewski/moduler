@@ -13,5 +13,11 @@ module Moduler
     initializer "moduler.assets" do |app|
       app.config.assets.precompile += %w[moduler/manifest.js]
     end
+
+    initializer "moduler.routes" do
+      Engine.routes.append do
+        instance_exec(&Moduler.router.routes) if Moduler.router&.routes
+      end
+    end
   end
 end

@@ -5,7 +5,7 @@ module Moduler
     def moduler(path, &block)
       Moduler.router = Router.new(path, block)
 
-      mount Moduler::Engine => "/", as: :moduler
+      mount Moduler::Engine => path, as: :moduler
     end
   end
 end

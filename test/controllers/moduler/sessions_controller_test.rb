@@ -18,7 +18,7 @@ module Moduler
 
       get "/moduler/session/new"
 
-      assert_redirected_to "/moduler"
+      assert_redirected_to "/moduler/"
     end
 
     test "create with valid credentials redirects to root" do
@@ -26,7 +26,7 @@ module Moduler
         user: { email_address: @user.email_address, password: "password123" }
       }
 
-      assert_redirected_to "/moduler"
+      assert_redirected_to "/moduler/"
     end
 
     test "create with valid credentials creates a new session record" do

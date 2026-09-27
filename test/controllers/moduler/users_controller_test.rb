@@ -18,7 +18,7 @@ module Moduler
 
       get "/moduler/user/new"
 
-      assert_redirected_to "/moduler"
+      assert_redirected_to "/moduler/"
     end
 
     test "create with valid params creates a new user" do
