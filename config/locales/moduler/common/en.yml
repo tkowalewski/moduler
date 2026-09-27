@@ -1,0 +1,8 @@
+en:
+  moduler:
+    common:
+      header:
+        nav:
+          home: Home
+        action:
+          sign_out: Sign out

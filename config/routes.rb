@@ -3,4 +3,6 @@ Moduler::Engine.routes.draw do
   resource :user, only: %i[new create]
 
   get "/hello", to: "hello#index"
+
+  root "home#index"
 end

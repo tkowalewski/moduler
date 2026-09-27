@@ -15,6 +15,10 @@
     <%= javascript_importmap_tags "moduler/application" %>
   </head>
   <body>
-    <%= yield %>
+    <div class="min-h-full">
+      <%= render "moduler/common/header" %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
