@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  mount Moduler::Engine => "/moduler"
+  moduler "/moduler" do
+    root "home#index"
+  end
 end
