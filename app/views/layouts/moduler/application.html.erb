@@ -16,7 +16,7 @@
   </head>
   <body>
     <div class="min-h-full">
-      <%= render "moduler/common/header" %>
+      <%= render "moduler/common/header" if authenticated? %>
 
       <%= yield %>
     </div>
