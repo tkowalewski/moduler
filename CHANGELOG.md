@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The shared header (with the sign-out button) is rendered only for authenticated users, so it no longer appears on the sign-in and sign-up pages.
+
 ## [0.2.0] - 2026-09-27
 
 ### Added
