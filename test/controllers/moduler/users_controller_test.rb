@@ -7,7 +7,7 @@ module Moduler
     end
 
     test "new renders the registration form when not authenticated" do
-      get "/moduler/user/new"
+      get "/application/user/new"
 
       assert_response :success
       assert_select "form"
@@ -16,14 +16,14 @@ module Moduler
     test "new redirects to root when already authenticated" do
       sign_in_as @user
 
-      get "/moduler/user/new"
+      get "/application/user/new"
 
-      assert_redirected_to "/moduler/"
+      assert_redirected_to "/application/"
     end
 
     test "create with valid params creates a new user" do
       assert_difference "Moduler::User.count", 1 do
-        post "/moduler/user", params: {
+        post "/application/user", params: {
           user: {
             email_address: "newuser@example.com",
             password: "password123",
@@ -34,7 +34,7 @@ module Moduler
     end
 
     test "create with valid params redirects to the login page" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: "newuser@example.com",
           password: "password123",
@@ -42,11 +42,11 @@ module Moduler
         }
       }
 
-      assert_redirected_to "/moduler/session/new"
+      assert_redirected_to "/application/session/new"
     end
 
     test "create with valid params sets a success flash notice" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: "newuser@example.com",
           password: "password123",
@@ -58,7 +58,7 @@ module Moduler
     end
 
     test "create with valid params persists the correct email address" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: "newuser@example.com",
           password: "password123",
@@ -70,7 +70,7 @@ module Moduler
     end
 
     test "create with duplicate email re-renders the registration form" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: @user.email_address,
           password: "password123",
@@ -84,7 +84,7 @@ module Moduler
 
     test "create with duplicate email does not create a new user" do
       assert_no_difference "Moduler::User.count" do
-        post "/moduler/user", params: {
+        post "/application/user", params: {
           user: {
             email_address: @user.email_address,
             password: "password123",
@@ -95,7 +95,7 @@ module Moduler
     end
 
     test "create with mismatched passwords re-renders the registration form" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: "newuser@example.com",
           password: "password123",
@@ -109,7 +109,7 @@ module Moduler
 
     test "create with mismatched passwords does not create a new user" do
       assert_no_difference "Moduler::User.count" do
-        post "/moduler/user", params: {
+        post "/application/user", params: {
           user: {
             email_address: "newuser@example.com",
             password: "password123",
@@ -120,7 +120,7 @@ module Moduler
     end
 
     test "create with blank email re-renders the registration form" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: "",
           password: "password123",
@@ -134,7 +134,7 @@ module Moduler
 
     test "create with blank email does not create a new user" do
       assert_no_difference "Moduler::User.count" do
-        post "/moduler/user", params: {
+        post "/application/user", params: {
           user: {
             email_address: "",
             password: "password123",
@@ -145,7 +145,7 @@ module Moduler
     end
 
     test "create with invalid email format re-renders the registration form" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: "not-a-valid-email",
           password: "password123",
@@ -159,7 +159,7 @@ module Moduler
 
     test "create with invalid email format does not create a new user" do
       assert_no_difference "Moduler::User.count" do
-        post "/moduler/user", params: {
+        post "/application/user", params: {
           user: {
             email_address: "not-a-valid-email",
             password: "password123",
@@ -170,7 +170,7 @@ module Moduler
     end
 
     test "create with blank password re-renders the registration form" do
-      post "/moduler/user", params: {
+      post "/application/user", params: {
         user: {
           email_address: "newuser@example.com",
           password: "",
@@ -184,7 +184,7 @@ module Moduler
 
     test "create with blank password does not create a new user" do
       assert_no_difference "Moduler::User.count" do
-        post "/moduler/user", params: {
+        post "/application/user", params: {
           user: {
             email_address: "newuser@example.com",
             password: "",
@@ -197,7 +197,7 @@ module Moduler
     private
 
     def sign_in_as(user, password: "password123")
-      post "/moduler/session", params: {
+      post "/application/session", params: {
         user: { email_address: user.email_address, password: password }
       }
     end

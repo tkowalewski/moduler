@@ -7,7 +7,7 @@ module Moduler
     end
 
     test "new renders the login form when not authenticated" do
-      get "/moduler/session/new"
+      get "/application/session/new"
 
       assert_response :success
       assert_select "form"
@@ -16,29 +16,29 @@ module Moduler
     test "new redirects to root when already authenticated" do
       sign_in_as @user
 
-      get "/moduler/session/new"
+      get "/application/session/new"
 
-      assert_redirected_to "/moduler/"
+      assert_redirected_to "/application/"
     end
 
     test "create with valid credentials redirects to root" do
-      post "/moduler/session", params: {
+      post "/application/session", params: {
         user: { email_address: @user.email_address, password: "password123" }
       }
 
-      assert_redirected_to "/moduler/"
+      assert_redirected_to "/application/"
     end
 
     test "create with valid credentials creates a new session record" do
       assert_difference "Moduler::Session.count", 1 do
-        post "/moduler/session", params: {
+        post "/application/session", params: {
           user: { email_address: @user.email_address, password: "password123" }
         }
       end
     end
 
     test "create with valid credentials sets the session_id cookie" do
-      post "/moduler/session", params: {
+      post "/application/session", params: {
         user: { email_address: @user.email_address, password: "password123" }
       }
 
@@ -46,7 +46,7 @@ module Moduler
     end
 
     test "create with valid credentials stores ip_address and user_agent on the session" do
-      post "/moduler/session",
+      post "/application/session",
         params: { user: { email_address: @user.email_address, password: "password123" } },
         headers: { "User-Agent" => "TestBrowser/1.0" }
 
@@ -56,7 +56,7 @@ module Moduler
     end
 
     test "create with invalid password re-renders the login form" do
-      post "/moduler/session", params: {
+      post "/application/session", params: {
         user: { email_address: @user.email_address, password: "wrong_password" }
       }
 
@@ -66,14 +66,14 @@ module Moduler
 
     test "create with invalid password does not create a session record" do
       assert_no_difference "Moduler::Session.count" do
-        post "/moduler/session", params: {
+        post "/application/session", params: {
           user: { email_address: @user.email_address, password: "wrong_password" }
         }
       end
     end
 
     test "create with unknown email re-renders the login form" do
-      post "/moduler/session", params: {
+      post "/application/session", params: {
         user: { email_address: "nobody@example.com", password: "password123" }
       }
 
@@ -83,14 +83,14 @@ module Moduler
 
     test "create with unknown email does not create a session record" do
       assert_no_difference "Moduler::Session.count" do
-        post "/moduler/session", params: {
+        post "/application/session", params: {
           user: { email_address: "nobody@example.com", password: "password123" }
         }
       end
     end
 
     test "create with invalid credentials shows an error message" do
-      post "/moduler/session", params: {
+      post "/application/session", params: {
         user: { email_address: @user.email_address, password: "wrong_password" }
       }
 
@@ -100,15 +100,15 @@ module Moduler
     test "destroy when authenticated redirects to the login page" do
       sign_in_as @user
 
-      delete "/moduler/session"
+      delete "/application/session"
 
-      assert_redirected_to "/moduler/session/new"
+      assert_redirected_to "/application/session/new"
     end
 
     test "destroy when authenticated clears the session_id cookie" do
       sign_in_as @user
 
-      delete "/moduler/session"
+      delete "/application/session"
 
       assert cookies[:session_id].blank?
     end
@@ -117,7 +117,7 @@ module Moduler
       sign_in_as @user
       active_count_before = @user.sessions.where(signed_out_at: nil).count
 
-      delete "/moduler/session"
+      delete "/application/session"
 
       assert_equal active_count_before - 1, @user.sessions.where(signed_out_at: nil).count
     end
@@ -126,21 +126,21 @@ module Moduler
       sign_in_as @user
       created_session = @user.sessions.order(:created_at).last
 
-      delete "/moduler/session"
+      delete "/application/session"
 
       assert_not_nil created_session.reload.signed_out_at
     end
 
     test "destroy when not authenticated redirects to the login page" do
-      delete "/moduler/session"
+      delete "/application/session"
 
-      assert_redirected_to "/moduler/session/new"
+      assert_redirected_to "/application/session/new"
     end
 
     private
 
     def sign_in_as(user, password: "password123")
-      post "/moduler/session", params: {
+      post "/application/session", params: {
         user: { email_address: user.email_address, password: password }
       }
     end

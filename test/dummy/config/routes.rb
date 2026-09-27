@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  moduler "/moduler" do
+  moduler "/application" do
     root "home#index"
   end
 end
