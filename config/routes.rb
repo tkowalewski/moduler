@@ -2,6 +2,8 @@ Moduler::Engine.routes.draw do
   scope Moduler.router.path do
     resource :session, only: %i[new create destroy]
     resource :user, only: %i[new create]
+
+    get "/hello", to: "hello#index"
   end
 end
 
