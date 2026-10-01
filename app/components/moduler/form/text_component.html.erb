@@ -1,0 +1,14 @@
+<div class="mt-2">
+  <% if @options.key?(:label) %>
+    <label for="<%= @form.object_name %>_<%= @name %>" class="block text-sm/6 font-medium text-gray-900"><%= @options[:label] %></label>
+  <% end %>
+  <div class="mt-2">
+    <%= @form.text_field @name, placeholder: @options[:placeholder], class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-custom sm:text-sm/6" %>
+  </div>
+  <% if @options.key?(:description) %>
+    <p class="mt-1 text-xs text-slate-400"><%= @options[:description] %></p>
+  <% end %>
+  <% if @form.error?(@name) %>
+    <%= @form.error(@name, class: "text-red-500 text-sm mt-1") %>
+  <% end %>
+</div>

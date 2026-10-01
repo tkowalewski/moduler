@@ -1,3 +1,5 @@
+require "view_component"
+
 require "moduler/version"
 require "moduler/engine"
 require "moduler/configuration"
