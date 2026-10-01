@@ -15,10 +15,7 @@
             <%= render(::Moduler::Form::TextComponent.new(form, :email_address, label: t(".label.email_address"), placeholder: t(".placeholder.email_address"))) %>
             <%= render(::Moduler::Form::PasswordComponent.new(form, :password, label: t(".label.password"), placeholder: t(".placeholder.password"), description: t(".description.password"))) %>
             <%= render(::Moduler::Form::PasswordComponent.new(form, :password_confirmation, placeholder: t(".placeholder.password_confirmation"))) %>
-
-            <div class="mt-4">
-              <button type="submit" class="cursor-pointer flex w-full justify-center rounded-md bg-custom px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-custom focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom"><%= t(".action.sign_up") %></button>
-            </div>
+            <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.sign_up"))) %>
           <% end %>
         </div>
       </div>
