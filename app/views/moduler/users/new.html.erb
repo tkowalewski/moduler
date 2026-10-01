@@ -12,16 +12,7 @@
       <div class="mt-10">
         <div>
           <%= form_for @user, url: moduler.user_path, class: "space-y-6", data: { turbo: false } do |form| %>
-            <div class="mt-2">
-              <label for="email" class="block text-sm/6 font-medium text-gray-900"><%= t(".label.email_address") %></label>
-              <div class="mt-2">
-                <%= form.email_field :email_address, autofocus: true, placeholder: t(".placeholder.email_address"), class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-custom sm:text-sm/6" %>
-              </div>
-              <% if form.error?(:email_address) %>
-                <%= form.error(:email_address, class: "text-red-500 text-sm mt-1") %>
-              <% end %>
-            </div>
-
+            <%= render(::Moduler::Form::TextComponent.new(form, :email_address, label: t(".label.email_address"), placeholder: t(".placeholder.email_address"))) %>
             <%= render(::Moduler::Form::PasswordComponent.new(form, :password, label: t(".label.password"), placeholder: t(".placeholder.password"), description: t(".description.password"))) %>
             <%= render(::Moduler::Form::PasswordComponent.new(form, :password_confirmation, placeholder: t(".placeholder.password_confirmation"))) %>
 
