@@ -20,19 +20,8 @@
           <%= form_for @user, url: moduler.session_path, class: "space-y-6", data: { turbo: false } do |form| %>
             <%= form.full_error :base, class: "my-2 text-sm text-red-600" %>
 
-            <div class="mt-2">
-              <label for="email" class="block text-sm/6 font-medium text-gray-900"><%= t(".label.email_address") %></label>
-              <div class="mt-2">
-                <%= form.email_field :email_address, autofocus: true, placeholder: t(".placeholder.email_address"), value: params[:email_address], class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-custom sm:text-sm/6" %>
-              </div>
-            </div>
-
-            <div class="mt-2">
-              <label for="password" class="block text-sm/6 font-medium text-gray-900"><%= t(".label.password") %></label>
-              <div class="mt-2">
-                <%= form.password_field :password, placeholder: t(".placeholder.password"), class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-custom sm:text-sm/6" %>
-              </div>
-            </div>
+            <%= render(::Moduler::Form::TextComponent.new(form, :email_address, label: t(".label.email_address"), placeholder: t(".placeholder.email_address"))) %>
+            <%= render(::Moduler::Form::PasswordComponent.new(form, :password, label: t(".label.password"), placeholder: t(".placeholder.password"))) %>
 
             <div class="mt-4">
               <button type="submit" class="cursor-pointer flex w-full justify-center rounded-md bg-custom px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-custom focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom"><%= t(".action.sign_in") %></button>
