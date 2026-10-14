@@ -7,9 +7,14 @@ en:
         action:
           sign_in: "Sign in"
           sign_up: "Sign up"
+        label:
+          email_address: "Email address"
+          password: "Password"
         placeholder:
           email_address: "Email address"
           password: "Password"
-          password_confirmation: "Password confirmation"
+          password_confirmation: "Confirm password"
+        description:
+          password: "Use at least 8 characters containing at least 1 number and 1 lowercase letter"
       create:
         success: "User created successfully."

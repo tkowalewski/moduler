@@ -7,8 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `view_component` dependency and form components in `Moduler::Form`: `TextComponent`, `EmailComponent`, `PasswordComponent` (all three with optional `label`, `placeholder` and `description`, and the field's validation error), `SubmitComponent` (with optional `text`) and `BaseErrorComponent` (renders the form's first `:base` error).
+- The sign-up form shows `:base` errors and a password hint ("Use at least 8 characters containing at least 1 number and 1 lowercase letter").
+
+### Changed
+
+- The sign-in and sign-up forms are built from the `Moduler::Form` components instead of hand-written markup.
+- The password confirmation placeholder on the sign-up form reads "Confirm password" (was "Password confirmation"), and the field no longer has a label.
+
 ### Fixed
 
+- Labels on the sign-in and sign-up forms now point to their inputs (`for` matches the field `id`), so clicking a label focuses its field.
+- The sign-up form labels for email address and password had missing translations.
 - The shared header (with the sign-out button) is rendered only for authenticated users, so it no longer appears on the sign-in and sign-up pages.
 
 ## [0.2.0] - 2026-09-27
