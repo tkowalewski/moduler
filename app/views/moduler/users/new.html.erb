@@ -14,7 +14,7 @@
           <%= form_for @user, url: moduler.user_path, class: "space-y-6", data: { turbo: false } do |form| %>
             <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
 
-            <%= render(::Moduler::Form::TextComponent.new(form, :email_address, label: t(".label.email_address"), placeholder: t(".placeholder.email_address"))) %>
+            <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"), placeholder: t(".placeholder.email_address"))) %>
             <%= render(::Moduler::Form::PasswordComponent.new(form, :password, label: t(".label.password"), placeholder: t(".placeholder.password"), description: t(".description.password"))) %>
             <%= render(::Moduler::Form::PasswordComponent.new(form, :password_confirmation, placeholder: t(".placeholder.password_confirmation"))) %>
             <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.sign_up"))) %>
