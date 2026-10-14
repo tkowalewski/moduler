@@ -18,7 +18,7 @@
 
         <div>
           <%= form_for @user, url: moduler.session_path, class: "space-y-6", data: { turbo: false } do |form| %>
-            <%= form.full_error :base, class: "my-2 text-sm text-red-600" %>
+            <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
 
             <%= render(::Moduler::Form::TextComponent.new(form, :email_address, label: t(".label.email_address"), placeholder: t(".placeholder.email_address"))) %>
             <%= render(::Moduler::Form::PasswordComponent.new(form, :password, label: t(".label.password"), placeholder: t(".placeholder.password"))) %>
