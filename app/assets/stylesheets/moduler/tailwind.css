@@ -8,6 +8,9 @@
 @source inline('bg-red-100');
 @source inline('bg-green-100');
 
+@source "../../../views/**/*.html.erb";
+@source "../../../components/**/*.html.erb";
+
 @theme {
     --color-custom: #000;
     --font-custom: "Arial", sans-serif;
