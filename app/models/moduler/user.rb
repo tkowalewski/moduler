@@ -5,7 +5,7 @@ module Moduler
     has_secure_password
 
     validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-    validates :password, length: { minimum: 8 } , allow_nil: true
+    validates :password, length: { minimum: 8 }, allow_nil: true
 
     enum :role, { member: 0, administrator: 1 }
   end
