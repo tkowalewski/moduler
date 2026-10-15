@@ -12,8 +12,7 @@ namespace :moduler do
       command = [
         Tailwindcss::Ruby.executable,
         "--input", input_path,
-        "--output", output_path,
-        "--minify"
+        "--output", output_path
       ]
 
       Dir.chdir(Moduler::Engine.root) do
@@ -32,8 +31,7 @@ namespace :moduler do
         Tailwindcss::Ruby.executable,
         "--input", input_path,
         "--output", output_path,
-        "--watch",
-        "--minify"
+        "--watch"
       ]
 
       Dir.chdir(Moduler::Engine.root) do
