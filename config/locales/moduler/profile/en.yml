@@ -15,5 +15,10 @@ en:
         section:
           password: Change password
           current_password: Confirm changes
+        sidebar:
+          profile: Profile
+          notifications: Notifications
+          security: Security
+          billing: Billing
       update:
         notice: Your profile has been updated

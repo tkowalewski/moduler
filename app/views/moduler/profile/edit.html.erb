@@ -1,5 +1,7 @@
-<main class="mx-auto max-w-[120rem] px-6">
-  <%= form_with model: @user, url: moduler.profile_path, method: :patch, data: { turbo: false }, class: "mt-8 max-w-lg space-y-6" do |form| %>
+<main class="mx-auto flex max-w-[120rem] flex-col gap-8 pr-6 md:flex-row">
+  <%= render "moduler/common/sidebar" %>
+
+  <%= form_with model: @user, url: moduler.profile_path, method: :patch, data: { turbo: false }, class: "mt-8 w-full max-w-lg space-y-6" do |form| %>
     <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
 
     <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"), disabled: :disabled)) %>

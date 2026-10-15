@@ -1,6 +1,10 @@
 en:
   moduler:
     common:
+      sidebar:
+        action:
+          profile: Profile
+          sessions: Sessions
       header:
         nav:
           home: Home
