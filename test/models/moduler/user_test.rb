@@ -103,6 +103,24 @@ module Moduler
       assert user.valid?
     end
 
+    test "is invalid with a password shorter than 8 characters" do
+      user = Moduler::User.new(email_address: "newuser@example.com", password: "short12")
+      assert_not user.valid?
+      assert_includes user.errors[:password], "is too short (minimum is 8 characters)"
+    end
+
+    test "is valid with a password of exactly 8 characters" do
+      user = Moduler::User.new(email_address: "newuser@example.com", password: "exactly8")
+      assert user.valid?, "Expected 8-character password to be valid, got: #{user.errors.full_messages}"
+    end
+
+    test "is invalid when changing password to one shorter than 8 characters on a persisted record" do
+      user = moduler_users(:default)
+      user.password = "short12"
+      assert_not user.valid?
+      assert_includes user.errors[:password], "is too short (minimum is 8 characters)"
+    end
+
     test "does not require password when updating other attributes on a persisted record" do
       user = moduler_users(:default)
       user.email_address = "updated@example.com"
