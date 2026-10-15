@@ -12,11 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `view_component` dependency and form components in `Moduler::Form`: `TextComponent`, `EmailComponent`, `PasswordComponent` (all three with optional `label`, `placeholder` and `description`, and the field's validation error), `SubmitComponent` (with optional `text`) and `BaseErrorComponent` (renders the form's first `:base` error).
 - The sign-up form shows `:base` errors and a password hint ("Use at least 8 characters containing at least 1 number and 1 lowercase letter").
 - `role` on `Moduler::User` (`member` or `administrator`), stored in a new integer column `moduler_users.role`. Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`).
+- Profile page (`edit_profile_path`, `/profile/edit`) where a signed-in user can change their password. The current password is required, and changing the password signs out the user's other active sessions. The email address is shown but cannot be changed.
+- The header shows the signed-in user's email address, linked to the profile page.
+- Flash messages are shown as toasts in the top-right corner for signed-in users. They close after 5 seconds or with the close button.
+- `current_user` helper in controllers and views.
+- `Moduler::Session.active` scope (sessions that are not signed out).
+- `disabled` option for `Moduler::Form::EmailComponent`.
 
 ### Changed
 
 - The sign-in and sign-up forms are built from the `Moduler::Form` components instead of hand-written markup.
 - The password confirmation placeholder on the sign-up form reads "Confirm password" (was "Password confirmation"), and the field no longer has a label.
+- Passwords must be at least 8 characters long. Existing passwords keep working, and the rule applies when a password is set or changed.
+- Form component labels are lighter and smaller, and the submit button is aligned to the right instead of spanning the full width.
 
 ### Fixed
 
