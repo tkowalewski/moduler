@@ -4,6 +4,10 @@
       <%= link_to t(".nav.home"), moduler.root_path, class: "text-sm/6 font-semibold text-gray-900 hover:text-custom" %>
     </div>
 
-    <%= button_to t(".action.sign_out"), moduler.session_path, method: :delete, class: "cursor-pointer rounded-md px-3 py-1.5 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50" %>
+    <div class="flex items-center gap-6 text-sm px-3 py-1.5 text-gray-900">
+      <%= link_to current_user.email_address, moduler.edit_profile_path, class: "" %>
+      |
+      <%= button_to t(".action.sign_out"), moduler.session_path, method: :delete, class: "cursor-pointer font-semibold" %>
+    </div>
   </div>
 </nav>

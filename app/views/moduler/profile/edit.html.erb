@@ -1,0 +1,22 @@
+<main class="mx-auto max-w-[120rem] px-6">
+  <%= form_with model: @user, url: moduler.profile_path, method: :patch, data: { turbo: false }, class: "mt-8 max-w-lg space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"), disabled: :disabled)) %>
+    
+    <div class="space-y-4 border-t border-slate-100 pt-6">
+      <p class="text-xs font-medium uppercase tracking-wide text-slate-400"><%= t(".section.password") %></p>
+
+      <%= render(::Moduler::Form::PasswordComponent.new(form, :password, label: t(".label.password"))) %>
+      <%= render(::Moduler::Form::PasswordComponent.new(form, :password_confirmation, label: t(".label.password_confirmation"), description: t(".description.password_confirmation"))) %>
+    </div>
+
+    <div class="space-y-4 border-t border-slate-100 pt-6">
+      <p class="text-xs font-medium uppercase tracking-wide text-slate-400"><%= t(".section.current_password") %></p>
+
+      <%= render(::Moduler::Form::PasswordComponent.new(form, :password_challenge, label: t(".label.password_challenge"), description: t(".description.password_challenge"))) %>
+    </div>
+    
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+</main>

@@ -1,0 +1,19 @@
+en:
+  moduler:
+    profile:
+      edit:
+        label:
+          email_address: Email address
+          password: New password
+          password_confirmation: Confirm new password
+          password_challenge: Current password
+        description:
+          password_confirmation: Leave blank to keep your current password. Changing it signs out your other active sessions.
+          password_challenge: Required to save changes to password.
+        action:
+          save: Save
+        section:
+          password: Change password
+          current_password: Confirm changes
+      update:
+        notice: Your profile has been updated
