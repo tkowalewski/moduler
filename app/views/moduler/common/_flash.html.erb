@@ -1,0 +1,16 @@
+<% if flash.any? { |_, message| message.present? } %>
+  <div class="fixed top-4 right-4 z-50 flex w-full max-w-sm flex-col gap-2 px-4 sm:px-0">
+    <% flash.each do |key, message| %>
+      <% next if message.blank? %>
+      <div data-controller="flash"
+          class="flex items-start gap-3 rounded-md border px-4 py-3 text-sm shadow-lg transition duration-200 <%= key.to_s.in?(%w[alert error]) ? "border-red-200 bg-red-50 text-red-700" : key.to_s == "warning" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-emerald-200 bg-emerald-50 text-emerald-700" %>">
+        <p class="flex-1"><%= message %></p>
+        <button type="button" data-action="flash#dismiss" class="shrink-0 cursor-pointer text-slate-400 transition hover:text-slate-600">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="h-4 w-4">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    <% end %>
+  </div>
+<% end %>
