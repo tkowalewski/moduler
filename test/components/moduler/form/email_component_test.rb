@@ -27,6 +27,18 @@ class Moduler::Form::EmailComponentTest < ViewComponent::TestCase
     assert_not_empty fragment.css("input[type='email'][placeholder='Your email']")
   end
 
+  def test_renders_disabled_field_when_disabled_given
+    fragment = render_inline(Moduler::Form::EmailComponent.new(form, :email_address, disabled: true))
+
+    assert_not_empty fragment.css("input[type='email'][disabled]")
+  end
+
+  def test_does_not_render_disabled_field_when_disabled_not_given
+    fragment = render_inline(Moduler::Form::EmailComponent.new(form, :email_address))
+
+    assert_empty fragment.css("input[type='email'][disabled]")
+  end
+
   def test_renders_label_when_given
     fragment = render_inline(Moduler::Form::EmailComponent.new(form, :email_address, label: "Email address"))
 
