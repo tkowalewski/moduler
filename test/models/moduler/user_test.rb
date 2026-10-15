@@ -244,5 +244,37 @@ module Moduler
         Moduler::User.create(email_address: "nopassword@example.com")
       end
     end
+
+    test "defines role enum with explicit integer values" do
+      assert_equal({ "member" => 0, "administrator" => 1 }, Moduler::User.roles)
+    end
+
+    test "role predicates reflect the assigned role" do
+      user = Moduler::User.new(role: :administrator)
+      assert user.administrator?
+      assert_not user.member?
+    end
+
+    test "role bang methods change the role" do
+      user = moduler_users(:default)
+      user.member!
+      assert_equal "member", user.reload.role
+    end
+
+    test "role scopes return users with the given role" do
+      member = Moduler::User.create!(email_address: "member@example.com", password: "password123", role: :member)
+      administrator = Moduler::User.create!(email_address: "admin@example.com", password: "password123", role: :administrator)
+
+      assert_includes Moduler::User.member, member
+      assert_not_includes Moduler::User.member, administrator
+      assert_includes Moduler::User.administrator, administrator
+      assert_not_includes Moduler::User.administrator, member
+    end
+
+    test "raises an error when assigning an unknown role" do
+      assert_raises(ArgumentError) do
+        Moduler::User.new(role: :superuser)
+      end
+    end
   end
 end
