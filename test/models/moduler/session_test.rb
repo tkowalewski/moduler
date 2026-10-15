@@ -178,6 +178,19 @@ module Moduler
       assert_nil found
     end
 
+    test "active scope includes sessions without signed_out_at" do
+      assert_includes Moduler::Session.active, moduler_sessions(:active)
+    end
+
+    test "active scope excludes sessions with signed_out_at" do
+      assert_not_includes Moduler::Session.active, moduler_sessions(:signed_out)
+    end
+
+    test "active scope can be chained on a user's sessions" do
+      user = moduler_users(:default)
+      assert_equal [ moduler_sessions(:active) ], user.sessions.active.to_a
+    end
+
     test "session is included in its user sessions collection" do
       session = moduler_sessions(:active)
       assert_includes session.user.sessions, session
