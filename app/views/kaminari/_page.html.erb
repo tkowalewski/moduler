@@ -1,0 +1,3 @@
+<%= link_to page, url, remote: remote, rel: page.rel,
+      class: "rounded px-3 py-1 #{page.current? ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'}",
+      "aria-current": (page.current? ? "page" : nil) %>

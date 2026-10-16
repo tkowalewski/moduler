@@ -1,6 +1,7 @@
 require "importmap-rails"
 require "stimulus-rails"
 require "tailwindcss-rails"
+require "kaminari"
 
 module Moduler
   class Engine < ::Rails::Engine
