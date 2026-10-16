@@ -1,5 +1,5 @@
-<aside class="md:shrink-0 border-r border-gray-200 w-1/8">
-  <nav class="flex flex-col gap-1 text-sm p-2">
+<aside class="-mx-4 border-b border-gray-200 px-2 md:mx-0 md:w-1/8 md:shrink-0 md:border-b-0 md:border-r md:px-0">
+  <nav class="flex gap-1 overflow-x-auto md:flex-col text-sm p-2">
     <%= render(Moduler::SidebarActionComponent.new(t(".action.profile"), moduler.edit_profile_path, "moduler/profile")) %>
     <%= render(Moduler::SidebarActionComponent.new(t(".action.sessions"), moduler.profile_sessions_path, "moduler/profile/sessions")) %>
   </nav>
