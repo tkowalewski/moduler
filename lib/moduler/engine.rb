@@ -1,5 +1,6 @@
 require "importmap-rails"
 require "stimulus-rails"
+require "turbo-rails"
 require "tailwindcss-rails"
 require "kaminari"
 

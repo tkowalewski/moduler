@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 8.1", ">= 8.1.2"
   spec.add_dependency "importmap-rails", "~> 2.2", ">= 2.2.3"
   spec.add_dependency "stimulus-rails", "~> 1.3", ">= 1.3.4"
+  spec.add_dependency "turbo-rails", "~> 2.0", ">= 2.0.23"
   spec.add_dependency "tailwindcss-rails", "~> 4.4"
   spec.add_dependency "bcrypt", "~> 3.1", ">= 3.1.22"
   spec.add_dependency "view_component", ">= 4.15"
