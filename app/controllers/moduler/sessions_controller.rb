@@ -26,7 +26,7 @@ module Moduler
 
     def destroy
       terminate_session
-      redirect_to moduler.new_session_path
+      redirect_to moduler.new_session_path, status: :see_other
     end
   end
 end
