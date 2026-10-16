@@ -19,7 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Moduler::Session.active` scope (sessions that are not signed out).
 - `disabled` option for `Moduler::Form::EmailComponent`.
 - Sessions page (`profile_sessions_path`, `/profile/sessions`) listing the signed-in user's sessions, newest first and 20 per page, with sign-in time, IP address, user agent and status (current, active or signed out). Each active session can be revoked. Revoking the current session signs the user out.
-- "Revoke all sessions" button on the sessions page that signs out every active session of the user, including the current one.
+- "Revoke all sessions" button on the sessions page that signs out every active session of the user, including the current one. It sends `DELETE /profile/sessions/revocation` (`profile_sessions_revocation_path`), handled by `Moduler::Profile::Sessions::RevocationController#destroy`.
+- `turbo-rails` dependency. The engine's JavaScript loads Turbo, so revoking a session or all sessions asks for confirmation first.
 - Sidebar on the profile and sessions pages with links between them, built from the new `Moduler::SidebarActionComponent` (highlights the link of the current controller). On small screens it is shown as a horizontal bar above the content.
 - `kaminari` dependency, with Tailwind-styled pagination views.
 - `Moduler::Session#active?`.
@@ -32,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Form component labels are lighter and smaller, and the submit button is aligned to the right instead of spanning the full width.
 - The engine layout fills the full height of the window.
 - The header spans the full width of the window.
+- Signing out redirects to the sign-in page with `303 See Other` instead of `302 Found`, so the redirect is always followed with a GET request, also under Turbo.
 
 ### Fixed
 
