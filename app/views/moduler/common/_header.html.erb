@@ -2,6 +2,11 @@
   <div class="flex h-16 w-full items-center justify-between px-4 sm:px-6 lg:px-6">
     <div class="flex items-center gap-8">
       <%= link_to t(".nav.home"), moduler.root_path, class: "text-sm/6 font-semibold text-gray-900 hover:text-custom" %>
+
+      <% if current_user.administrator? %>
+        |
+        <%= link_to t(".nav.administration"), moduler.administration_root_path, class: "text-sm/6 font-semibold text-gray-900 hover:text-custom" %>
+      <% end %>
     </div>
 
     <div class="flex items-center gap-6 text-sm text-gray-900">

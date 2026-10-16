@@ -1,0 +1,6 @@
+<aside class="-mx-4 border-b border-gray-200 px-2 md:mx-0 md:w-1/8 md:shrink-0 md:border-b-0 md:border-r md:px-0">
+  <nav class="flex gap-1 overflow-x-auto md:flex-col text-sm p-2">
+    <%= render(Moduler::SidebarActionComponent.new(t(".action.users"), moduler.administration_users_path, "moduler/administration/users")) %>
+    <%= render(Moduler::SidebarActionComponent.new(t(".action.sessions"), moduler.administration_sessions_path, "moduler/administration/sessions")) %>
+  </nav>
+</aside>

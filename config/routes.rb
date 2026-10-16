@@ -10,6 +10,13 @@ Moduler::Engine.routes.draw do
     resources :sessions, only: %i[ index destroy ]
   end
 
+  namespace :administration do
+    resources :users, only: %i[ index new create edit update ]
+    resources :sessions, only: %i[ index destroy ]
+
+    root "home#index"
+  end
+
   get "/hello", to: "hello#index"
 
   root "home#index"
