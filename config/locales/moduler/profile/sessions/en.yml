@@ -12,7 +12,7 @@ en:
           action:
             revoke_all: Revoke all
           confirmation:
-            revoke_all: Are you sure? You will be signed out of all sessions.
+            revoke: Are you sure?
         session:
           action:
             destroy: Revoke
