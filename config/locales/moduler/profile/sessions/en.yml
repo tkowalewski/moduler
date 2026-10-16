@@ -1,0 +1,24 @@
+en:
+  moduler:
+    profile:
+      sessions:
+        index:
+          title: Sessions
+          header:
+            signed_in: Signed in
+            ip: IP address
+            user_agent: User Agent
+            status: Status
+          action:
+            revoke_all: Revoke all
+          confirmation:
+            revoke_all: Are you sure? You will be signed out of all sessions.
+        session:
+          action:
+            destroy: Revoke
+          status:
+            active: Active
+            signed_out: Signed Out
+            current: Current
+          confirmation:
+            destroy: Are you sure?

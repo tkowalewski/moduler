@@ -1,0 +1,15 @@
+<tr>
+  <td class="py-2 pr-4 text-slate-600 whitespace-nowrap"><%= session.signed_in_at.strftime("%Y-%m-%d %H:%M") %></td>
+  <td class="py-2 pr-4 text-slate-600"><%= session.ip_address %></td>
+  <td class="hidden py-2 pr-4 max-w-xs truncate md:table-cell text-slate-500"><%= session.user_agent %></td>
+  <td class="py-2 pr-4">
+    <%= session.active? ? (session == Moduler::Current.session ? t(".status.current") : t(".status.active")) : t(".status.signed_out") %>
+  </td>
+  <td class="py-2 pr-4 text-right whitespace-nowrap">
+    <% if session.active? %>
+      <%= button_to t(".action.destroy"), profile_session_path(session), method: :delete,
+            class: "cursor-pointer text-sm text-slate-500 hover:text-slate-900",
+            form: { data: { turbo_confirm: t(".confirmation.destroy") } } %>
+    <% end %>
+  </td>
+</tr>
