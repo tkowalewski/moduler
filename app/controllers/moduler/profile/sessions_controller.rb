@@ -11,9 +11,9 @@ module Moduler
 
         if session == Current.session
           cookies.delete(:session_id)
-          redirect_to new_session_path, status: :see_other
+          redirect_to moduler.new_session_path, status: :see_other
         else
-          redirect_to profile_sessions_path, status: :see_other
+          redirect_to moduler.profile_sessions_path, status: :see_other
         end
       end
 
@@ -21,7 +21,7 @@ module Moduler
         Current.user.sessions.active.update_all(signed_out_at: Time.current)
         cookies.delete(:session_id)
 
-        redirect_to new_session_path, status: :see_other
+        redirect_to moduler.new_session_path, status: :see_other
       end
     end
   end

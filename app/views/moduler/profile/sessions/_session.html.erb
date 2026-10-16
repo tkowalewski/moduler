@@ -7,7 +7,7 @@
   </td>
   <td class="py-2 pr-4 text-right whitespace-nowrap">
     <% if session.active? %>
-      <%= button_to t(".action.destroy"), profile_session_path(session), method: :delete,
+      <%= button_to t(".action.destroy"), moduler.profile_session_path(session), method: :delete,
             class: "cursor-pointer text-sm text-slate-500 hover:text-slate-900",
             form: { data: { turbo_confirm: t(".confirmation.destroy") } } %>
     <% end %>
