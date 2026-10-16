@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `current_user` helper in controllers and views.
 - `Moduler::Session.active` scope (sessions that are not signed out).
 - `disabled` option for `Moduler::Form::EmailComponent`.
+- Sessions page (`profile_sessions_path`, `/profile/sessions`) listing the signed-in user's sessions, newest first and 20 per page, with sign-in time, IP address, user agent and status (current, active or signed out). Each active session can be revoked. Revoking the current session signs the user out.
+- "Revoke all sessions" button on the sessions page that signs out every active session of the user, including the current one.
+- Sidebar on the profile and sessions pages with links between them, built from the new `Moduler::SidebarActionComponent` (highlights the link of the current controller). On small screens it is shown as a horizontal bar above the content.
+- `kaminari` dependency, with Tailwind-styled pagination views.
+- `Moduler::Session#active?`.
 
 ### Changed
 
@@ -25,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The password confirmation placeholder on the sign-up form reads "Confirm password" (was "Password confirmation"), and the field no longer has a label.
 - Passwords must be at least 8 characters long. Existing passwords keep working, and the rule applies when a password is set or changed.
 - Form component labels are lighter and smaller, and the submit button is aligned to the right instead of spanning the full width.
+- The engine layout fills the full height of the window.
+- The header spans the full width of the window.
 
 ### Fixed
 
