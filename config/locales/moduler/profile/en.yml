@@ -2,6 +2,7 @@ en:
   moduler:
     profile:
       edit:
+        title: Profile
         label:
           email_address: Email address
           password: New password
@@ -13,6 +14,7 @@ en:
         action:
           save: Save
         section:
+          data: Your data
           password: Change password
           current_password: Confirm changes
         sidebar:
