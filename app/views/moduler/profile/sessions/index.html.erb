@@ -5,7 +5,7 @@
     <div class="mb-4 flex min-h-9 items-center justify-between gap-4">
       <h1 class="text-base font-semibold text-gray-900"><%= t(".title") %></h1>
 
-      <%= button_to t(".action.revoke_all"), moduler.revoke_profile_sessions_path, method: :delete,
+      <%= button_to t(".action.revoke_all"), moduler.profile_sessions_revocation_path, method: :delete,
             class: "cursor-pointer rounded-md bg-custom px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom",
             form: { data: { turbo_confirm: t(".confirmation.revoke") } } %>
     </div>

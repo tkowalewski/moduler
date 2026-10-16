@@ -16,13 +16,6 @@ module Moduler
           redirect_to moduler.profile_sessions_path, status: :see_other
         end
       end
-
-      def revoke
-        Current.user.sessions.active.update_all(signed_out_at: Time.current)
-        cookies.delete(:session_id)
-
-        redirect_to moduler.new_session_path, status: :see_other
-      end
     end
   end
 end

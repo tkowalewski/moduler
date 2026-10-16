@@ -4,9 +4,10 @@ Moduler::Engine.routes.draw do
 
   resource :profile, only: %i[ edit update ], controller: :profile
   namespace :profile do
-    resources :sessions, only: %i[ index destroy ] do
-      delete :revoke, on: :collection
+    namespace :sessions do
+      resource :revocation, only: :destroy, controller: :revocation
     end
+    resources :sessions, only: %i[ index destroy ]
   end
 
   get "/hello", to: "hello#index"
