@@ -9,9 +9,6 @@
 
     <%= stylesheet_link_tags_if_exist "moduler/tailwind", "moduler/application", media: "all" %>
 
-    <%# Include host application stylesheets %>
-    <%= stylesheet_link_tags_if_exist "tailwind", "application", media: "all" %>
-
     <%= javascript_importmap_tags "moduler/application" %>
   </head>
   <body class="flex min-h-screen flex-col">

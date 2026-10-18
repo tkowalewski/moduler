@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Labels on the sign-in and sign-up forms now point to their inputs (`for` matches the field `id`), so clicking a label focuses its field.
 - The sign-up form labels for email address and password had missing translations.
 - The shared header (with the sign-out button) is rendered only for authenticated users, so it no longer appears on the sign-in and sign-up pages.
+- The engine layout no longer includes the host application's `tailwind` and `application` stylesheets. Host CSS outside Tailwind's cascade layers overrode the engine's utilities and broke its pages' styles and layout.
 
 ## [0.2.0] - 2026-09-27
 
