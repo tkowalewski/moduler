@@ -2,7 +2,7 @@ module Moduler
   module Profile
     class SessionsController < ApplicationController
       def index
-        @sessions = Current.user.sessions.order(created_at: :desc).page(params[:page]).per(20)
+        @sessions = Current.user.sessions.order(created_at: :desc).page(params[:page]).per(10)
       end
 
       def destroy

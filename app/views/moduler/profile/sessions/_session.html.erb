@@ -1,15 +1,52 @@
-<tr>
-  <td class="py-2 pr-4 text-slate-600 whitespace-nowrap"><%= session.signed_in_at.strftime("%Y-%m-%d %H:%M") %></td>
-  <td class="py-2 pr-4 text-slate-600"><%= session.ip_address %></td>
-  <td class="hidden py-2 pr-4 max-w-xs truncate md:table-cell text-slate-500"><%= session.user_agent %></td>
-  <td class="py-2 pr-4">
-    <%= session.active? ? (session == Moduler::Current.session ? t(".status.current") : t(".status.active")) : t(".status.signed_out") %>
-  </td>
-  <td class="py-2 pr-4 text-right whitespace-nowrap">
-    <% if session.active? %>
-      <%= button_to t(".action.destroy"), moduler.profile_session_path(session), method: :delete,
-            class: "cursor-pointer text-sm text-slate-500 hover:text-slate-900",
-            form: { data: { turbo_confirm: t(".confirmation.destroy") } } %>
-    <% end %>
-  </td>
-</tr>
+<% current = session == Moduler::Current.session %>
+<% mobile = session.user_agent.to_s.match?(/Mobile|Android|iPhone|iPad/) %>
+
+<li id="<%= dom_id(session) %>" class="flex items-center justify-between gap-4 px-4 py-4 sm:px-5 <%= "bg-slate-50/60" unless session.active? %>">
+  <div class="flex min-w-0 items-start gap-4">
+    <div class="flex size-10 shrink-0 items-center justify-center rounded-full <%= session.active? ? "bg-slate-100 text-slate-600" : "bg-slate-100/60 text-slate-400" %>">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true">
+        <% if mobile %>
+          <rect x="7" y="2.5" width="10" height="19" rx="2" />
+          <path d="M11 18.5h2" />
+        <% else %>
+          <rect x="3" y="4" width="18" height="12" rx="1.5" />
+          <path d="M8 20h8M12 16v4" />
+        <% end %>
+      </svg>
+    </div>
+
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2">
+        <p class="text-sm font-semibold <%= session.active? ? "text-gray-900" : "text-slate-500" %>">
+          <%= session.ip_address.presence || t(".unknown_ip") %>
+        </p>
+
+        <% if current %>
+          <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20"><%= t(".status.current") %></span>
+        <% elsif session.active? %>
+          <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/20"><%= t(".status.active") %></span>
+        <% else %>
+          <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium text-slate-400 ring-1 ring-inset ring-slate-200"><%= t(".status.signed_out") %></span>
+        <% end %>
+      </div>
+
+      <p class="mt-1 truncate text-xs text-slate-500" title="<%= session.user_agent %>">
+        <%= session.user_agent.presence || t(".unknown_device") %>
+      </p>
+
+      <p class="mt-1 text-xs text-slate-400">
+        <%= time_tag session.signed_in_at, t(".signed_in", time: time_ago_in_words(session.signed_in_at)), title: l(session.signed_in_at, format: :long) %>
+        <% if session.signed_out_at %>
+          <span aria-hidden="true">&middot;</span>
+          <%= time_tag session.signed_out_at, t(".signed_out", time: time_ago_in_words(session.signed_out_at)), title: l(session.signed_out_at, format: :long) %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <% if session.active? %>
+    <%= button_to t(".action.destroy"), moduler.profile_session_path(session), method: :delete,
+          class: "cursor-pointer rounded-md bg-white px-2.5 py-1 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 hover:text-red-600",
+          form: { class: "shrink-0", data: { turbo_confirm: t(current ? ".confirmation.destroy_current" : ".confirmation.destroy") } } %>
+  <% end %>
+</li>

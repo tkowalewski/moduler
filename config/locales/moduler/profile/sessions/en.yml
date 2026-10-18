@@ -4,21 +4,22 @@ en:
       sessions:
         index:
           title: Sessions
-          header:
-            signed_in: Signed in
-            ip: IP address
-            user_agent: User Agent
-            status: Status
+          description: Devices where you are signed in to your account. Revoke any session you don't recognize.
           action:
             revoke_all: Revoke all
           confirmation:
-            revoke: Are you sure?
+            revoke: You will be signed out of all sessions, including this one. Are you sure?
         session:
           action:
             destroy: Revoke
           status:
             active: Active
-            signed_out: Signed Out
-            current: Current
+            signed_out: Signed out
+            current: This device
+          signed_in: Signed in %{time} ago
+          signed_out: Signed out %{time} ago
+          unknown_ip: Unknown IP address
+          unknown_device: Unknown device
           confirmation:
             destroy: Are you sure?
+            destroy_current: You will be signed out of this device. Are you sure?

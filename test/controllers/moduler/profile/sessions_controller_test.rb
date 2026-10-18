@@ -19,7 +19,7 @@ module Moduler
         get "/application/profile/sessions"
 
         assert_response :success
-        assert_select "tbody tr", count: @user.sessions.count
+        assert_select "#sessions > li", count: @user.sessions.count
       end
 
       test "index does not list sessions of other users" do
@@ -49,13 +49,13 @@ module Moduler
         get "/application/profile/sessions"
 
         assert_response :success
-        assert_select "tbody tr", minimum: 1
+        assert_select "#sessions > li", minimum: 1
         assert_select "nav[aria-label='Pagination'] a[rel='next']"
 
         get "/application/profile/sessions", params: { page: 2 }
 
         assert_response :success
-        assert_select "tbody tr", minimum: 1
+        assert_select "#sessions > li", minimum: 1
       end
 
       test "destroy redirects to the login page when not authenticated" do
