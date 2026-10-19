@@ -1,6 +1,6 @@
 <nav class="border-b border-gray-200 bg-white">
-  <div class="flex h-16 w-full items-center justify-between px-4 sm:px-6 lg:px-6">
-    <div class="flex items-center gap-8">
+  <div class="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 lg:px-6">
+    <div class="flex shrink-0 items-center gap-4 sm:gap-8">
       <%= link_to t(".nav.home"), moduler.root_path, class: "text-sm/6 font-semibold text-gray-900 hover:text-custom" %>
 
       <% if current_user.administrator? %>
@@ -9,10 +9,10 @@
       <% end %>
     </div>
 
-    <div class="flex items-center gap-6 text-sm text-gray-900">
-      <%= link_to current_user.email_address, moduler.edit_profile_path %>
+    <div class="flex min-w-0 items-center gap-3 text-sm text-gray-900 sm:gap-6">
+      <%= link_to current_user.email_address, moduler.edit_profile_path, class: "truncate" %>
       |
-      <%= button_to t(".action.sign_out"), moduler.session_path, method: :delete, class: "cursor-pointer font-semibold" %>
+      <%= button_to t(".action.sign_out"), moduler.session_path, method: :delete, class: "cursor-pointer whitespace-nowrap font-semibold" %>
     </div>
   </div>
 </nav>

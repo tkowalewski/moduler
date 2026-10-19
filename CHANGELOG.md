@@ -41,6 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The sign-up form labels for email address and password had missing translations.
 - The shared header (with the sign-out button) is rendered only for authenticated users, so it no longer appears on the sign-in and sign-up pages.
 - The engine layout no longer includes the host application's `tailwind` and `application` stylesheets. Host CSS outside Tailwind's cascade layers overrode the engine's utilities and broke its pages' styles and layout.
+- The engine layout sets the `viewport` meta tag, so pages use their mobile layout on phones instead of a scaled-down desktop layout.
+- The header fits on narrow screens: the email address is truncated and the sign-out button no longer wraps or overflows.
 
 ## [0.2.0] - 2026-09-27
 
