@@ -1,4 +1,5 @@
 require "view_component"
+require "pg_search"
 
 require "moduler/version"
 require "moduler/engine"
