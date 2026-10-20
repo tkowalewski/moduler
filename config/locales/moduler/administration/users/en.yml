@@ -1,0 +1,12 @@
+en:
+  moduler:
+    administration:
+      users:
+        index:
+          title: Users
+          placeholder:
+            query: Search...
+          action:
+            new: Create
+            filter: Filter
+            clear: Clear
