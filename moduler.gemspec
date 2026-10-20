@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "bcrypt", "~> 3.1", ">= 3.1.22"
   spec.add_dependency "view_component", ">= 4.15"
   spec.add_dependency "kaminari", "~> 1.2"
+  spec.add_dependency "pg_search", ">= 2.4"
 end
