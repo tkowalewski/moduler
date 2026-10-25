@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Moduler::Session#active?`.
 - `pundit` dependency. `Moduler::ApplicationController` includes `Pundit::Authorization`, and `Moduler::ApplicationPolicy` denies everything by default.
 - Per-controller policies for the administration area (`Moduler::Administration::HomePolicy`, `UserPolicy` and `SessionPolicy`, all built on `Administration::BasePolicy`), each action authorized against its own policy method. Only administrators are allowed for now, so members and guests can no longer open the administration area: unauthorized users are redirected to the home page with an alert. The administration link in the header is rendered based on the same policies instead of a direct role check.
+- Administration search queries are limited to 100 characters; longer queries return no results.
 
 ### Security
 
@@ -33,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sessions now expire: a session is only resumed when `signed_in_at` is within `Moduler::Session::LIFETIME` (30 days), and the session cookie expires accordingly instead of being permanent (~20 years). A stolen cookie therefore stops working at the latest 30 days after sign-in. Sessions with no `signed_in_at` (created before this change) are never resumed, so existing users are signed out once and need to sign in again.
 - Email addresses are normalized (stripped and downcased) when a user is created or signed in, so accounts differing only by case or surrounding whitespace can no longer coexist (`Jan@firma.pl`, `jan@firma.pl`, `jan@firma.pl `) and impersonating other users by email casing is not possible.
 - Flash messages (including the rate-limit alert) are now also rendered for unauthenticated users; previously toasts were shown only to signed-in users, so an alert set on the sign-in or sign-up page would have been invisible.
+- The session cookie is marked Secure in production (`Rails.env.production?`), so browsers only send it over HTTPS connections.
 
 ### Changed
 
@@ -44,6 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The header spans the full width of the window.
 - Signing out redirects to the sign-in page with `303 See Other` instead of `302 Found`, so the redirect is always followed with a GET request, also under Turbo.
 
+### Removed
+
+- The `/hello` page with the Stimulus welcome message (its controller, view, route and Stimulus controller).
+
 ### Fixed
 
 - Labels on the sign-in and sign-up forms now point to their inputs (`for` matches the field `id`), so clicking a label focuses its field.
@@ -52,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The engine layout no longer includes the host application's `tailwind` and `application` stylesheets. Host CSS outside Tailwind's cascade layers overrode the engine's utilities and broke its pages' styles and layout.
 - The engine layout sets the `viewport` meta tag, so pages use their mobile layout on phones instead of a scaled-down desktop layout.
 - The header fits on narrow screens: the email address is truncated and the sign-out button no longer wraps or overflows.
+- Searching sessions in the administration area by query no longer tries to match the user's name (the user has no name attribute); it matches the user's email address only.
 
 ## [0.2.0] - 2026-09-27
 
