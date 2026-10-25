@@ -45,6 +45,14 @@ module Moduler
       assert_not_nil cookies[:session_id]
     end
 
+    test "create sets a session cookie expiring with the session lifetime" do
+      post "/application/session", params: {
+        user: { email_address: @user.email_address, password: "password123" }
+      }
+
+      assert_in_delta Moduler::Session::LIFETIME.from_now.to_i, cookies.get_cookie("session_id").expires.to_i, 60
+    end
+
     test "create with valid credentials stores ip_address and user_agent on the session" do
       post "/application/session",
         params: { user: { email_address: @user.email_address, password: "password123" } },
@@ -95,6 +103,17 @@ module Moduler
       }
 
       assert_match I18n.t("moduler.sessions.create.invalid_credentials"), response.body
+    end
+
+    test "a session past its lifetime is not resumed" do
+      post "/application/session", params: {
+        user: { email_address: @user.email_address, password: "password123" }
+      }
+      Moduler::Session.order(:created_at).last.update!(signed_in_at: (Moduler::Session::LIFETIME + 1.day).ago)
+
+      get "/application/"
+
+      assert_redirected_to "/application/session/new"
     end
 
     test "destroy when authenticated redirects to the login page" do
