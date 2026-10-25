@@ -17,7 +17,5 @@ Moduler::Engine.routes.draw do
     root "home#index"
   end
 
-  get "/hello", to: "hello#index"
-
   root "home#index"
 end
