@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rate limiting on sign-in and sign-up (`SessionsController#create` and `UsersController#create`, Rails' built-in `rate_limit`): at most 10 attempts per IP address and 5 attempts per email address within 3 minutes, which blocks brute force, credential stuffing and mass sign-ups. Limited users are redirected back to the form with an alert.
 - Sessions now expire: a session is only resumed when `signed_in_at` is within `Moduler::Session::LIFETIME` (30 days), and the session cookie expires accordingly instead of being permanent (~20 years). A stolen cookie therefore stops working at the latest 30 days after sign-in. Sessions with no `signed_in_at` (created before this change) are never resumed, so existing users are signed out once and need to sign in again.
+- Email addresses are normalized (stripped and downcased) when a user is created or signed in, so accounts differing only by case or surrounding whitespace can no longer coexist (`Jan@firma.pl`, `jan@firma.pl`, `jan@firma.pl `) and impersonating other users by email casing is not possible.
 - Flash messages (including the rate-limit alert) are now also rendered for unauthenticated users; previously toasts were shown only to signed-in users, so an alert set on the sign-in or sign-up page would have been invisible.
 
 ### Changed

@@ -29,6 +29,14 @@ module Moduler
       assert_redirected_to "/application/"
     end
 
+    test "create with a differently cased email address redirects to root" do
+      post "/application/session", params: {
+        user: { email_address: @user.email_address.upcase, password: "password123" }
+      }
+
+      assert_redirected_to "/application/"
+    end
+
     test "create with valid credentials creates a new session record" do
       assert_difference "Moduler::Session.count", 1 do
         post "/application/session", params: {

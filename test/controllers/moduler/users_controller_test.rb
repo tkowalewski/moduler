@@ -69,6 +69,43 @@ module Moduler
       assert Moduler::User.exists?(email_address: "newuser@example.com")
     end
 
+    test "create normalizes the email address by stripping and downcasing it" do
+      post "/application/user", params: {
+        user: {
+          email_address: "  NewUser@Example.COM  ",
+          password: "password123",
+          password_confirmation: "password123"
+        }
+      }
+
+      assert Moduler::User.exists?(email_address: "newuser@example.com")
+    end
+
+    test "create with a differently cased duplicate email re-renders the registration form" do
+      post "/application/user", params: {
+        user: {
+          email_address: "  TEST@DOMAIN.TLD ",
+          password: "password123",
+          password_confirmation: "password123"
+        }
+      }
+
+      assert_response :success
+      assert_select "form"
+    end
+
+    test "create with a differently cased duplicate email does not create a new user" do
+      assert_no_difference "Moduler::User.count" do
+        post "/application/user", params: {
+          user: {
+            email_address: "Test@Domain.tld",
+            password: "password123",
+            password_confirmation: "password123"
+          }
+        }
+      end
+    end
+
     test "create with duplicate email re-renders the registration form" do
       post "/application/user", params: {
         user: {

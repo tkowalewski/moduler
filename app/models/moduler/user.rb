@@ -6,6 +6,8 @@ module Moduler
 
     has_secure_password
 
+    normalizes :email_address, with: ->(email_address) { email_address.strip.downcase }
+
     validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :password, length: { minimum: 8 }, allow_nil: true
 
