@@ -5,7 +5,7 @@ module Moduler
 
       @template.content_tag :div, **options do
         @object.errors[field].first
-      end.html_safe
+      end
     end
 
     def full_error(field, options = {})
@@ -13,7 +13,7 @@ module Moduler
 
       @template.content_tag :div, **options do
         @object.errors.full_messages_for(field).first
-      end.html_safe
+      end
     end
 
     def error?(field)
