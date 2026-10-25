@@ -2,6 +2,8 @@ class QueryFilter < ApplicationFilter
   attribute :query, :string
   attribute :page, :integer
 
+  validates :query, length: { maximum: 100 }
+
   modifiers << proc do |scope, filter|
     scope.page(filter.page).per(10)
   end
