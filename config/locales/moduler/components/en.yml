@@ -1,0 +1,11 @@
+en:
+  moduler:
+    components:
+      filter:
+        placeholder:
+          query: Search...
+        action:
+          filter: Filter
+          clear: Clear
+      list:
+        empty: No results found.

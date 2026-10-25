@@ -2,16 +2,15 @@ en:
   moduler:
     administration:
       users:
+        roles:
+          member: Member
+          administrator: Administrator
         index:
           title: Users
           description: Manage user accounts and their roles. Search users by email address.
           empty: No users found.
-          placeholder:
-            query: Search...
           action:
             new: Create
-            filter: Filter
-            clear: Clear
         new:
           title: New user
           label:
@@ -20,9 +19,6 @@ en:
             password: Password
           description:
             password: Use at least 8 characters.
-          role:
-            member: Member
-            administrator: Administrator
           section:
             data: User data
             password: Password
@@ -35,9 +31,6 @@ en:
           label:
             email_address: Email address
             role: Role
-          role:
-            member: Member
-            administrator: Administrator
           section:
             data: User data
           action:
@@ -47,7 +40,4 @@ en:
         user:
           action:
             edit: Edit
-          role:
-            administrator: Administrator
-            member: Member
           created: Created %{time} ago

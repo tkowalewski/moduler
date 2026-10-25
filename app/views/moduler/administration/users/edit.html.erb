@@ -1,22 +1,14 @@
-<main class="mx-auto flex w-full flex-1 max-w-[120rem] flex-col gap-4 px-4 md:flex-row md:gap-8 md:pl-0 md:pr-6">
-  <%= render "moduler/common/administration/sidebar" %>
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
 
-  <div class="flex min-w-0 flex-1 flex-col pb-4 md:mt-8">
-    <div class="mb-4 flex min-h-9 items-center justify-between gap-4">
-      <h1 class="text-base font-semibold text-gray-900"><%= t(".title") %></h1>
-    </div>
+  <%= form_with model: @user, url: moduler.administration_user_path(@user), method: :patch, data: { turbo: false }, class: "w-full max-w-lg space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
 
-    <%= form_with model: @user, url: moduler.administration_user_path(@user), method: :patch, data: { turbo: false }, class: "w-full max-w-lg space-y-6" do |form| %>
-      <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
-
-      <div class="space-y-4">
-        <p class="text-xs font-medium uppercase tracking-wide text-slate-400"><%= t(".section.data") %></p>
-
-        <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"))) %>
-        <%= render(::Moduler::Form::SelectComponent.new(form, :role, Moduler::User.roles.keys.map { |role| [ t(".role.#{role}"), role ] }, label: t(".label.role"))) %>
-      </div>
-
-      <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+    <%= render(::Moduler::Form::SectionComponent.new(t(".section.data"))) do %>
+      <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"))) %>
+      <%= render(::Moduler::Form::SelectComponent.new(form, :role, Moduler::User.roles.keys.map { |role| [ t("moduler.administration.users.roles.#{role}"), role ] }, label: t(".label.role"))) %>
     <% end %>
-  </div>
-</main>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>

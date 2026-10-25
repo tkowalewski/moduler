@@ -1,0 +1,12 @@
+<%= form_with model: @filter, url: @url, method: :get, scope: :filter, data: { turbo: false }, class: "flex flex-wrap items-end gap-3" do |form| %>
+  <div class="min-w-48 flex-1">
+    <%= form.text_field :query, placeholder: placeholder, autocomplete: "off",
+          class: "w-full rounded-md border border-slate-300 px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-900" %>
+  </div>
+
+  <%= form.submit t("moduler.components.filter.action.filter"),
+        class: "cursor-pointer whitespace-nowrap rounded-md bg-white px-3 py-2 text-sm/6 font-semibold text-custom ring-1 ring-inset ring-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom" %>
+  <% if @filter.query.present? %>
+    <%= link_to t("moduler.components.filter.action.clear"), @url, class: "flex h-10 items-center text-sm text-slate-500 hover:text-slate-900" %>
+  <% end %>
+<% end %>

@@ -1,22 +1,13 @@
-<li id="<%= dom_id(user) %>" class="flex items-center justify-between gap-4 px-4 py-4 sm:px-5">
-  <div class="min-w-0">
-    <div class="flex flex-wrap items-center gap-2">
-      <p class="truncate text-sm font-semibold text-gray-900"><%= user.email_address %></p>
+<%= render(Moduler::ListItemComponent.new(user.email_address, id: dom_id(user))) do |item| %>
+  <% item.with_badge(t("moduler.administration.users.roles.#{user.role}"), variant: user.administrator? ? :success : :neutral) %>
 
-      <% if user.administrator? %>
-        <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20"><%= t(".role.administrator") %></span>
-      <% else %>
-        <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/20"><%= t(".role.member") %></span>
-      <% end %>
-    </div>
-
-    <p class="mt-1 text-xs text-slate-400">
-      <%= time_tag user.created_at, t(".created", time: time_ago_in_words(user.created_at)), title: l(user.created_at, format: :long) %>
-    </p>
-  </div>
+  <% item.with_meta do %>
+    <%= time_tag user.created_at, t(".created", time: time_ago_in_words(user.created_at)), title: l(user.created_at, format: :long) %>
+  <% end %>
 
   <% if Moduler::Administration::UserPolicy.new(current_user, user).edit? %>
-    <%= link_to t(".action.edit"), moduler.edit_administration_user_path(user),
-          class: "shrink-0 rounded-md bg-white px-2.5 py-1 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 hover:text-slate-900" %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.edit"), moduler.edit_administration_user_path(user), size: :sm)) %>
+    <% end %>
   <% end %>
-</li>
+<% end %>

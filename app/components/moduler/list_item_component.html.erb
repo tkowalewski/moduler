@@ -1,0 +1,23 @@
+<li id="<%= @options[:id] %>" class="flex items-center justify-between gap-4 px-4 py-4 sm:px-5">
+  <div class="min-w-0">
+    <div class="flex flex-wrap items-center gap-2">
+      <p class="truncate text-sm font-semibold text-gray-900"><%= @title %></p>
+
+      <% badges.each do |badge| %>
+        <%= badge %>
+      <% end %>
+    </div>
+
+    <% if meta? %>
+      <p class="mt-1 text-xs text-slate-400"><%= meta %></p>
+    <% end %>
+  </div>
+
+  <% if actions? %>
+    <div class="flex shrink-0 items-center gap-2">
+      <% actions.each do |action| %>
+        <%= action %>
+      <% end %>
+    </div>
+  <% end %>
+</li>

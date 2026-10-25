@@ -1,0 +1,16 @@
+<div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+  <div>
+    <h1 class="text-base font-semibold text-gray-900"><%= @title %></h1>
+    <% if @options.key?(:description) %>
+      <p class="mt-1 text-sm text-slate-500"><%= @options[:description] %></p>
+    <% end %>
+  </div>
+
+  <% if actions? %>
+    <div class="flex shrink-0 items-center gap-2">
+      <% actions.each do |action| %>
+        <%= action %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
