@@ -15,3 +15,4 @@ en:
           password: Enter your password
       create:
         invalid_credentials: Invalid credentials
+        rate_limited: Too many sign-in attempts. Please try again in a few minutes.

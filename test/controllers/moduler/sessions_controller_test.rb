@@ -137,6 +137,36 @@ module Moduler
       assert_redirected_to "/application/session/new"
     end
 
+    test "create is rate limited after 10 attempts from the same ip" do
+      10.times do |i|
+        post "/application/session", params: {
+          user: { email_address: "user#{i}@domain.tld", password: "wrong_password" }
+        }
+      end
+
+      post "/application/session", params: {
+        user: { email_address: @user.email_address, password: "password123" }
+      }
+
+      assert_redirected_to "/application/session/new"
+      assert_equal I18n.t("moduler.sessions.create.rate_limited"), flash[:alert]
+    end
+
+    test "create is rate limited after 5 attempts for the same email address" do
+      5.times do
+        post "/application/session", params: {
+          user: { email_address: @user.email_address, password: "wrong_password" }
+        }
+      end
+
+      post "/application/session", params: {
+        user: { email_address: @user.email_address, password: "password123" }
+      }
+
+      assert_redirected_to "/application/session/new"
+      assert_equal I18n.t("moduler.sessions.create.rate_limited"), flash[:alert]
+    end
+
     private
 
     def sign_in_as(user, password: "password123")

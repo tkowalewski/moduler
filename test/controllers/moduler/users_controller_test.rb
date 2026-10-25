@@ -194,6 +194,52 @@ module Moduler
       end
     end
 
+    test "create is rate limited after 10 sign-ups from the same ip" do
+      10.times do |i|
+        post "/application/user", params: {
+          user: {
+            email_address: "user#{i}@example.com",
+            password: "password123",
+            password_confirmation: "password123"
+          }
+        }
+      end
+
+      post "/application/user", params: {
+        user: {
+          email_address: "eleventh@example.com",
+          password: "password123",
+          password_confirmation: "password123"
+        }
+      }
+
+      assert_redirected_to "/application/user/new"
+      assert_equal I18n.t("moduler.users.create.rate_limited"), flash[:alert]
+    end
+
+    test "create is rate limited after 5 sign-ups for the same email address" do
+      5.times do
+        post "/application/user", params: {
+          user: {
+            email_address: "taken@example.com",
+            password: "password123",
+            password_confirmation: "password123"
+          }
+        }
+      end
+
+      post "/application/user", params: {
+        user: {
+          email_address: "taken@example.com",
+          password: "password123",
+          password_confirmation: "password123"
+        }
+      }
+
+      assert_redirected_to "/application/user/new"
+      assert_equal I18n.t("moduler.users.create.rate_limited"), flash[:alert]
+    end
+
     private
 
     def sign_in_as(user, password: "password123")

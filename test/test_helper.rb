@@ -28,3 +28,7 @@ module SignInHelper
 end
 
 ActionDispatch::IntegrationTest.include SignInHelper
+
+ActionDispatch::IntegrationTest.class_eval do
+  setup { Rails.cache.clear }
+end

@@ -27,6 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `pundit` dependency. `Moduler::ApplicationController` includes `Pundit::Authorization`, and `Moduler::ApplicationPolicy` denies everything by default.
 - Per-controller policies for the administration area (`Moduler::Administration::HomePolicy`, `UserPolicy` and `SessionPolicy`, all built on `Administration::BasePolicy`), each action authorized against its own policy method. Only administrators are allowed for now, so members and guests can no longer open the administration area: unauthorized users are redirected to the home page with an alert. The administration link in the header is rendered based on the same policies instead of a direct role check.
 
+### Security
+
+- Rate limiting on sign-in and sign-up (`SessionsController#create` and `UsersController#create`, Rails' built-in `rate_limit`): at most 10 attempts per IP address and 5 attempts per email address within 3 minutes, which blocks brute force, credential stuffing and mass sign-ups. Limited users are redirected back to the form with an alert.
+- Flash messages (including the rate-limit alert) are now also rendered for unauthenticated users; previously toasts were shown only to signed-in users, so an alert set on the sign-in or sign-up page would have been invisible.
+
 ### Changed
 
 - The sign-in and sign-up forms are built from the `Moduler::Form` components instead of hand-written markup.

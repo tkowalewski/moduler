@@ -18,3 +18,4 @@ en:
           password: "Use at least 8 characters containing at least 1 number and 1 lowercase letter"
       create:
         success: "User created successfully."
+        rate_limited: "Too many sign-up attempts. Please try again in a few minutes."
