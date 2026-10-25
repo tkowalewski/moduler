@@ -1,5 +1,6 @@
 require "view_component"
 require "pg_search"
+require "pundit"
 
 require "moduler/version"
 require "moduler/engine"

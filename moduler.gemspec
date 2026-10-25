@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "view_component", ">= 4.15"
   spec.add_dependency "kaminari", "~> 1.2"
   spec.add_dependency "pg_search", ">= 2.4"
+  spec.add_dependency "pundit", "~> 2.5"
 end
