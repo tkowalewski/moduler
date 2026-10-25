@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  moduler "/application"
+  moduler "/application" do
+    namespace :administration do
+      resources :tasks
+    end
+  end
 end

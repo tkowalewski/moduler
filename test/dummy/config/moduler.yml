@@ -1,0 +1,4 @@
+shared:
+  administration:
+    resources:
+      - tasks

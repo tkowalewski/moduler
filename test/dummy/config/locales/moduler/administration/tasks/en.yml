@@ -1,0 +1,7 @@
+en:
+  moduler:
+    administration:
+      tasks:
+        index:
+          title: Tasks
+          description: Yay! Tasks
