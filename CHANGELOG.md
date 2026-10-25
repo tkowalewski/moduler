@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sidebar on the profile and sessions pages with links between them, built from the new `Moduler::SidebarActionComponent` (highlights the link of the current controller). On small screens it is shown as a horizontal bar above the content.
 - `kaminari` dependency, with Tailwind-styled pagination views.
 - `Moduler::Session#active?`.
+- `pundit` dependency. `Moduler::ApplicationController` includes `Pundit::Authorization`, and `Moduler::ApplicationPolicy` denies everything by default.
+- Per-controller policies for the administration area (`Moduler::Administration::HomePolicy`, `UserPolicy` and `SessionPolicy`, all built on `Administration::BasePolicy`), each action authorized against its own policy method. Only administrators are allowed for now, so members and guests can no longer open the administration area: unauthorized users are redirected to the home page with an alert. The administration link in the header is rendered based on the same policies instead of a direct role check.
 
 ### Changed
 

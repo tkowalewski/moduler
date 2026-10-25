@@ -18,3 +18,13 @@ if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
   ActiveSupport::TestCase.file_fixture_path = File.expand_path("fixtures", __dir__) + "/files"
   ActiveSupport::TestCase.fixtures :all
 end
+
+module SignInHelper
+  def sign_in_as(user, password: "password123")
+    post "/application/session", params: {
+      user: { email_address: user.email_address, password: password }
+    }
+  end
+end
+
+ActionDispatch::IntegrationTest.include SignInHelper

@@ -1,6 +1,8 @@
 module Moduler
   module Administration
     class UsersController < ApplicationController
+      before_action -> { authorize([ :moduler, :administration, :user ]) }
+
       def index
         @filter, @users = QueryFilter.new(User, permitted_filter_parameters).call
       end

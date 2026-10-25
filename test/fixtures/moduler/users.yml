@@ -3,3 +3,8 @@
 default:
   email_address: test@domain.tld
   password_digest: <%= BCrypt::Password.create("password123") %>
+
+administrator:
+  email_address: admin@domain.tld
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  role: administrator

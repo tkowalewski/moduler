@@ -43,14 +43,14 @@ class ApplicationFilterTest < ActiveSupport::TestCase
   end
 
   test "applies modifiers when parameters are given" do
-    filter, results = EmailFilter.new(@scope, { email_address: "domain" }).call
+    filter, results = EmailFilter.new(@scope, { email_address: "test@" }).call
 
     assert filter.changed?
     assert_equal [ moduler_users(:default) ], results.to_a
   end
 
   test "applies modifiers when parameters are given and allow_empty is set" do
-    _filter, results = EmailFilter.new(@scope, { email_address: "domain" }, allow_empty: true).call
+    _filter, results = EmailFilter.new(@scope, { email_address: "test@" }, allow_empty: true).call
 
     assert_equal [ moduler_users(:default) ], results.to_a
   end
