@@ -1,0 +1,24 @@
+en:
+  moduler:
+    administration:
+      sessions:
+        index:
+          title: Sessions
+          description: Sessions of all users. Search sessions by email address, IP address or device and revoke any of them.
+          empty: No sessions found.
+        destroy:
+          notice: Session has been revoked
+        session:
+          action:
+            destroy: Revoke
+          status:
+            active: Active
+            signed_out: Signed out
+            current: This device
+          signed_in: Signed in %{time} ago
+          signed_out: Signed out %{time} ago
+          unknown_ip: Unknown IP address
+          unknown_device: Unknown device
+          confirmation:
+            destroy: The user will be signed out of this session. Are you sure?
+            destroy_current: You will be signed out of this device. Are you sure?

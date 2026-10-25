@@ -27,6 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `pundit` dependency. `Moduler::ApplicationController` includes `Pundit::Authorization`, and `Moduler::ApplicationPolicy` denies everything by default.
 - Per-controller policies for the administration area (`Moduler::Administration::HomePolicy`, `UserPolicy` and `SessionPolicy`, all built on `Administration::BasePolicy`), each action authorized against its own policy method. Only administrators are allowed for now, so members and guests can no longer open the administration area: unauthorized users are redirected to the home page with an alert. The administration link in the header is rendered based on the same policies instead of a direct role check.
 - Administration search queries are limited to 100 characters; longer queries return no results.
+- Users page in the administration area (`administration_users_path`, `/administration/users`) listing all users, newest first and 10 per page, with their role and creation time. Users can be searched by email address. Administrators can create users (email address, role and password) and edit other users' email address and role; they cannot edit themselves.
+- Sessions page in the administration area (`administration_sessions_path`, `/administration/sessions`) listing the sessions of all users, newest first and 10 per page, with the user's email address, status (current, active or signed out), IP address, user agent and sign-in and sign-out times. Sessions can be searched by email address, IP address or user agent. Each active session can be revoked (`DELETE /administration/sessions/:id`); revoking the administrator's current session signs them out. Sessions cannot be created and there is no "Revoke all" action.
+- View components for building pages: `Moduler::Administration::PageComponent` (administration layout with the sidebar), `PageHeaderComponent` (title, optional description and actions), `ButtonLinkComponent` (link styled as a button), `ButtonComponent` (`button_to` with optional `method` and `confirm`), both in default and small (`size: :sm`) sizes, `BadgeComponent` (`neutral`, `success` or `muted` variant), `FilterComponent` (search form with a clear link), `ListComponent` (list with an empty state and pagination), `ListItemComponent` (title with badges, meta and actions) and `Moduler::Form::SectionComponent` (labelled group of form fields, optionally with a divider).
 
 ### Security
 
@@ -39,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The sign-in and sign-up forms are built from the `Moduler::Form` components instead of hand-written markup.
+- The profile form uses `Moduler::Form::SectionComponent` for its sections.
 - The password confirmation placeholder on the sign-up form reads "Confirm password" (was "Password confirmation"), and the field no longer has a label.
 - Passwords must be at least 8 characters long. Existing passwords keep working, and the rule applies when a password is set or changed.
 - Form component labels are lighter and smaller, and the submit button is aligned to the right instead of spanning the full width.

@@ -1,0 +1,7 @@
+<% if small? %>
+  <%= button_to @text, @url, method: @options.fetch(:method, :post), form: form_options,
+        class: "cursor-pointer rounded-md bg-white px-2.5 py-1 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 hover:text-red-600" %>
+<% else %>
+  <%= button_to @text, @url, method: @options.fetch(:method, :post), form: form_options,
+        class: "cursor-pointer whitespace-nowrap rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-red-600 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-red-50 hover:ring-red-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
+<% end %>

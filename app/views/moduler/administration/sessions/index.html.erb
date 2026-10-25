@@ -1,6 +1,9 @@
-<main class="mx-auto flex w-full flex-1 max-w-[120rem] flex-col gap-4 px-4 md:flex-row md:gap-8 md:pl-0 md:pr-6">
-  <%= render "moduler/common/administration/sidebar" %>
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"), description: t(".description"))) %>
 
-  <div class="flex min-w-0 flex-1 flex-col pb-4 md:mt-8">
-  </div>
-</main>
+  <%= render(Moduler::FilterComponent.new(@filter, moduler.administration_sessions_path)) %>
+
+  <%= render(Moduler::ListComponent.new(@sessions, id: "sessions", empty: t(".empty"))) do %>
+    <%= render partial: "moduler/administration/sessions/session", collection: @sessions %>
+  <% end %>
+<% end %>

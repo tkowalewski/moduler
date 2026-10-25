@@ -1,0 +1,30 @@
+<% current = session == Moduler::Current.session %>
+
+<%= render(Moduler::ListItemComponent.new(session.user.email_address, id: dom_id(session))) do |item| %>
+  <% if current %>
+    <% item.with_badge(t(".status.current"), variant: :success) %>
+  <% elsif session.active? %>
+    <% item.with_badge(t(".status.active")) %>
+  <% else %>
+    <% item.with_badge(t(".status.signed_out"), variant: :muted) %>
+  <% end %>
+
+  <% item.with_meta do %>
+    <%= session.ip_address.presence || t(".unknown_ip") %>
+    <span aria-hidden="true">&middot;</span>
+    <span title="<%= session.user_agent %>"><%= truncate(session.user_agent.presence || t(".unknown_device"), length: 60) %></span>
+    <span aria-hidden="true">&middot;</span>
+    <%= time_tag session.signed_in_at, t(".signed_in", time: time_ago_in_words(session.signed_in_at)), title: l(session.signed_in_at, format: :long) %>
+    <% if session.signed_out_at %>
+      <span aria-hidden="true">&middot;</span>
+      <%= time_tag session.signed_out_at, t(".signed_out", time: time_ago_in_words(session.signed_out_at)), title: l(session.signed_out_at, format: :long) %>
+    <% end %>
+  <% end %>
+
+  <% if session.active? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonComponent.new(t(".action.destroy"), moduler.administration_session_path(session), method: :delete, size: :sm,
+            confirm: t(current ? ".confirmation.destroy_current" : ".confirmation.destroy"))) %>
+    <% end %>
+  <% end %>
+<% end %>
