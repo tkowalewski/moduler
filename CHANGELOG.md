@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-25
+
 ### Added
 
 - `view_component` dependency and form components in `Moduler::Form`: `TextComponent`, `EmailComponent`, `PasswordComponent` (all three with optional `label`, `placeholder` and `description`, and the field's validation error), `SubmitComponent` (with optional `text`) and `BaseErrorComponent` (renders the form's first `:base` error).
@@ -107,6 +109,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/tkowalewski/moduler/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/tkowalewski/moduler/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/tkowalewski/moduler/releases/tag/0.1.0
