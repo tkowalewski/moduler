@@ -61,6 +61,27 @@ module Moduler
       assert_in_delta Moduler::Session::LIFETIME.from_now.to_i, cookies.get_cookie("session_id").expires.to_i, 60
     end
 
+    test "create sets a non-secure session cookie outside production" do
+      post "/application/session", params: {
+        user: { email_address: @user.email_address, password: "password123" }
+      }
+
+      assert_not cookies.get_cookie("session_id").secure?
+    end
+
+    test "create sets a secure session cookie in production" do
+      original_env = Rails.env
+      Rails.env = "production"
+
+      post "https://www.example.com/application/session", params: {
+        user: { email_address: @user.email_address, password: "password123" }
+      }
+
+      assert cookies.get_cookie("session_id").secure?
+    ensure
+      Rails.env = original_env
+    end
+
     test "create with valid credentials stores ip_address and user_agent on the session" do
       post "/application/session",
         params: { user: { email_address: @user.email_address, password: "password123" } },
