@@ -10,7 +10,7 @@ module Moduler
       end
 
       def update?
-        administrator?
+        administrator? && record != user
       end
 
       def new?

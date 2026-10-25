@@ -6,10 +6,11 @@
     <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
       <div>
         <h1 class="text-base font-semibold text-gray-900"><%= t(".title") %></h1>
+        <p class="mt-1 text-sm text-slate-500"><%= t(".description") %></p>
       </div>
 
-      <%= link_to t(".action.new"), moduler.profile_sessions_revocation_path,
-            class: "cursor-pointer whitespace-nowrap rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-green-600 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-green-50 hover:ring-green-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+      <%= link_to t(".action.new"), moduler.new_administration_user_path,
+            class: "cursor-pointer whitespace-nowrap rounded-md bg-white px-3 py-2 text-sm/6 font-semibold text-custom ring-1 ring-inset ring-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom"
       %>
     </div>
 
@@ -27,8 +28,14 @@
       <% end %>
     <% end %>
 
-    <div class="flex-1">
-      <%= render partial: "moduler/administration/users/user", collection: @users %>
+    <div class="mt-6 flex-1">
+      <% if @users.any? %>
+        <ul id="users" role="list" class="divide-y divide-slate-100 rounded-lg border border-slate-200 bg-white">
+          <%= render partial: "moduler/administration/users/user", collection: @users %>
+        </ul>
+      <% else %>
+        <p class="rounded-lg border border-dashed border-slate-300 px-4 py-8 text-center text-sm text-slate-500"><%= t(".empty") %></p>
+      <% end %>
     </div>
 
     <div class="mt-4 flex justify-end">

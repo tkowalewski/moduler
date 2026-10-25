@@ -19,6 +19,20 @@ module Moduler
         assert policy.update?
       end
 
+      test "allows an administrator to update another user" do
+        policy = UserPolicy.new(@administrator, @member)
+
+        assert policy.edit?
+        assert policy.update?
+      end
+
+      test "denies an administrator to update themselves" do
+        policy = UserPolicy.new(@administrator, @administrator)
+
+        assert_not policy.edit?
+        assert_not policy.update?
+      end
+
       test "denies a member on all actions" do
         policy = UserPolicy.new(@member, @record)
 

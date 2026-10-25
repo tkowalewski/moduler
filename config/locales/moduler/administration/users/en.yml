@@ -4,9 +4,50 @@ en:
       users:
         index:
           title: Users
+          description: Manage user accounts and their roles. Search users by email address.
+          empty: No users found.
           placeholder:
             query: Search...
           action:
             new: Create
             filter: Filter
             clear: Clear
+        new:
+          title: New user
+          label:
+            email_address: Email address
+            role: Role
+            password: Password
+          description:
+            password: Use at least 8 characters.
+          role:
+            member: Member
+            administrator: Administrator
+          section:
+            data: User data
+            password: Password
+          action:
+            create: Create
+        create:
+          notice: User has been created
+        edit:
+          title: Edit user
+          label:
+            email_address: Email address
+            role: Role
+          role:
+            member: Member
+            administrator: Administrator
+          section:
+            data: User data
+          action:
+            save: Save
+        update:
+          notice: User has been updated
+        user:
+          action:
+            edit: Edit
+          role:
+            administrator: Administrator
+            member: Member
+          created: Created %{time} ago
