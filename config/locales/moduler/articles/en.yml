@@ -1,0 +1,13 @@
+en:
+  moduler:
+    articles:
+      index:
+        title: Articles
+        description: Read the latest articles.
+        empty: No articles have been published yet.
+      article:
+        action:
+          show: Read
+      show:
+        action:
+          index: "← All articles"

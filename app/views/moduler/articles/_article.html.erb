@@ -1,0 +1,11 @@
+<%= render(Moduler::ListItemComponent.new(link_to(article.title, moduler.article_path(article.path), class: "hover:text-custom"), id: dom_id(article))) do |item| %>
+  <% item.with_meta do %>
+    <%= article.description %>
+    <span aria-hidden="true">&middot;</span>
+    <%= time_tag article.created_at, l(article.created_at.to_date, format: :long) %>
+  <% end %>
+
+  <% item.with_action do %>
+    <%= render(Moduler::ButtonLinkComponent.new(t(".action.show"), moduler.article_path(article.path), size: :sm)) %>
+  <% end %>
+<% end %>

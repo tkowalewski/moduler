@@ -1,4 +1,6 @@
 Moduler::Engine.routes.draw do
+  resources :articles, only: %i[ index show ], param: :path
+
   resource :session, only: %i[new create destroy]
   resource :user, only: %i[new create]
 

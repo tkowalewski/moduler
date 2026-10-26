@@ -1,0 +1,7 @@
+<main class="mx-auto w-full max-w-3xl flex-1 px-4 pb-4 md:mt-8">
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"), description: t(".description"))) %>
+
+  <%= render(Moduler::ListComponent.new(@articles, id: "articles", empty: t(".empty"))) do %>
+    <%= render partial: "moduler/articles/article", collection: @articles %>
+  <% end %>
+</main>

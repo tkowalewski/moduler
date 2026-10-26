@@ -1,0 +1,20 @@
+<% content_for :head do %>
+  <meta name="description" content="<%= @article.description %>">
+  <meta name="keywords" content="<%= @article.keywords %>">
+<% end %>
+
+<main class="mx-auto w-full max-w-3xl flex-1 px-4 pb-4 md:mt-8">
+  <%= link_to t(".action.index"), moduler.articles_path, class: "text-sm text-slate-500 hover:text-custom" %>
+
+  <article id="<%= dom_id(@article) %>" class="mt-6">
+    <header class="mb-8 border-b border-slate-200 pb-6">
+      <h1 class="text-2xl/9 font-bold tracking-tight text-gray-900"><%= @article.title %></h1>
+      <p class="mt-2 text-sm text-slate-500"><%= @article.description %></p>
+      <p class="mt-2 text-xs text-slate-400"><%= time_tag @article.created_at, l(@article.created_at.to_date, format: :long) %></p>
+    </header>
+
+    <div class="prose prose-slate prose-100 prose-img:w-full prose-img:max-w-5xl">
+      <%= @article.to_html %>
+    </div>
+  </article>
+</main>

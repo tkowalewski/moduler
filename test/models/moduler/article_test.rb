@@ -159,5 +159,22 @@ module Moduler
     test "search_by_query does not return unrelated articles" do
       assert_not_includes Moduler::Article.search_by_query("zzzzzz"), moduler_articles(:default)
     end
+
+    test "to_html renders markdown" do
+      article = build_article(content: "## Heading\n\n**bold**")
+      assert_includes article.to_html, "<h2>Heading</h2>"
+      assert_includes article.to_html, "<strong>bold</strong>"
+    end
+
+    test "to_html renders tables" do
+      article = build_article(content: "| a | b |\n|---|---|\n| 1 | 2 |")
+      assert_includes article.to_html, "<table>"
+      assert_includes article.to_html, "<td>1</td>"
+    end
+
+    test "to_html removes scripts" do
+      article = build_article(content: "<script>alert('xss')</script>")
+      assert_not_includes article.to_html, "<script>"
+    end
   end
 end
