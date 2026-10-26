@@ -1,5 +1,7 @@
 module Moduler
   class ArticlesController < ApplicationController
+    layout "moduler/articles"
+
     allow_unauthenticated_access
 
     def index
