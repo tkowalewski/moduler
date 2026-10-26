@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "pg_search", ">= 2.4"
   spec.add_dependency "pundit", "~> 2.5"
   spec.add_dependency "active_storage_validations", "~> 4.1"
+  spec.add_dependency "redcarpet", "~> 3.6"
 end
