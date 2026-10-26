@@ -1,6 +1,11 @@
 en:
   moduler:
     common:
+      administration:
+        sidebar:
+          action:
+            users: Users
+            sessions: Sessions
       sidebar:
         action:
           profile: Profile
