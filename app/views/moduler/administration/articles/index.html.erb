@@ -1,0 +1,13 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"), description: t(".description"))) do |header| %>
+    <% header.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.new"), moduler.new_administration_article_path)) %>
+    <% end %>
+  <% end %>
+
+  <%= render(Moduler::FilterComponent.new(@filter, moduler.administration_articles_path)) %>
+
+  <%= render(Moduler::ListComponent.new(@articles, id: "articles", empty: t(".empty"))) do %>
+    <%= render partial: "moduler/administration/articles/article", collection: @articles %>
+  <% end %>
+<% end %>

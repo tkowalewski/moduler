@@ -1,0 +1,13 @@
+<%= render(Moduler::ListItemComponent.new(article.title, id: dom_id(article))) do |item| %>
+  <% item.with_meta do %>
+    <%= time_tag article.created_at, t(".created", time: time_ago_in_words(article.created_at)), title: l(article.created_at, format: :long) %>
+  <% end %>
+
+  <% if Moduler::Administration::ArticlePolicy.new(current_user, article).edit? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.edit"), moduler.edit_administration_article_path(article), size: :sm)) %>
+      <%= render(Moduler::ButtonComponent.new(t(".action.destroy"), moduler.administration_article_path(article), method: :delete, size: :sm,
+            confirm: t(".confirmation.destroy"))) %>
+    <% end %>
+  <% end %>
+<% end %>

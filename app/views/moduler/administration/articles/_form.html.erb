@@ -1,0 +1,15 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
+
+  <%= form_with model: @article, url: @article.persisted? ? moduler.administration_article_path(@article) : moduler.administration_articles_path, data: { turbo: false }, class: "w-full max-w-lg space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <%= render(::Moduler::Form::TextComponent.new(form, :title, label: t(".label.title"))) %>
+    <%= render(::Moduler::Form::TextComponent.new(form, :path, label: t(".label.path"), description: t(".description.path"))) %>
+    <%= render(::Moduler::Form::TextareaComponent.new(form, :description, label: t(".label.description"), description: t(".description.description"))) %>
+    <%= render(::Moduler::Form::TextComponent.new(form, :keywords, label: t(".label.keywords"), description: t(".description.keywords"))) %>
+    <%= render(::Moduler::Form::TextareaComponent.new(form, :content, label: t(".label.content"))) %>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>

@@ -3,6 +3,8 @@
     <%= render(Moduler::SidebarActionComponent.new(t(".action.users"), moduler.administration_users_path, "moduler/administration/users")) %>
     <%= render(Moduler::SidebarActionComponent.new(t(".action.sessions"), moduler.administration_sessions_path, "moduler/administration/sessions")) %>
 
+    <%= render(Moduler::SidebarActionComponent.new(t(".action.articles"), moduler.administration_articles_path, "moduler/administration/articles")) %>
+
     <% Moduler.configuration.dig(:administration, :resources).each do |resource| %>
       <%= render(Moduler::SidebarActionComponent.new(t(".action.#{resource}"), moduler.url_for([:administration, resource.to_sym]), "moduler/administration/#{resource}")) %>
     <% end %>

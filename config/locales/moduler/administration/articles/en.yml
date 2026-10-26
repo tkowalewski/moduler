@@ -1,0 +1,37 @@
+en:
+  moduler:
+    administration:
+      articles:
+        index:
+          title: Articles
+          description: Posts published on your own public site
+          empty: No articles found
+          action:
+            new: Create
+        article:
+          created: Created %{time} ago
+          action:
+            edit: Edit
+            destroy: Destroy
+          confirmation:
+            destroy: Are you sure?
+        create:
+          notice: Article has been created
+        update:
+          notice: Article has been updated
+        destroy:
+          notice: Article has been deleted
+        form:
+          title: Article
+          label:
+            title: Title
+            path: Path
+            description: Description
+            keywords: Keywords
+            content: Content
+          description:
+            path: The article's URL -- letters, numbers, and hyphens only.
+            description: Shown in search results and social previews.
+            keywords: Comma-separated, for search results and social previews.
+          action:
+            save: Save

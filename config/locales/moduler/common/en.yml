@@ -6,6 +6,7 @@ en:
           action:
             users: Users
             sessions: Sessions
+            articles: Articles
       sidebar:
         action:
           profile: Profile

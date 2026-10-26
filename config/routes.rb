@@ -14,6 +14,8 @@ Moduler::Engine.routes.draw do
     resources :users, only: %i[ index new create edit update ]
     resources :sessions, only: %i[ index destroy ]
 
+    resources :articles
+
     root "home#index"
   end
 
