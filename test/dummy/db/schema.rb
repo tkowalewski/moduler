@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_20_191709) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_26_203827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
+
+  create_table "moduler_articles", force: :cascade do |t|
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.string "description", null: false
+    t.string "keywords", null: false
+    t.string "path", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["path"], name: "index_moduler_articles_on_path", unique: true
+  end
 
   create_table "moduler_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
