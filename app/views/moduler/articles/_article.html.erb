@@ -1,11 +1,16 @@
-<%= render(Moduler::ListItemComponent.new(link_to(article.title, moduler.article_path(article.path), class: "hover:text-custom"), id: dom_id(article))) do |item| %>
-  <% item.with_meta do %>
-    <%= article.description %>
-    <span aria-hidden="true">&middot;</span>
-    <%= time_tag article.created_at, l(article.created_at.to_date, format: :long) %>
-  <% end %>
+<li id="<%= dom_id(article) %>">
+  <article class="group relative">
+    <%= time_tag article.created_at, l(article.created_at.to_date, format: :long), class: "text-xs text-slate-400" %>
 
-  <% item.with_action do %>
-    <%= render(Moduler::ButtonLinkComponent.new(t(".action.show"), moduler.article_path(article.path), size: :sm)) %>
-  <% end %>
-<% end %>
+    <h2 class="mt-2 text-xl font-semibold tracking-tight text-gray-900 group-hover:text-custom">
+      <%= link_to moduler.article_path(article.path) do %>
+        <span class="absolute inset-0"></span>
+        <%= article.title %>
+      <% end %>
+    </h2>
+
+    <p class="mt-2 text-sm/6 text-slate-600"><%= article.description %></p>
+
+    <p class="mt-3 text-sm font-semibold text-gray-900 group-hover:text-custom"><%= t(".action.show") %> <span aria-hidden="true">&rarr;</span></p>
+  </article>
+</li>

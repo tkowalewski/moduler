@@ -24,7 +24,7 @@ module Moduler
       get "/application/articles"
 
       assert_select "#articles > li", count: Moduler::Article.count
-      assert_select "#articles a[href='/application/articles/#{@article.path}']", text: @article.title
+      assert_select "#articles a[href='/application/articles/#{@article.path}']", text: /#{@article.title}/
       assert_select "#articles", text: /#{@article.description}/
     end
 

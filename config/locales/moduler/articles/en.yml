@@ -7,7 +7,7 @@ en:
         empty: No articles have been published yet.
       article:
         action:
-          show: Read
+          show: Read more
       show:
         action:
           index: "← All articles"

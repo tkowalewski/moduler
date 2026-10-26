@@ -1,7 +1,15 @@
 <main class="mx-auto w-full max-w-3xl flex-1 px-4 pb-4 md:mt-8">
   <%= render(Moduler::PageHeaderComponent.new(t(".title"), description: t(".description"))) %>
 
-  <%= render(Moduler::ListComponent.new(@articles, id: "articles", empty: t(".empty"))) do %>
-    <%= render partial: "moduler/articles/article", collection: @articles %>
+  <% if @articles.any? %>
+    <ul id="articles" role="list" class="mt-10 space-y-12">
+      <%= render partial: "moduler/articles/article", collection: @articles %>
+    </ul>
+
+    <div class="mt-12 flex justify-end">
+      <%= paginate @articles %>
+    </div>
+  <% else %>
+    <p class="mt-10 text-sm text-slate-500"><%= t(".empty") %></p>
   <% end %>
 </main>
