@@ -4,4 +4,7 @@ Rails.application.routes.draw do
       resources :tasks
     end
   end
+
+  get "/articles", to: redirect("/application/articles")
+  get "/articles/:path", to: redirect("/application/articles/%{path}")
 end
