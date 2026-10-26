@@ -9,3 +9,19 @@ en:
           clear: Clear
       list:
         empty: No results found.
+      form:
+        wysiwyg:
+          action:
+            bold: B
+            italic: I
+            h1: H1
+            h2: H2
+            h3: H3
+            quote: Quote
+            code: Code
+            ul: List
+            ol: 1. List
+            fenced_code: "</>"
+            link: Link
+            image: Image
+            upload: Upload

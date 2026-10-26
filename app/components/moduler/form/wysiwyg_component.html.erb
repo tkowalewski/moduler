@@ -1,0 +1,30 @@
+<div class="mt-2">
+  <% if @options.key?(:label) %>
+    <%= @form.label @name, @options[:label], class: "block text-sm text-slate-500" %>
+  <% end %>
+  <%= tag.div class: "mt-2", data: controller_data do %>
+    <div class="flex flex-wrap gap-1 rounded-t-md border border-b-0 border-slate-300 bg-slate-50 px-2 py-1.5">
+      <% ACTIONS.each do |action, style| %>
+        <button type="button" data-action="click->wysiwyg#<%= action %>" class="rounded px-2 py-1 text-sm text-slate-700 hover:bg-slate-200 <%= style %>"><%= t("moduler.components.form.wysiwyg.action.#{action.to_s.underscore}") %></button>
+      <% end %>
+      <% if upload? %>
+        <button type="button" data-action="click->wysiwyg#upload" class="rounded px-2 py-1 text-sm text-slate-700 hover:bg-slate-200"><%= t("moduler.components.form.wysiwyg.action.upload") %></button>
+      <% end %>
+    </div>
+    <%= @form.text_area @name, rows: rows,
+          data: { wysiwyg_target: "markup", action: "input->wysiwyg#render keydown->wysiwyg#insertTab" },
+          class: "block w-full border border-slate-300 px-3 py-2 font-mono text-sm text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-900" %>
+    <div class="prose prose-sm prose-slate prose-100 rounded-b-md border border-t-0 border-slate-300 bg-slate-50 px-4 py-3 prose-img:w-full prose-img:max-w-5xl" data-wysiwyg-target="viewer"></div>
+    <% if upload? %>
+      <% attached_signed_ids.each do |signed_id| %>
+        <%= hidden_field_tag attachments_field_name, signed_id, id: nil %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if @options.key?(:description) %>
+    <p class="mt-1 text-xs text-gray-400"><%= @options[:description] %></p>
+  <% end %>
+  <% if @form.error?(@name) %>
+    <%= @form.error(@name, class: "text-red-500 text-sm mt-1") %>
+  <% end %>
+</div>
