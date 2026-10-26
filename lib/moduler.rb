@@ -2,6 +2,7 @@ require "view_component"
 require "pg_search"
 require "pundit"
 require "active_storage/engine"
+require "active_storage_validations"
 
 require "moduler/version"
 require "moduler/engine"
