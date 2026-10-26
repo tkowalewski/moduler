@@ -1,0 +1,6 @@
+default:
+  path: getting-started
+  title: Getting started
+  description: Learn how to get started with Moduler.
+  keywords: moduler, getting started, guide
+  content: Moduler is a modular Rails engine.
