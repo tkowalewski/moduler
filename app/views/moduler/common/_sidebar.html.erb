@@ -1,0 +1,7 @@
+<aside class="-mx-4 border-b border-gray-200 px-2 md:mx-0 md:w-1/8 md:shrink-0 md:border-b-0 md:border-r md:px-0">
+  <nav class="flex gap-1 overflow-x-auto md:flex-col text-sm p-2">
+    <% Array(Moduler.configuration.dig(:resources)).each do |resource| %>
+      <%= render(Moduler::SidebarActionComponent.new(t(".action.#{resource}"), moduler.url_for([resource.to_sym]), "moduler/#{resource}")) %>
+    <% end %>
+  </nav>
+</aside>
