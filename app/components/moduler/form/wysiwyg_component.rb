@@ -42,9 +42,10 @@ module Moduler
     end
 
     # Assigning has_many_attached replaces existing attachments, so already attached
-    # blobs are submitted again together with the newly uploaded ones.
+    # blobs are submitted again together with the newly uploaded ones. Blobs rejected
+    # by validation are not persisted, so they have no signed id and are skipped.
     def attached_signed_ids
-      @form.object.public_send(attachments).map { |attachment| attachment.blob.signed_id }
+      @form.object.public_send(attachments).map(&:blob).select(&:persisted?).map(&:signed_id)
     end
 
     def controller_data

@@ -72,6 +72,14 @@ class Moduler::Form::WysiwygComponentTest < ViewComponent::TestCase
     assert_not_empty fragment.css("input[type='hidden'][name='article[images][]'][value='#{blob.signed_id}']")
   end
 
+  def test_skips_unpersisted_images_in_hidden_fields
+    @article.images.attach(io: file_fixture("image.png").open, filename: "image.png", content_type: "image/png")
+
+    fragment = render_inline(Moduler::Form::WysiwygComponent.new(form, :content))
+
+    assert_empty fragment.css("input[type='hidden'][name='article[images][]']")
+  end
+
   def test_does_not_render_hidden_fields_without_attached_images
     fragment = render_inline(Moduler::Form::WysiwygComponent.new(form, :content))
 
