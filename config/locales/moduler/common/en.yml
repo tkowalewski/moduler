@@ -7,10 +7,11 @@ en:
             users: Users
             sessions: Sessions
             articles: Articles
-      sidebar:
-        action:
-          profile: Profile
-          sessions: Sessions
+      profile:
+        sidebar:
+          action:
+            profile: Profile
+            sessions: Sessions
       header:
         nav:
           administration: Administration
