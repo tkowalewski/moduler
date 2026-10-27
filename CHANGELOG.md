@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-27
+
 ### Added
 
 - `Moduler::Article` model (`path`, `title`, `description`, `keywords` and Markdown `content`, all required) stored in a new `moduler_articles` table. `path` must be unique and consist of lowercase letters, digits and hyphens. Articles can have attached `images` (PNG, JPEG, GIF or WebP, under 10 MB each). `Moduler::Article#to_html` renders the content with Redcarpet (tables and fenced code blocks) and sanitizes the result (the default safe list plus table tags). Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`) and have Active Storage installed (`bin/rails active_storage:install`).
 - Articles page in the administration area (`administration_articles_path`, `/administration/articles`) listing articles newest first and 10 per page. Articles can be searched by title and keywords, and administrators can create, edit and delete them (`Moduler::Administration::ArticlePolicy`). The page is linked from the administration sidebar.
 - Public articles pages, available without signing in and rendered with the new `moduler/articles` layout: the list (`articles_path`, `/articles`, newest first, paginated) with each article's date, title and description, and the article page (`article_path(path)`, `/articles/:path`) with the rendered content. The article page sets the `<title>`, and the `description` and `keywords` meta tags from the article.
+- `Moduler::Form::SelectComponent` (with optional `label`, `description` and `include_blank`, and the field's validation error).
 - `Moduler::Form::TextareaComponent` (with optional `label` and `description`, and the field's validation error).
 - `Moduler::Form::WysiwygComponent`: a Markdown editor with a toolbar (bold, italic, headings, quote, code, lists, fenced code, link and image), a live preview and Tab inserting a tab character. When the form object has the `has_many_attached` association named by the `attachments` option (`:images` by default; `attachments: false` disables it), an Upload button sends images with Active Storage direct uploads, inserts them into the content and attaches them to the record on save. The number of rows is set with `rows` (14 by default).
 - Host applications can add their own resources to the administration sidebar by listing them under `administration.resources` in `config/moduler.yml`. Each resource is linked to its `administration_<resource>` route (defined e.g. with the routing DSL block) and labelled with `moduler.common.administration.sidebar.action.<resource>`.
@@ -130,7 +133,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/tkowalewski/moduler/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/tkowalewski/moduler/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/tkowalewski/moduler/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/tkowalewski/moduler/releases/tag/0.1.0
