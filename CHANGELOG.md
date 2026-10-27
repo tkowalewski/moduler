@@ -15,8 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Moduler::Form::TextareaComponent` (with optional `label` and `description`, and the field's validation error).
 - `Moduler::Form::WysiwygComponent`: a Markdown editor with a toolbar (bold, italic, headings, quote, code, lists, fenced code, link and image), a live preview and Tab inserting a tab character. When the form object has the `has_many_attached` association named by the `attachments` option (`:images` by default; `attachments: false` disables it), an Upload button sends images with Active Storage direct uploads, inserts them into the content and attaches them to the record on save. The number of rows is set with `rows` (14 by default).
 - Host applications can add their own resources to the administration sidebar by listing them under `administration.resources` in `config/moduler.yml`. Each resource is linked to its `administration_<resource>` route (defined e.g. with the routing DSL block) and labelled with `moduler.common.administration.sidebar.action.<resource>`.
+- Sidebar on the home page with the host application's own resources, listed under `resources` in `config/moduler.yml`. Each resource is linked to its `<resource>` route in the engine (defined e.g. with the routing DSL block), labelled with `moduler.common.sidebar.action.<resource>` and highlighted while `Moduler::<Resource>Controller` is open. The sidebar is empty when no resources are configured.
 - `active_storage_validations` and `redcarpet` dependencies; the engine requires `active_storage/engine`. The `marked` library (vendored) and `@rails/activestorage` are pinned in the engine's importmap.
 - Tailwind Typography (`prose`) styles in the engine's stylesheet.
+
+### Changed
+
+- The profile sidebar partial moved from `moduler/common/sidebar` to `moduler/common/profile/sidebar`, and its translations from `moduler.common.sidebar.action.*` to `moduler.common.profile.sidebar.action.*`. Host applications that render the partial or override these translations need to use the new names; `moduler/common/sidebar` now renders the home page sidebar.
 
 ### Fixed
 
