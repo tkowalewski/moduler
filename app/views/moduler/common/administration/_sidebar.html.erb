@@ -5,7 +5,7 @@
 
     <%= render(Moduler::SidebarActionComponent.new(t(".action.articles"), moduler.administration_articles_path, "moduler/administration/articles")) %>
 
-    <% Moduler.configuration.dig(:administration, :resources).each do |resource| %>
+    <% Array(Moduler.configuration.dig(:administration, :resources)).each do |resource| %>
       <%= render(Moduler::SidebarActionComponent.new(t(".action.#{resource}"), moduler.url_for([:administration, resource.to_sym]), "moduler/administration/#{resource}")) %>
     <% end %>
   </nav>

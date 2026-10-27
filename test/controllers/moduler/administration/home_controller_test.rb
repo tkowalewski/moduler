@@ -30,6 +30,18 @@ module Moduler
 
         assert_response :success
       end
+
+      test "index succeeds when no administration resources are configured" do
+        configuration = Moduler.configuration.instance_variable_get(:@configuration)
+        Moduler.configuration.instance_variable_set(:@configuration, ActiveSupport::OrderedOptions.new)
+        sign_in_as @administrator
+
+        get "/application/administration"
+
+        assert_response :success
+      ensure
+        Moduler.configuration.instance_variable_set(:@configuration, configuration)
+      end
     end
   end
 end
