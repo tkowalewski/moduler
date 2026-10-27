@@ -1,3 +1,9 @@
+require "simplecov"
+SimpleCov.start "rails" do
+  formatter SimpleCov::Formatter::HTMLFormatter
+  skip "/test/"
+end
+
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 

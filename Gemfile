@@ -17,3 +17,7 @@ gem "rubocop-rails-omakase", require: false
 gem "importmap-rails", "~> 2.2", ">= 2.2.3"
 
 gem "foreman", ">= 0.90.0"
+
+group :test do
+  gem "simplecov", require: false
+end
