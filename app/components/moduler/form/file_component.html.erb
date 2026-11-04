@@ -1,0 +1,14 @@
+<div class="mt-2">
+  <% if @options.key?(:label) %>
+    <%= @form.label @name, @options[:label], class: "block text-sm text-slate-500" %>
+  <% end %>
+  <div class="mt-2">
+    <%= @form.file_field @name, accept: @options[:accept], class: "block w-full text-sm text-gray-900 file:mr-3 file:rounded-md file:border-0 file:bg-white file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-gray-900 file:shadow-xs file:ring-1 file:ring-inset file:ring-gray-300 hover:file:bg-gray-50" %>
+  </div>
+  <% if @options.key?(:description) %>
+    <p class="mt-1 text-xs text-gray-400"><%= @options[:description] %></p>
+  <% end %>
+  <% if @form.error?(@name) %>
+    <%= @form.error(@name, class: "text-red-500 text-sm mt-1") %>
+  <% end %>
+</div>

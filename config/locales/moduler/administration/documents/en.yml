@@ -1,0 +1,35 @@
+en:
+  moduler:
+    administration:
+      documents:
+        kinds:
+          privacy_policy: Privacy policy
+          terms_and_conditions: Terms and conditions
+          data_processing_agreement: Data processing agreement
+        index:
+          title: Documents
+          description: Legal documents your users accept, such as the privacy policy or terms and conditions
+          empty: No documents found
+          action:
+            new: Create
+        document:
+          created: Created %{time} ago
+          action:
+            download: Download
+            edit: Edit
+        create:
+          notice: Document has been created
+        update:
+          notice: Document has been updated
+        form:
+          title: Document
+          label:
+            name: Name
+            kind: Kind
+            file: File
+          description:
+            file: PDF, smaller than 10 MB. The file cannot be changed after the document is created.
+            file_locked: The file cannot be changed.
+            no_file: No file
+          action:
+            save: Save

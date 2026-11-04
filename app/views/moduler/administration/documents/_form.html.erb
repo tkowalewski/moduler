@@ -1,0 +1,23 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
+
+  <%= form_with model: @document, url: @document.persisted? ? moduler.administration_document_path(@document) : moduler.administration_documents_path, data: { turbo: false }, class: "w-full space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <div class="max-w-lg space-y-6">
+      <%= render(::Moduler::Form::TextComponent.new(form, :name, label: t(".label.name"))) %>
+      <%= render(::Moduler::Form::SelectComponent.new(form, :kind, Moduler::Document::KINDS.map { |kind| [ t("moduler.administration.documents.kinds.#{kind}"), kind ] }, label: t(".label.kind"))) %>
+      <% if @document.persisted? %>
+        <div class="mt-2">
+          <p class="block text-sm text-slate-500"><%= t(".label.file") %></p>
+          <p id="document_file" class="mt-2 text-sm text-gray-900"><%= @document.file.attached? ? @document.file.filename : t(".description.no_file") %></p>
+          <p class="mt-1 text-xs text-gray-400"><%= t(".description.file_locked") %></p>
+        </div>
+      <% else %>
+        <%= render(::Moduler::Form::FileComponent.new(form, :file, label: t(".label.file"), accept: "application/pdf", description: t(".description.file"))) %>
+      <% end %>
+    </div>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>

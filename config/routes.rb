@@ -17,6 +17,7 @@ Moduler::Engine.routes.draw do
     resources :sessions, only: %i[ index destroy ]
 
     resources :articles
+    resources :documents, only: %i[ index new create edit update ]
 
     root "home#index"
   end
