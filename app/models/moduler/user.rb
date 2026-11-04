@@ -17,5 +17,10 @@ module Moduler
     enum :status, { waitlisted: 0, active: 1, inactive: 2 }, default: :active
 
     pg_search_scope :search_by_query, against: %i[ email_address ], using: { trigram: { word_similarity: true } }
+
+    # Documents the user has not accepted yet.
+    def pending_documents
+      Moduler::Document.where.not(id: user_documents.select(:moduler_document_id))
+    end
   end
 end

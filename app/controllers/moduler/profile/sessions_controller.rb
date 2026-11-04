@@ -1,6 +1,8 @@
 module Moduler
   module Profile
     class SessionsController < ApplicationController
+      skip_document_acceptance
+
       def index
         @sessions = Current.user.sessions.order(created_at: :desc).page(params[:page]).per(10)
       end

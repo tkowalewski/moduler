@@ -1,0 +1,17 @@
+en:
+  activemodel:
+    errors:
+      models:
+        moduler/document_acceptance:
+          not_all_accepted: Accept all documents to continue.
+  moduler:
+    document_acceptances:
+      new:
+        title: Before you continue
+        description: Read and accept the documents below to get access to the panel.
+        accept: "I have read and accept: %{name}"
+        action:
+          read: Read the document
+          submit: Accept and continue
+      create:
+        notice: Thank you. You can now use the panel.

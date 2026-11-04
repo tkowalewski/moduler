@@ -1,0 +1,36 @@
+<main class="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-8">
+  <div class="mb-6">
+    <h1 class="text-base font-semibold text-gray-900"><%= t(".title") %></h1>
+    <p class="mt-1 text-sm text-slate-500"><%= t(".description") %></p>
+  </div>
+
+  <%= form_with url: moduler.document_acceptance_path, scope: :document_acceptance, data: { turbo: false }, class: "space-y-6" do |form| %>
+    <ul id="documents" class="divide-y divide-gray-200 rounded-md border border-gray-200 bg-white">
+      <% @document_acceptance.pending_documents.each do |document| %>
+        <li id="<%= dom_id(document) %>" class="flex items-start gap-3 px-4 py-4 sm:px-5">
+          <%= check_box_tag "document_acceptance[document_ids][]", document.id, @document_acceptance.accepted?(document),
+                id: "document_acceptance_document_#{document.id}", class: "mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-custom" %>
+
+          <div class="min-w-0 flex-1">
+            <label for="document_acceptance_document_<%= document.id %>" class="cursor-pointer text-sm text-gray-900">
+              <%= t(".accept", name: document.name) %>
+            </label>
+            <p class="mt-1 text-xs text-slate-400">
+              <%= t("moduler.administration.documents.kinds.#{document.kind}") %>
+              <% if document.file.attached? %>
+                ·
+                <%= link_to t(".action.read"), main_app.rails_blob_path(document.file, disposition: "inline"), target: "_blank", rel: "noopener", class: "font-semibold text-custom hover:underline" %>
+              <% end %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <% @document_acceptance.errors.full_messages.each do |message| %>
+      <p class="text-sm text-red-500"><%= message %></p>
+    <% end %>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.submit"))) %>
+  <% end %>
+</main>

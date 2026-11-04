@@ -349,6 +349,30 @@ module Moduler
       assert_includes user.reload.documents, moduler_documents(:privacy_policy)
     end
 
+    test "pending_documents returns documents the user has not accepted" do
+      assert_equal [ moduler_documents(:privacy_policy), moduler_documents(:terms_and_conditions) ].sort_by(&:id),
+        moduler_users(:administrator).pending_documents.order(:id).to_a
+    end
+
+    test "pending_documents is empty when the user has accepted every document" do
+      assert_empty moduler_users(:default).pending_documents
+    end
+
+    test "pending_documents includes documents created after the user accepted the others" do
+      user = moduler_users(:default)
+      document = Moduler::Document.new(name: "Data processing agreement", kind: "data_processing_agreement")
+      document.file.attach(io: file_fixture("document.pdf").open, filename: "document.pdf", content_type: "application/pdf")
+      document.save!
+
+      assert_equal [ document ], user.pending_documents.to_a
+    end
+
+    test "pending_documents does not depend on other users' acceptances" do
+      Moduler::UserDocument.where(user: moduler_users(:default)).delete_all
+
+      assert_equal 2, moduler_users(:default).pending_documents.count
+    end
+
     test "destroying the user destroys their user documents but keeps the documents" do
       user = moduler_users(:default)
 

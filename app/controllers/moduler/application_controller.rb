@@ -1,6 +1,7 @@
 module Moduler
   class ApplicationController < ActionController::Base
     include Authentication
+    include RequireDocumentAcceptance
     include Pundit::Authorization
 
     default_form_builder FormBuilder

@@ -1,5 +1,7 @@
 module Moduler
   class ProfileController < ApplicationController
+    skip_document_acceptance
+
     def edit
       @user = Current.user
     end

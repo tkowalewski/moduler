@@ -2,6 +2,8 @@ module Moduler
   module Profile
     module Sessions
       class RevocationController < ApplicationController
+        skip_document_acceptance
+
         def destroy
           Current.user.sessions.active.update_all(signed_out_at: Time.current)
           cookies.delete(:session_id)

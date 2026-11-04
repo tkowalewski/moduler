@@ -1,6 +1,7 @@
 module Moduler
   class UsersController < ApplicationController
     allow_unauthenticated_access only: %i[ new create ]
+    skip_document_acceptance
 
     rate_limit to: 10, within: 3.minutes, only: :create,
       with: -> { redirect_to moduler.new_user_path, alert: t("moduler.users.create.rate_limited") }

@@ -3,6 +3,7 @@ module Moduler
     layout "moduler/articles"
 
     allow_unauthenticated_access
+    skip_document_acceptance
 
     def index
       @articles = Article.order(created_at: :desc).page(params[:page])
