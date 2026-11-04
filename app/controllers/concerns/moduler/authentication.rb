@@ -29,7 +29,7 @@ module Moduler
 
     def find_session_by_cookie
       if cookies.signed[:session_id]
-        Session.active.find_by(id: cookies.signed[:session_id], signed_in_at: Session::LIFETIME.ago..)
+        Session.active.joins(:user).where(user: { status: :active }).find_by(id: cookies.signed[:session_id], signed_in_at: Session::LIFETIME.ago..)
       end
     end
 

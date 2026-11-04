@@ -294,5 +294,37 @@ module Moduler
         Moduler::User.new(role: :superuser)
       end
     end
+
+    test "defines status enum with explicit integer values" do
+      assert_equal({ "waitlisted" => 0, "active" => 1, "inactive" => 2 }, Moduler::User.statuses)
+    end
+
+    test "new users are active by default" do
+      user = Moduler::User.new(email_address: "new@example.com", password: "password123")
+      assert user.active?
+      assert_not user.waitlisted?
+    end
+
+    test "status bang methods change the status" do
+      user = Moduler::User.create!(email_address: "waiting@example.com", password: "password123", status: :waitlisted)
+      user.active!
+      assert_equal "active", user.reload.status
+    end
+
+    test "status scopes return users with the given status" do
+      waitlisted = Moduler::User.create!(email_address: "waiting@example.com", password: "password123", status: :waitlisted)
+      active = moduler_users(:default)
+
+      assert_includes Moduler::User.waitlisted, waitlisted
+      assert_not_includes Moduler::User.waitlisted, active
+      assert_includes Moduler::User.active, active
+      assert_not_includes Moduler::User.active, waitlisted
+    end
+
+    test "raises an error when assigning an unknown status" do
+      assert_raises(ArgumentError) do
+        Moduler::User.new(status: :banned)
+      end
+    end
   end
 end

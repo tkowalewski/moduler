@@ -5,6 +5,10 @@ en:
         roles:
           member: Member
           administrator: Administrator
+        statuses:
+          waitlisted: Waitlisted
+          active: Active
+          inactive: Inactive
         index:
           title: Users
           description: Manage user accounts and their roles. Search users by email address.
@@ -16,6 +20,7 @@ en:
           label:
             email_address: Email address
             role: Role
+            status: Status
             password: Password
           description:
             password: Use at least 8 characters.
@@ -31,6 +36,7 @@ en:
           label:
             email_address: Email address
             role: Role
+            status: Status
           section:
             data: User data
           action:

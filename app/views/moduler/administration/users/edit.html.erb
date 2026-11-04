@@ -7,6 +7,7 @@
     <%= render(::Moduler::Form::SectionComponent.new(t(".section.data"))) do %>
       <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"))) %>
       <%= render(::Moduler::Form::SelectComponent.new(form, :role, Moduler::User.roles.keys.map { |role| [ t("moduler.administration.users.roles.#{role}"), role ] }, label: t(".label.role"))) %>
+      <%= render(::Moduler::Form::SelectComponent.new(form, :status, Moduler::User.statuses.keys.map { |status| [ t("moduler.administration.users.statuses.#{status}"), status ] }, label: t(".label.status"))) %>
     <% end %>
 
     <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>

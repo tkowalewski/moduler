@@ -18,22 +18,30 @@ module Moduler
     end
 
     def create
-      if user = User.authenticate_by(params.require(:user).permit(:email_address, :password))
+      user = User.authenticate_by(params.require(:user).permit(:email_address, :password))
+
+      if user&.active?
         start_new_session_for user
 
         redirect_to after_authentication_url
       else
-        @user = User.new.tap do |user|
-          user.errors.add(:base, t("moduler.sessions.create.invalid_credentials"))
-        end
-
-        render :new
+        render_sign_in_error(user ? "inactive_account" : "invalid_credentials")
       end
     end
 
     def destroy
       terminate_session
       redirect_to moduler.new_session_path, status: :see_other
+    end
+
+    private
+
+    def render_sign_in_error(key)
+      @user = User.new.tap do |user|
+        user.errors.add(:base, t("moduler.sessions.create.#{key}"))
+      end
+
+      render :new
     end
   end
 end

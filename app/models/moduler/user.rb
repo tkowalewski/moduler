@@ -12,6 +12,7 @@ module Moduler
     validates :password, length: { minimum: 8 }, allow_nil: true
 
     enum :role, { member: 0, administrator: 1 }
+    enum :status, { waitlisted: 0, active: 1, inactive: 2 }, default: :active
 
     pg_search_scope :search_by_query, against: %i[ email_address ], using: { trigram: { word_similarity: true } }
   end

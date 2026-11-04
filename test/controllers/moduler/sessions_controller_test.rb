@@ -134,6 +134,50 @@ module Moduler
       assert_match I18n.t("moduler.sessions.create.invalid_credentials"), response.body
     end
 
+    %i[ waitlisted inactive ].each do |status|
+      test "create with valid credentials of a #{status} user does not create a session record" do
+        @user.update!(status: status)
+
+        assert_no_difference "Moduler::Session.count" do
+          post "/application/session", params: {
+            user: { email_address: @user.email_address, password: "password123" }
+          }
+        end
+      end
+
+      test "create with valid credentials of a #{status} user shows an inactive account message" do
+        @user.update!(status: status)
+
+        post "/application/session", params: {
+          user: { email_address: @user.email_address, password: "password123" }
+        }
+
+        assert_response :success
+        assert_match I18n.t("moduler.sessions.create.inactive_account"), response.body
+        assert cookies[:session_id].blank?
+      end
+
+      test "create with an invalid password of a #{status} user shows invalid credentials" do
+        @user.update!(status: status)
+
+        post "/application/session", params: {
+          user: { email_address: @user.email_address, password: "wrong_password" }
+        }
+
+        assert_match I18n.t("moduler.sessions.create.invalid_credentials"), response.body
+        assert_no_match I18n.t("moduler.sessions.create.inactive_account"), response.body
+      end
+
+      test "an existing session is not resumed after the user becomes #{status}" do
+        sign_in_as @user
+        @user.update!(status: status)
+
+        get "/application/"
+
+        assert_redirected_to "/application/session/new"
+      end
+    end
+
     test "a session past its lifetime is not resumed" do
       post "/application/session", params: {
         user: { email_address: @user.email_address, password: "password123" }

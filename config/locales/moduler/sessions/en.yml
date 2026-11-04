@@ -15,4 +15,5 @@ en:
           password: Enter your password
       create:
         invalid_credentials: Invalid credentials
+        inactive_account: Your account does not have access to the panel.
         rate_limited: Too many sign-in attempts. Please try again in a few minutes.

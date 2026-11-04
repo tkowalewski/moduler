@@ -84,6 +84,8 @@ module Moduler
         assert_select "form[action='/application/administration/users']" do
           assert_select "input[name='user[email_address]']"
           assert_select "select[name='user[role]'] option", count: Moduler::User.roles.size
+          assert_select "select[name='user[status]'] option", count: Moduler::User.statuses.size
+          assert_select "select[name='user[status]'] option[selected][value='active']"
           assert_select "input[name='user[password]']"
         end
       end
@@ -101,6 +103,17 @@ module Moduler
         user = Moduler::User.find_by!(email_address: "new@domain.tld")
         assert user.administrator?
         assert user.authenticate("password123")
+      end
+
+      test "create stores the selected status" do
+        sign_in_as @administrator
+
+        post "/application/administration/users", params: {
+          user: { email_address: "waiting@domain.tld", role: "member", status: "waitlisted", password: "password123" }
+        }
+
+        assert_redirected_to "/application/administration/users"
+        assert Moduler::User.find_by!(email_address: "waiting@domain.tld").waitlisted?
       end
 
       test "create re-renders the form when the user is invalid" do
@@ -126,6 +139,7 @@ module Moduler
           assert_select "input[name='_method'][value='patch']"
           assert_select "input[name='user[email_address]'][value='#{@member.email_address}']"
           assert_select "select[name='user[role]'] option[selected][value='member']"
+          assert_select "select[name='user[status]'] option[selected][value='active']"
           assert_select "input[name='user[password]']", count: 0
         end
       end
@@ -149,6 +163,17 @@ module Moduler
         @member.reload
         assert_equal "changed@domain.tld", @member.email_address
         assert @member.administrator?
+      end
+
+      test "update changes the status" do
+        sign_in_as @administrator
+
+        patch "/application/administration/users/#{@member.id}", params: {
+          user: { email_address: @member.email_address, role: "member", status: "inactive" }
+        }
+
+        assert_redirected_to "/application/administration/users"
+        assert @member.reload.inactive?
       end
 
       test "index does not render the edit link for the current user" do
