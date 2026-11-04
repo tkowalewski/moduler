@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `status` on `Moduler::User` (`waitlisted`, `active` or `inactive`, `active` by default), stored in a new integer column `moduler_users.status` (indexed, existing users become `active`). Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`).
 - Administrators can set a user's status when creating and editing users in the administration area.
+- `Moduler::Document` model (`name`, `kind` and an attached PDF `file`, all required) stored in a new `moduler_documents` table. `kind` is one of `Moduler::Document::KINDS`: `privacy_policy`, `terms_and_conditions` or `data_processing_agreement`. The file must be a PDF under 10 MB. Host applications need to copy and run the new migrations (`bin/rails moduler:install:migrations && bin/rails db:migrate`) and have Active Storage installed.
+- `Moduler::UserDocument` model linking users to documents, stored in a new `moduler_user_documents` table with a unique index on the document and user pair. `Moduler::User#user_documents` and `Moduler::User#documents` return a user's links and documents; destroying a user or a document deletes their links.
+- Documents page in the administration area (`administration_documents_path`, `/administration/documents`) listing documents newest first and 10 per page, with their kind, creation time and a download link. Documents can be searched by name and kind. Administrators can create documents and edit their name and kind (`Moduler::Administration::DocumentPolicy`); the file cannot be replaced after the document is created, and documents cannot be deleted. The page is linked from the administration sidebar.
+- `Moduler::Form::FileComponent` (with optional `label`, `description` and `accept`, and the field's validation error).
 
 ### Changed
 
