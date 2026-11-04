@@ -15,11 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Moduler::UserDocument` model linking users to documents, stored in a new `moduler_user_documents` table with a unique index on the document and user pair. `Moduler::User#user_documents` and `Moduler::User#documents` return a user's links and documents; destroying a user or a document deletes their links.
 - Documents page in the administration area (`administration_documents_path`, `/administration/documents`) listing documents newest first and 10 per page, with their kind, creation time and a download link. Documents can be searched by name and kind. Administrators can create documents and edit their name and kind (`Moduler::Administration::DocumentPolicy`); the file cannot be replaced after the document is created, and documents cannot be deleted. The page is linked from the administration sidebar.
 - `Moduler::Form::FileComponent` (with optional `label`, `description` and `accept`, and the field's validation error).
+- Document acceptance page (`new_document_acceptance_path`, `/document_acceptance/new`) listing the documents the signed-in user has not accepted yet, oldest first, each with a checkbox and a link that opens the file in a new tab. The user must check every document; accepting them (`POST /document_acceptance`) records them and redirects to the home page. If any document is left unchecked, nothing is recorded and the page shows "Accept all documents to continue.".
+- `Moduler::DocumentAcceptance` service (`Moduler::DocumentAcceptance.new(user, document_ids).call`) that validates that every pending document is among the given ids and records the acceptances, ignoring unknown and already accepted ids. It returns `true` on success, or `false` with the error in `errors`.
+- `Moduler::User#pending_documents` returns the documents the user has not accepted yet.
+- `skip_document_acceptance` class method for controllers that inherit from `Moduler::ApplicationController` and should stay available before the user accepts all documents (accepts the same options as `skip_before_action`).
 
 ### Changed
 
 - Only active users can sign in. Waitlisted and inactive users who enter valid credentials see "Your account does not have access to the panel." and no session is created; an invalid password still shows "Invalid credentials".
 - Existing sessions of users who are no longer active are not resumed, so changing a user's status to waitlisted or inactive signs them out on their next request.
+- Signed-in users who have not accepted every document are redirected to the document acceptance page, after signing in and also whenever a new document is created. Until they accept all documents, only the profile, the profile sessions (including revoking them), signing out, the public articles and, for administrators, the administration area are available. This also applies to host application controllers that inherit from `Moduler::ApplicationController`; use `skip_document_acceptance` to keep one available.
 
 ## [0.4.0] - 2026-10-27
 
