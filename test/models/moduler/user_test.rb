@@ -326,5 +326,37 @@ module Moduler
         Moduler::User.new(status: :banned)
       end
     end
+
+    test "user_documents returns the user's document acceptances" do
+      user = moduler_users(:default)
+      assert_includes user.user_documents, moduler_user_documents(:default_privacy_policy)
+      assert_includes user.user_documents, moduler_user_documents(:default_terms_and_conditions)
+      assert_empty moduler_users(:administrator).user_documents
+    end
+
+    test "documents returns the documents the user has" do
+      user = moduler_users(:default)
+      assert_equal [ moduler_documents(:privacy_policy), moduler_documents(:terms_and_conditions) ].sort_by(&:id), user.documents.order(:id).to_a
+      assert_empty moduler_users(:administrator).documents
+    end
+
+    test "documents can be added through the association" do
+      user = moduler_users(:administrator)
+
+      assert_difference "Moduler::UserDocument.count", 1 do
+        user.documents << moduler_documents(:privacy_policy)
+      end
+      assert_includes user.reload.documents, moduler_documents(:privacy_policy)
+    end
+
+    test "destroying the user destroys their user documents but keeps the documents" do
+      user = moduler_users(:default)
+
+      assert_difference "Moduler::UserDocument.count", -2 do
+        assert_no_difference "Moduler::Document.count" do
+          user.destroy!
+        end
+      end
+    end
   end
 end

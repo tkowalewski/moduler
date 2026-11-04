@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+default_privacy_policy:
+  user: default
+  document: privacy_policy
+
+default_terms_and_conditions:
+  user: default
+  document: terms_and_conditions

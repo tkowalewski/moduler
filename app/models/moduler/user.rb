@@ -3,6 +3,8 @@ module Moduler
     include PgSearch::Model
 
     has_many :sessions, class_name: "Moduler::Session", foreign_key: "moduler_user_id", dependent: :destroy
+    has_many :user_documents, class_name: "Moduler::UserDocument", foreign_key: "moduler_user_id", dependent: :destroy
+    has_many :documents, class_name: "Moduler::Document", through: :user_documents
 
     has_secure_password
 
