@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `status` on `Moduler::User` (`waitlisted`, `active` or `inactive`, `active` by default), stored in a new integer column `moduler_users.status` (indexed, existing users become `active`). Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`).
+- Administrators can set a user's status when creating and editing users in the administration area.
+
+### Changed
+
+- Only active users can sign in. Waitlisted and inactive users who enter valid credentials see "Your account does not have access to the panel." and no session is created; an invalid password still shows "Invalid credentials".
+- Existing sessions of users who are no longer active are not resumed, so changing a user's status to waitlisted or inactive signs them out on their next request.
+
 ## [0.4.0] - 2026-10-27
 
 ### Added
