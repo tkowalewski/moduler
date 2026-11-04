@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_04_205837) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_04_205950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -72,6 +72,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_04_205837) do
     t.index ["moduler_user_id"], name: "index_moduler_sessions_on_moduler_user_id"
   end
 
+  create_table "moduler_user_documents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "moduler_document_id", null: false
+    t.uuid "moduler_user_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["moduler_document_id", "moduler_user_id"], name: "idx_on_moduler_document_id_moduler_user_id_18d4771302", unique: true
+    t.index ["moduler_user_id"], name: "index_moduler_user_documents_on_moduler_user_id"
+  end
+
   create_table "moduler_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
@@ -86,4 +95,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_04_205837) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "moduler_sessions", "moduler_users"
+  add_foreign_key "moduler_user_documents", "moduler_documents"
+  add_foreign_key "moduler_user_documents", "moduler_users"
 end
