@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-04
+
 ### Added
 
 - `status` on `Moduler::User` (`waitlisted`, `active` or `inactive`, `active` by default), stored in a new integer column `moduler_users.status` (indexed, existing users become `active`). Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`).
@@ -152,7 +154,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.4.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/tkowalewski/moduler/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/tkowalewski/moduler/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/tkowalewski/moduler/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/tkowalewski/moduler/compare/0.1.0...0.2.0
