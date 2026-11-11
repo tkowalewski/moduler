@@ -40,6 +40,68 @@ module Moduler
       assert_select "nav a[href='/application/profile/edit']", text: @user.email_address
     end
 
+    test "header links the current user's name to the profile page when present" do
+      @user.update!(name: "Jan Kowalski")
+      sign_in_as @user
+
+      get "/application/profile/edit"
+
+      assert_select "nav a[href='/application/profile/edit']", text: "Jan Kowalski"
+    end
+
+    test "edit renders the name field" do
+      @user.update!(name: "Jan Kowalski")
+      sign_in_as @user
+
+      get "/application/profile/edit"
+
+      assert_select "input[type='text'][name='user[name]'][value='Jan Kowalski']"
+    end
+
+    test "update changes the name without the current password" do
+      sign_in_as @user
+
+      patch "/application/profile", params: {
+        user: { name: "Jan Kowalski", password_challenge: "", password: "", password_confirmation: "" }
+      }
+
+      assert_redirected_to "/application/profile/edit"
+      assert_equal "Jan Kowalski", @user.reload.name
+      assert @user.authenticate("password123")
+    end
+
+    test "update removes the name" do
+      @user.update!(name: "Jan Kowalski")
+      sign_in_as @user
+
+      patch "/application/profile", params: { user: { name: "", password_challenge: "", password: "", password_confirmation: "" } }
+
+      assert_redirected_to "/application/profile/edit"
+      assert_nil @user.reload.name
+    end
+
+    test "update changes the name and password together" do
+      sign_in_as @user
+
+      patch "/application/profile", params: {
+        user: { name: "Jan Kowalski", password_challenge: "password123", password: "new_password1", password_confirmation: "new_password1" }
+      }
+
+      assert_redirected_to "/application/profile/edit"
+      @user.reload
+      assert_equal "Jan Kowalski", @user.name
+      assert @user.authenticate("new_password1")
+    end
+
+    test "update with a too long name re-renders the form" do
+      sign_in_as @user
+
+      patch "/application/profile", params: { user: { name: "a" * 101, password_challenge: "", password: "", password_confirmation: "" } }
+
+      assert_response :unprocessable_entity
+      assert_nil @user.reload.name
+    end
+
     test "update redirects to the login page when not authenticated" do
       patch "/application/profile", params: {
         user: { password_challenge: "password123", password: "new_password1", password_confirmation: "new_password1" }

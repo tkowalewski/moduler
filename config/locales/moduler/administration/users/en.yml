@@ -11,7 +11,7 @@ en:
           inactive: Inactive
         index:
           title: Users
-          description: Manage user accounts and their roles. Search users by email address.
+          description: Manage user accounts and their roles. Search users by email address or name.
           empty: No users found.
           action:
             new: Create
@@ -19,10 +19,12 @@ en:
           title: New user
           label:
             email_address: Email address
+            name: Name
             role: Role
             status: Status
             password: Password
           description:
+            name: Optional. Shown instead of the email address.
             password: Use at least 8 characters.
           section:
             data: User data
@@ -35,8 +37,11 @@ en:
           title: Edit user
           label:
             email_address: Email address
+            name: Name
             role: Role
             status: Status
+          description:
+            name: Optional. Shown instead of the email address.
           section:
             data: User data
           action:

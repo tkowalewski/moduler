@@ -10,7 +10,7 @@
     </div>
 
     <div class="flex min-w-0 items-center gap-3 text-sm text-gray-900 sm:gap-6">
-      <%= link_to current_user.email_address, moduler.edit_profile_path, class: "truncate" %>
+      <%= link_to current_user.display_name, moduler.edit_profile_path, class: "truncate" %>
       |
       <%= button_to t(".action.sign_out"), moduler.session_path, method: :delete, class: "cursor-pointer whitespace-nowrap font-semibold" %>
     </div>

@@ -11,6 +11,7 @@
 
       <%= render(::Moduler::Form::SectionComponent.new(t(".section.data"))) do %>
         <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"), disabled: :disabled)) %>
+        <%= render(::Moduler::Form::TextComponent.new(form, :name, label: t(".label.name"), description: t(".description.name"))) %>
       <% end %>
 
       <%= render(::Moduler::Form::SectionComponent.new(t(".section.password"), divider: true)) do %>

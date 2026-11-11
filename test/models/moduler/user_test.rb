@@ -396,5 +396,36 @@ module Moduler
         user.destroy!
       end
     end
+
+    test "is valid without a name" do
+      user = Moduler::User.new(email_address: "valid@example.com", password: "password123", name: nil)
+      assert user.valid?
+    end
+
+    test "is invalid with a name longer than 100 characters" do
+      user = Moduler::User.new(email_address: "valid@example.com", password: "password123", name: "a" * 101)
+      assert_not user.valid?
+      assert_includes user.errors[:name], "is too long (maximum is 100 characters)"
+    end
+
+    test "strips the name and stores a blank name as nil" do
+      assert_equal "Jan Kowalski", Moduler::User.new(name: "  Jan Kowalski  ").name
+      assert_nil Moduler::User.new(name: "   ").name
+    end
+
+    test "display_name returns the name" do
+      assert_equal "Jan Kowalski", Moduler::User.new(email_address: "jan@example.com", name: "Jan Kowalski").display_name
+    end
+
+    test "display_name falls back to the email address without a name" do
+      assert_equal "jan@example.com", Moduler::User.new(email_address: "jan@example.com").display_name
+    end
+
+    test "search_by_query finds users by name" do
+      user = moduler_users(:default)
+      user.update!(name: "Jan Kowalski")
+
+      assert_includes Moduler::User.search_by_query("Kowalski"), user
+    end
   end
 end

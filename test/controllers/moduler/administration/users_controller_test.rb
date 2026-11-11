@@ -83,6 +83,7 @@ module Moduler
         assert_response :success
         assert_select "form[action='/application/administration/users']" do
           assert_select "input[name='user[email_address]']"
+          assert_select "input[type='text'][name='user[name]']"
           assert_select "select[name='user[role]'] option", count: Moduler::User.roles.size
           assert_select "select[name='user[status]'] option", count: Moduler::User.statuses.size
           assert_select "select[name='user[status]'] option[selected][value='active']"
@@ -95,12 +96,13 @@ module Moduler
 
         assert_difference -> { Moduler::User.count }, 1 do
           post "/application/administration/users", params: {
-            user: { email_address: "new@domain.tld", role: "administrator", password: "password123" }
+            user: { email_address: "new@domain.tld", name: "New User", role: "administrator", password: "password123" }
           }
         end
 
         assert_redirected_to "/application/administration/users"
         user = Moduler::User.find_by!(email_address: "new@domain.tld")
+        assert_equal "New User", user.name
         assert user.administrator?
         assert user.authenticate("password123")
       end
@@ -130,6 +132,7 @@ module Moduler
       end
 
       test "edit renders the form for an administrator" do
+        @member.update!(name: "Jan Kowalski")
         sign_in_as @administrator
 
         get "/application/administration/users/#{@member.id}/edit"
@@ -138,6 +141,7 @@ module Moduler
         assert_select "form[action='/application/administration/users/#{@member.id}']" do
           assert_select "input[name='_method'][value='patch']"
           assert_select "input[name='user[email_address]'][value='#{@member.email_address}']"
+          assert_select "input[name='user[name]'][value='Jan Kowalski']"
           assert_select "select[name='user[role]'] option[selected][value='member']"
           assert_select "select[name='user[status]'] option[selected][value='active']"
           assert_select "input[name='user[password]']", count: 0
@@ -250,6 +254,38 @@ module Moduler
         patch "/application/administration/users/#{@member.id}"
 
         assert_redirected_to "/application/"
+      end
+
+      test "update changes and removes the name" do
+        sign_in_as @administrator
+
+        patch "/application/administration/users/#{@member.id}", params: { user: { name: "Jan Kowalski" } }
+
+        assert_redirected_to "/application/administration/users"
+        assert_equal "Jan Kowalski", @member.reload.name
+
+        patch "/application/administration/users/#{@member.id}", params: { user: { name: "" } }
+
+        assert_nil @member.reload.name
+      end
+
+      test "index shows the name of a user who has one" do
+        @member.update!(name: "Jan Kowalski")
+        sign_in_as @administrator
+
+        get "/application/administration/users"
+
+        assert_select "##{dom_id(@member)}", text: /Jan Kowalski/
+      end
+
+      test "index filters users by name" do
+        @member.update!(name: "Jan Kowalski")
+        sign_in_as @administrator
+
+        get "/application/administration/users", params: { filter: { query: "Kowalski" } }
+
+        assert_select "##{dom_id(@member)}"
+        assert_select "##{dom_id(@administrator)}", count: 0
       end
     end
   end

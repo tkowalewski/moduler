@@ -5,10 +5,12 @@ en:
         title: Profile
         label:
           email_address: Email address
+          name: Name
           password: New password
           password_confirmation: Confirm new password
           password_challenge: Current password
         description:
+          name: Optional. Shown instead of your email address.
           password_confirmation: Leave blank to keep your current password. Changing it signs out your other active sessions.
           password_challenge: Required to save changes to password.
         action:

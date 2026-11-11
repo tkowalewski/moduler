@@ -2,6 +2,10 @@
   <% item.with_badge(t("moduler.administration.users.roles.#{user.role}"), variant: user.administrator? ? :success : :neutral) %>
 
   <% item.with_meta do %>
+    <% if user.name.present? %>
+      <%= user.name %>
+      <span aria-hidden="true">&middot;</span>
+    <% end %>
     <%= time_tag user.created_at, t(".created", time: time_ago_in_words(user.created_at)), title: l(user.created_at, format: :long) %>
   <% end %>
 

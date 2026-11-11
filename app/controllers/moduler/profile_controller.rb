@@ -22,8 +22,10 @@ module Moduler
 
     private
 
+    # The current password is required only to change the password.
     def permitted_parameters
-      params.expect(user: %i[ password_challenge password password_confirmation ])
+      parameters = params.expect(user: %i[ name password_challenge password password_confirmation ])
+      parameters[:password].blank? ? parameters.except(:password_challenge, :password, :password_confirmation) : parameters
     end
   end
 end

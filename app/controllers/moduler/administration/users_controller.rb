@@ -41,11 +41,11 @@ module Moduler
       end
 
       def permitted_parameters
-        params.expect(user: %i[ email_address role status password ])
+        params.expect(user: %i[ email_address name role status password ])
       end
 
       def permitted_update_parameters
-        params.expect(user: %i[ email_address role status ])
+        params.expect(user: %i[ email_address name role status ])
       end
 
       def permitted_filter_parameters
