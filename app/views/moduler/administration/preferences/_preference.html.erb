@@ -1,0 +1,24 @@
+<%= render(Moduler::ListItemComponent.new(preference.name, id: dom_id(preference))) do |item| %>
+  <% item.with_badge(t("moduler.administration.preferences.kinds.#{preference.kind}")) %>
+
+  <% item.with_meta do %>
+    <span class="font-mono"><%= preference.value %></span>
+    <span aria-hidden="true">&middot;</span>
+    <%= time_tag preference.updated_at, t(".updated", time: time_ago_in_words(preference.updated_at)), title: l(preference.updated_at, format: :long) %>
+  <% end %>
+
+  <% policy = Moduler::Administration::PreferencePolicy.new(current_user, preference) %>
+
+  <% if policy.edit? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.edit"), moduler.edit_administration_preference_path(preference), size: :sm)) %>
+    <% end %>
+  <% end %>
+
+  <% if policy.destroy? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonComponent.new(t(".action.destroy"), moduler.administration_preference_path(preference), method: :delete, size: :sm,
+            confirm: t(".confirmation.destroy", name: preference.name))) %>
+    <% end %>
+  <% end %>
+<% end %>

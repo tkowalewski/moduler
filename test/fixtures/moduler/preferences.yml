@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+waitlist:
+  kind: boolean
+  name: WAITLIST
+  value: "true"
+
+max_projects:
+  kind: integer
+  name: MAX_PROJECTS
+  value: "5"

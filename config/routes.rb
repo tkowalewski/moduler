@@ -20,6 +20,7 @@ Moduler::Engine.routes.draw do
 
     resources :articles
     resources :documents, only: %i[ index new create edit update ]
+    resources :preferences, only: %i[ index new create edit update destroy ]
     resources :organizations, only: %i[ index new create edit update ]
     resources :roles, only: %i[ index new create edit update ]
     resources :memberships, only: %i[ index new create edit update destroy ]

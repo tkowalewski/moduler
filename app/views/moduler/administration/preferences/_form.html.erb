@@ -1,0 +1,16 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
+
+  <%= form_with model: @preference, url: @preference.persisted? ? moduler.administration_preference_path(@preference) : moduler.administration_preferences_path, data: { turbo: false }, class: "w-full space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <div class="max-w-lg space-y-6">
+      <%= render(::Moduler::Form::TextComponent.new(form, :name, label: t(".label.name"), placeholder: t(".placeholder.name"), description: t(".description.name"))) %>
+      <%= render(::Moduler::Form::SelectComponent.new(form, :kind, Moduler::Preference::KINDS.map { |kind| [ t("moduler.administration.preferences.kinds.#{kind}"), kind ] },
+            label: t(".label.kind"), include_blank: true, description: t(".description.kind"))) %>
+      <%= render(::Moduler::Form::TextComponent.new(form, :value, label: t(".label.value"), placeholder: t(".placeholder.value"), description: t(".description.value"))) %>
+    </div>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>

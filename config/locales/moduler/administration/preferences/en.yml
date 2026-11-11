@@ -1,0 +1,44 @@
+en:
+  moduler:
+    administration:
+      preferences:
+        kinds:
+          string: String
+          boolean: Boolean
+          integer: Integer
+        index:
+          title: Preferences
+          description: Settings and feature toggles read in code as Moduler::Preference::NAME, changeable without a deploy.
+          empty: No preferences found
+          placeholder:
+            query: Search by name or kind...
+          action:
+            new: Create
+        preference:
+          updated: Updated %{time} ago
+          action:
+            edit: Edit
+            destroy: Delete
+          confirmation:
+            destroy: Delete %{name}? Code reading Moduler::Preference::%{name} will get nil.
+        create:
+          notice: Preference has been created
+        update:
+          notice: Preference has been updated
+        destroy:
+          notice: Preference has been deleted
+        form:
+          title: Preference
+          label:
+            name: Name
+            kind: Kind
+            value: Value
+          placeholder:
+            name: WAITLIST
+            value: "true"
+          description:
+            name: Read in code as Moduler::Preference::NAME. Uppercase letters, digits and underscores, starting with a letter.
+            kind: How the value is cast. Boolean is true or false, integer is a whole number, string is used as is.
+            value: A boolean must be "true" or "false" (case and surrounding spaces are ignored). An integer must be a whole number.
+          action:
+            save: Save

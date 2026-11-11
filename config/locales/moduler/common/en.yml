@@ -8,6 +8,7 @@ en:
             sessions: Sessions
             articles: Articles
             documents: Documents
+            preferences: Preferences
             organizations: Organizations
             roles: Roles
             memberships: Members
