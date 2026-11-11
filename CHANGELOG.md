@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The header links the signed-in user's `display_name` to the profile page instead of their email address.
 - `status` on `Moduler::Article` (`unpublished` or `published`, `unpublished` by default), stored in a new integer column `moduler_articles.status` (indexed, existing articles become `published`). Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`). Administrators can set the status when creating and editing articles, and the articles list shows it.
 - `allow_administrator_access` for controllers that administrators may use (see Changed), and the `current_home_path` helper: the administration area for administrators, the home page for everyone else.
+- `Moduler::Preference` model for runtime settings and feature toggles (`kind`: `string`, `boolean` or `integer`; `name`: unique, in constant format such as `WAITLIST`; `value`: required, `true` or `false` for a boolean and a whole number for an integer), stored in a new `moduler_preferences` table. Code reads a preference as `Moduler::Preference::NAME`, cast to its kind; a preference that does not exist reads as `nil`. Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`).
+- Preferences page in the administration area (`administration_preferences_path`, `/administration/preferences`) where administrators can search preferences by name and kind, create, edit and delete them (`Moduler::Administration::PreferencePolicy`). The page is linked from the administration sidebar.
 
 ### Changed
 
