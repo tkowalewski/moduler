@@ -2,6 +2,7 @@ module Moduler
   module Profile
     class SessionsController < ApplicationController
       skip_document_acceptance
+      allow_administrator_access
 
       def index
         @sessions = Current.user.sessions.order(created_at: :desc).page(params[:page]).per(10)

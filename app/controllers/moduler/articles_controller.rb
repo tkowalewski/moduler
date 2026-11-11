@@ -4,6 +4,7 @@ module Moduler
 
     allow_unauthenticated_access
     skip_document_acceptance
+    allow_administrator_access
 
     def index
       @articles = Article.published.order(created_at: :desc).page(params[:page])

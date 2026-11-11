@@ -18,7 +18,6 @@ en:
             sessions: Sessions
       header:
         nav:
-          administration: Administration
           home: Home
         action:
           sign_out: Sign out

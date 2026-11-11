@@ -265,12 +265,13 @@ module Moduler
       assert_response :success
     end
 
-    test "the home page is blocked for an administrator during document acceptance" do
+    test "the home page redirects an administrator with pending documents to the administration" do
+      assert_not_empty @administrator.pending_documents
       sign_in_as @administrator
 
       get "/application/"
 
-      assert_redirected_to "/application/document_acceptance/new"
+      assert_redirected_to "/application/administration"
     end
 
     test "the administration is blocked for a member during document acceptance" do

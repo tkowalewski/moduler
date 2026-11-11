@@ -1,6 +1,7 @@
 module Moduler
   class ApplicationController < ActionController::Base
     include Authentication
+    include RestrictAdministratorAccess
     include RequireDocumentAcceptance
     include Pundit::Authorization
 
@@ -17,7 +18,7 @@ module Moduler
     end
 
     def not_authorized
-      redirect_to moduler.root_path, alert: t("moduler.flash.not_authorized")
+      redirect_to current_home_path, alert: t("moduler.flash.not_authorized")
     end
   end
 end

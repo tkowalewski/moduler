@@ -38,7 +38,7 @@ module Moduler
     end
 
     def after_authentication_url
-      moduler.root_path
+      current_home_path
     end
 
     def start_new_session_for(user)

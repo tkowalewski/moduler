@@ -29,6 +29,24 @@ module Moduler
       assert_redirected_to "/application/"
     end
 
+    test "create with valid credentials of an administrator redirects to the administration area" do
+      administrator = moduler_users(:administrator)
+
+      post "/application/session", params: {
+        user: { email_address: administrator.email_address, password: "password123" }
+      }
+
+      assert_redirected_to "/application/administration"
+    end
+
+    test "new redirects an authenticated administrator to the administration area" do
+      sign_in_as moduler_users(:administrator)
+
+      get "/application/session/new"
+
+      assert_redirected_to "/application/administration"
+    end
+
     test "create with a differently cased email address redirects to root" do
       post "/application/session", params: {
         user: { email_address: @user.email_address.upcase, password: "password123" }

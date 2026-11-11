@@ -3,6 +3,7 @@ module Moduler
     module Sessions
       class RevocationController < ApplicationController
         skip_document_acceptance
+        allow_administrator_access
 
         def destroy
           Current.user.sessions.active.update_all(signed_out_at: Time.current)

@@ -189,12 +189,13 @@ module Moduler
         assert_select "a[href='/application/administration/users/#{@member.id}/edit']"
       end
 
-      test "edit redirects an administrator editing themselves to the home page" do
+      test "edit redirects an administrator editing themselves to the administration home page" do
         sign_in_as @administrator
 
         get "/application/administration/users/#{@administrator.id}/edit"
 
-        assert_redirected_to "/application/"
+        assert_redirected_to "/application/administration"
+        assert_equal "You are not authorized to perform this action.", flash[:alert]
       end
 
       test "update does not allow an administrator to update themselves" do
@@ -206,7 +207,7 @@ module Moduler
           }
         end
 
-        assert_redirected_to "/application/"
+        assert_redirected_to "/application/administration"
       end
 
       test "update ignores password" do

@@ -1,6 +1,7 @@
 module Moduler
   class ProfileController < ApplicationController
     skip_document_acceptance
+    allow_administrator_access
 
     def edit
       @user = Current.user
