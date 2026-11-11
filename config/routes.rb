@@ -20,6 +20,7 @@ Moduler::Engine.routes.draw do
 
     resources :articles
     resources :documents, only: %i[ index new create edit update ]
+    resources :organizations, only: %i[ index new create edit update ]
 
     root "home#index"
   end

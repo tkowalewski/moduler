@@ -2,6 +2,7 @@
   <nav class="flex gap-1 overflow-x-auto md:flex-col text-sm p-2">
     <%= render(Moduler::SidebarActionComponent.new(t(".action.users"), moduler.administration_users_path, "moduler/administration/users")) %>
     <%= render(Moduler::SidebarActionComponent.new(t(".action.sessions"), moduler.administration_sessions_path, "moduler/administration/sessions")) %>
+    <%= render(Moduler::SidebarActionComponent.new(t(".action.organizations"), moduler.administration_organizations_path, "moduler/administration/organizations")) %>
 
     <%= render(Moduler::SidebarActionComponent.new(t(".action.articles"), moduler.administration_articles_path, "moduler/administration/articles")) %>
     <%= render(Moduler::SidebarActionComponent.new(t(".action.documents"), moduler.administration_documents_path, "moduler/administration/documents")) %>

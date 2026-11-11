@@ -1,0 +1,13 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
+
+  <%= form_with model: @organization, url: @organization.persisted? ? moduler.administration_organization_path(@organization) : moduler.administration_organizations_path, data: { turbo: false }, class: "w-full space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <div class="max-w-lg space-y-6">
+      <%= render(::Moduler::Form::TextComponent.new(form, :name, label: t(".label.name"))) %>
+    </div>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>

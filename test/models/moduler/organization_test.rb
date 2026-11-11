@@ -52,5 +52,15 @@ module Moduler
         build_organization(name: moduler_organizations(:acme).name).save!(validate: false)
       end
     end
+
+    test "search_by_query finds organizations by name" do
+      results = Moduler::Organization.search_by_query("Acme")
+      assert_includes results, moduler_organizations(:acme)
+      assert_not_includes results, moduler_organizations(:globex)
+    end
+
+    test "search_by_query returns nothing for an unrelated query" do
+      assert_empty Moduler::Organization.search_by_query("zzzzzz")
+    end
   end
 end

@@ -1,0 +1,24 @@
+en:
+  moduler:
+    administration:
+      organizations:
+        index:
+          title: Organizations
+          description: Organizations registered in the application
+          empty: No organizations found
+          action:
+            new: Create
+        organization:
+          created: Created %{time} ago
+          action:
+            edit: Edit
+        create:
+          notice: Organization has been created
+        update:
+          notice: Organization has been updated
+        form:
+          title: Organization
+          label:
+            name: Name
+          action:
+            save: Save
