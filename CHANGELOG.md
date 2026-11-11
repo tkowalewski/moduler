@@ -26,10 +26,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optional `name` on `Moduler::User` (at most 100 characters, blank stored as `nil`), stored in a new string column `moduler_users.name`. Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`). `Moduler::User#display_name` returns the name, or the email address when the user has no name.
 - Administrators can set a user's name when creating and editing users; the users list shows it and users can be searched by name. Users can set their name on the profile page.
 - The header links the signed-in user's `display_name` to the profile page instead of their email address.
+- `status` on `Moduler::Article` (`unpublished` or `published`, `unpublished` by default), stored in a new integer column `moduler_articles.status` (indexed, existing articles become `published`). Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`). Administrators can set the status when creating and editing articles, and the articles list shows it.
 
 ### Changed
 
 - The current password on the profile page is required only to change the password; other changes can be saved without it.
+- The public articles list and article pages show only published articles; an unpublished article's page responds with not found.
 
 ## [0.5.0] - 2026-11-04
 
