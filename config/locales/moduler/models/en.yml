@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        moduler/membership:
+          attributes:
+            user:
+              not_member: must have the member role

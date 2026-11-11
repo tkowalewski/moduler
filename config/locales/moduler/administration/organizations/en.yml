@@ -11,6 +11,8 @@ en:
         organization:
           created: Created %{time} ago
           action:
+            memberships: Members
+            roles: Roles
             edit: Edit
         create:
           notice: Organization has been created

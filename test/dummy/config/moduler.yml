@@ -2,3 +2,7 @@ shared:
   administration:
     resources:
       - tasks
+  permissions:
+    - tasks.read
+    - tasks.write
+    - members.manage

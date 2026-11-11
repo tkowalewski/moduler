@@ -3,6 +3,8 @@
     <%= render(Moduler::SidebarActionComponent.new(t(".action.users"), moduler.administration_users_path, "moduler/administration/users")) %>
     <%= render(Moduler::SidebarActionComponent.new(t(".action.sessions"), moduler.administration_sessions_path, "moduler/administration/sessions")) %>
     <%= render(Moduler::SidebarActionComponent.new(t(".action.organizations"), moduler.administration_organizations_path, "moduler/administration/organizations")) %>
+    <%= render(Moduler::SidebarActionComponent.new(t(".action.roles"), moduler.administration_roles_path, "moduler/administration/roles")) %>
+    <%= render(Moduler::SidebarActionComponent.new(t(".action.memberships"), moduler.administration_memberships_path, "moduler/administration/memberships")) %>
 
     <div role="separator" class="mx-1 w-px shrink-0 self-stretch bg-gray-200 md:mx-0 md:my-2 md:h-px md:w-auto"></div>
 

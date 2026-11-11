@@ -4,6 +4,7 @@ en:
       filter:
         placeholder:
           query: Search...
+          organization: All organizations
         action:
           filter: Filter
           clear: Clear

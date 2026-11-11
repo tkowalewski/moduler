@@ -1,0 +1,32 @@
+en:
+  moduler:
+    administration:
+      roles:
+        index:
+          title: Roles
+          description: Roles members of organizations can have and the permissions they grant
+          empty: No roles found
+          action:
+            new: Create
+        role:
+          permissions:
+            zero: No permissions
+            one: 1 permission
+            other: "%{count} permissions"
+          created: Created %{time} ago
+          action:
+            edit: Edit
+        create:
+          notice: Role has been created
+        update:
+          notice: Role has been updated
+        form:
+          title: Role
+          label:
+            organization: Organization
+            name: Name
+            permissions: Permissions
+          description:
+            organization_locked: The organization cannot be changed.
+          action:
+            save: Save

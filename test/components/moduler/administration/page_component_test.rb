@@ -17,5 +17,7 @@ class Moduler::Administration::PageComponentTest < ViewComponent::TestCase
     assert_not_empty fragment.css("main aside a[href='/application/administration/articles']")
     assert_not_empty fragment.css("main aside a[href='/application/administration/documents']")
     assert_not_empty fragment.css("main aside a[href='/application/administration/organizations']")
+    assert_not_empty fragment.css("main aside a[href='/application/administration/roles']")
+    assert_not_empty fragment.css("main aside a[href='/application/administration/memberships']")
   end
 end

@@ -1,0 +1,14 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"), description: t(".description"))) do |header| %>
+    <% header.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.new"), moduler.new_administration_role_path(organization_id: @filter.organization_id.presence))) %>
+    <% end %>
+  <% end %>
+
+  <%= render(Moduler::FilterComponent.new(@filter, moduler.administration_roles_path,
+        selects: [ { name: :organization_id, choices: Moduler::Organization.order(:name).pluck(:name, :id), prompt: t("moduler.components.filter.placeholder.organization") } ])) %>
+
+  <%= render(Moduler::ListComponent.new(@roles, id: "roles", empty: t(".empty"))) do %>
+    <%= render partial: "moduler/administration/roles/role", collection: @roles %>
+  <% end %>
+<% end %>

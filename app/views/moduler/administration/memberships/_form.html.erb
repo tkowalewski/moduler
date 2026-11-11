@@ -1,0 +1,38 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
+
+  <%= form_with model: @membership, url: @membership.persisted? ? moduler.administration_membership_path(@membership) : moduler.administration_memberships_path, data: { turbo: false }, class: "w-full space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <div class="max-w-lg space-y-6">
+      <% if @membership.persisted? %>
+        <div class="mt-2">
+          <p class="block text-sm text-slate-500"><%= t(".label.organization") %></p>
+          <p id="membership_organization" class="mt-2 text-sm text-gray-900"><%= @membership.organization.name %></p>
+        </div>
+        <div class="mt-2">
+          <p class="block text-sm text-slate-500"><%= t(".label.user") %></p>
+          <p id="membership_user" class="mt-2 text-sm text-gray-900"><%= @membership.user.email_address %></p>
+          <p class="mt-1 text-xs text-gray-400"><%= t(".description.locked") %></p>
+        </div>
+        <%= render(::Moduler::Form::SelectComponent.new(form, :moduler_role_id, @membership.organization.roles.order(:name).pluck(:name, :id),
+              label: t(".label.role"))) %>
+      <% else %>
+        <% organizations = Moduler::Organization.includes(:roles).order(:name) %>
+        <% roles = organizations.to_h { |organization| [ organization.id, organization.roles.sort_by(&:name).map { |role| [ role.name, role.id ] } ] } %>
+        <div class="space-y-6" data-controller="dependent-select" data-dependent-select-options-value="<%= roles.to_json %>">
+          <%= render(::Moduler::Form::SelectComponent.new(form, :moduler_organization_id, organizations.map { |organization| [ organization.name, organization.id ] },
+                label: t(".label.organization"), include_blank: true,
+                data: { dependent_select_target: "source", action: "dependent-select#update" })) %>
+          <%= render(::Moduler::Form::SelectComponent.new(form, :moduler_role_id, roles.fetch(@membership.moduler_organization_id, []),
+                label: t(".label.role"), include_blank: true, description: t(".description.role"),
+                data: { dependent_select_target: "dependent" })) %>
+        </div>
+        <%= render(::Moduler::Form::SelectComponent.new(form, :moduler_user_id, Moduler::User.member.order(:email_address).pluck(:email_address, :id),
+              label: t(".label.user"), include_blank: true, description: t(".description.user"))) %>
+      <% end %>
+    </div>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>

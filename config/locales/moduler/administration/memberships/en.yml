@@ -1,0 +1,35 @@
+en:
+  moduler:
+    administration:
+      memberships:
+        index:
+          title: Members
+          description: Users who belong to organizations and the role they have in each of them
+          empty: No members found
+          action:
+            new: Add
+        membership:
+          created: Added %{time} ago
+          action:
+            edit: Edit
+            destroy: Remove
+          confirmation:
+            destroy: Remove %{email_address} from %{organization}?
+        create:
+          notice: Member has been added
+        update:
+          notice: Member has been updated
+        destroy:
+          notice: Member has been removed
+        form:
+          title: Member
+          label:
+            organization: Organization
+            user: User
+            role: Role
+          description:
+            user: Only users with the member role can belong to organizations.
+            role: Roles of the selected organization.
+            locked: The organization and user cannot be changed.
+          action:
+            save: Save

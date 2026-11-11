@@ -1,0 +1,24 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
+
+  <%= form_with model: @role, url: @role.persisted? ? moduler.administration_role_path(@role) : moduler.administration_roles_path, data: { turbo: false }, class: "w-full space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <div class="max-w-lg space-y-6">
+      <% if @role.persisted? %>
+        <div class="mt-2">
+          <p class="block text-sm text-slate-500"><%= t(".label.organization") %></p>
+          <p id="role_organization" class="mt-2 text-sm text-gray-900"><%= @role.organization.name %></p>
+          <p class="mt-1 text-xs text-gray-400"><%= t(".description.organization_locked") %></p>
+        </div>
+      <% else %>
+        <%= render(::Moduler::Form::SelectComponent.new(form, :moduler_organization_id, Moduler::Organization.order(:name).pluck(:name, :id),
+              label: t(".label.organization"), include_blank: true)) %>
+      <% end %>
+      <%= render(::Moduler::Form::TextComponent.new(form, :name, label: t(".label.name"))) %>
+      <%= render(::Moduler::Form::CheckboxesComponent.new(form, :permissions, Moduler.configuration.permissions.map { |permission| [ t("moduler.permissions.#{permission}", default: permission), permission ] }, label: t(".label.permissions"))) %>
+    </div>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>

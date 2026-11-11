@@ -62,5 +62,26 @@ module Moduler
     test "search_by_query returns nothing for an unrelated query" do
       assert_empty Moduler::Organization.search_by_query("zzzzzz")
     end
+
+    test "roles returns the roles of the organization" do
+      organization = moduler_organizations(:acme)
+      assert_includes organization.roles, moduler_roles(:acme_owner)
+      assert_not_includes organization.roles, moduler_roles(:globex_owner)
+    end
+
+    test "memberships and users return the members of the organization" do
+      organization = moduler_organizations(:acme)
+      assert_includes organization.memberships, moduler_memberships(:default_acme)
+      assert_equal [ moduler_users(:default) ], organization.users.to_a
+      assert_empty moduler_organizations(:globex).users
+    end
+
+    test "destroying the organization deletes its memberships and roles" do
+      organization = moduler_organizations(:acme)
+
+      assert_difference -> { Moduler::Membership.count } => -1, -> { Moduler::Role.count } => -2 do
+        organization.destroy!
+      end
+    end
   end
 end

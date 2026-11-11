@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_11_113522) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_11_160000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -61,11 +61,31 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_113522) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "moduler_memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.uuid "moduler_organization_id", null: false
+    t.uuid "moduler_role_id", null: false
+    t.uuid "moduler_user_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["moduler_organization_id", "moduler_user_id"], name: "idx_on_moduler_organization_id_moduler_user_id_36889816d0", unique: true
+    t.index ["moduler_role_id"], name: "index_moduler_memberships_on_moduler_role_id"
+    t.index ["moduler_user_id"], name: "index_moduler_memberships_on_moduler_user_id"
+  end
+
   create_table "moduler_organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_moduler_organizations_on_name", unique: true
+  end
+
+  create_table "moduler_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.uuid "moduler_organization_id", null: false
+    t.string "name", null: false
+    t.string "permissions", default: [], null: false, array: true
+    t.datetime "updated_at", null: false
+    t.index ["moduler_organization_id", "name"], name: "index_moduler_roles_on_moduler_organization_id_and_name", unique: true
   end
 
   create_table "moduler_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -101,6 +121,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_113522) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "moduler_memberships", "moduler_organizations"
+  add_foreign_key "moduler_memberships", "moduler_roles"
+  add_foreign_key "moduler_memberships", "moduler_users"
+  add_foreign_key "moduler_roles", "moduler_organizations"
   add_foreign_key "moduler_sessions", "moduler_users"
   add_foreign_key "moduler_user_documents", "moduler_documents"
   add_foreign_key "moduler_user_documents", "moduler_users"

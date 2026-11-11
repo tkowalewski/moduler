@@ -63,6 +63,12 @@ class Moduler::Form::SelectComponentTest < ViewComponent::TestCase
     assert_empty fragment.css("div.text-red-500")
   end
 
+  def test_renders_data_attributes_when_given
+    fragment = render_inline(Moduler::Form::SelectComponent.new(form, :role, @choices, data: { action: "change->roles#update" }))
+
+    assert_equal "change->roles#update", fragment.at_css("select")&.[]("data-action")
+  end
+
   private
 
   def form

@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+acme_owner:
+  organization: acme
+  name: Owner
+  permissions: [ tasks.read, tasks.write, members.manage ]
+
+acme_viewer:
+  organization: acme
+  name: Viewer
+  permissions: [ tasks.read ]
+
+globex_owner:
+  organization: globex
+  name: Owner
+  permissions: [ tasks.read, tasks.write, members.manage ]

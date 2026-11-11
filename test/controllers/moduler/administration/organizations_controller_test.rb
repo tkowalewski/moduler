@@ -32,6 +32,8 @@ module Moduler
         assert_select "#organizations > li", count: Moduler::Organization.count
         assert_select "##{dom_id(@organization)}" do
           assert_select "p", text: @organization.name
+          assert_select "a[href='/application/administration/memberships?filter%5Borganization_id%5D=#{@organization.id}']", text: "Members"
+          assert_select "a[href='/application/administration/roles?filter%5Borganization_id%5D=#{@organization.id}']", text: "Roles"
           assert_select "a[href='/application/administration/organizations/#{@organization.id}/edit']"
         end
         assert_select "a[href='/application/administration/organizations/new']"

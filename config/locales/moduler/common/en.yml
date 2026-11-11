@@ -9,6 +9,8 @@ en:
             articles: Articles
             documents: Documents
             organizations: Organizations
+            roles: Roles
+            memberships: Members
       profile:
         sidebar:
           action:

@@ -34,4 +34,32 @@ class Moduler::FilterComponentTest < ViewComponent::TestCase
 
     assert_empty fragment.css("a")
   end
+
+  def test_renders_select_with_prompt_and_choices
+    fragment = render_inline(Moduler::FilterComponent.new(OrganizationQueryFilter.new(Moduler::Role, {}), "/roles",
+      selects: [ { name: :organization_id, choices: [ [ "Acme", "1" ], [ "Globex", "2" ] ], prompt: "All organizations" } ]))
+
+    assert_equal [ "All organizations", "Acme", "Globex" ], fragment.css("select[name='filter[organization_id]'] option").map { |option| option.text.strip }
+    assert_equal "", fragment.at_css("select[name='filter[organization_id]'] option")&.[]("value")
+  end
+
+  def test_selects_value_from_filter
+    fragment = render_inline(Moduler::FilterComponent.new(OrganizationQueryFilter.new(Moduler::Role, { organization_id: "2" }), "/roles",
+      selects: [ { name: :organization_id, choices: [ [ "Acme", "1" ], [ "Globex", "2" ] ], prompt: "All organizations" } ]))
+
+    assert_equal "2", fragment.at_css("select option[selected]")&.[]("value")
+  end
+
+  def test_renders_clear_link_when_select_value_present
+    fragment = render_inline(Moduler::FilterComponent.new(OrganizationQueryFilter.new(Moduler::Role, { organization_id: "2" }), "/roles",
+      selects: [ { name: :organization_id, choices: [ [ "Globex", "2" ] ] } ]))
+
+    assert_equal "Clear", fragment.at_css("a[href='/roles']")&.text&.strip
+  end
+
+  def test_does_not_render_select_without_selects
+    fragment = render_inline(Moduler::FilterComponent.new(QueryFilter.new(Moduler::User, {}), "/users"))
+
+    assert_empty fragment.css("select")
+  end
 end

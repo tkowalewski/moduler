@@ -8,5 +8,10 @@ module Moduler
       @choices = choices
       @options = options
     end
+
+    # Data attributes of the select, e.g. for Stimulus targets and actions.
+    def data
+      @options.fetch(:data, {})
+    end
   end
 end

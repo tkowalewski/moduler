@@ -5,6 +5,8 @@ module Moduler
     has_many :sessions, class_name: "Moduler::Session", foreign_key: "moduler_user_id", dependent: :destroy
     has_many :user_documents, class_name: "Moduler::UserDocument", foreign_key: "moduler_user_id", dependent: :destroy
     has_many :documents, class_name: "Moduler::Document", through: :user_documents
+    has_many :memberships, class_name: "Moduler::Membership", foreign_key: "moduler_user_id", dependent: :destroy
+    has_many :organizations, class_name: "Moduler::Organization", through: :memberships
 
     has_secure_password
 

@@ -1,0 +1,6 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+default_acme:
+  user: default
+  organization: acme
+  role: acme_owner

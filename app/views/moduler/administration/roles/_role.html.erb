@@ -1,0 +1,15 @@
+<%= render(Moduler::ListItemComponent.new(role.name, id: dom_id(role))) do |item| %>
+  <% item.with_badge(role.organization.name) %>
+
+  <% item.with_meta do %>
+    <%= t(".permissions", count: role.permissions.size) %>
+    <span aria-hidden="true">&middot;</span>
+    <%= time_tag role.created_at, t(".created", time: time_ago_in_words(role.created_at)), title: l(role.created_at, format: :long) %>
+  <% end %>
+
+  <% if Moduler::Administration::RolePolicy.new(current_user, role).edit? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.edit"), moduler.edit_administration_role_path(role), size: :sm)) %>
+    <% end %>
+  <% end %>
+<% end %>

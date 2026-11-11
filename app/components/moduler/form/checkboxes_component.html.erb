@@ -1,0 +1,19 @@
+<fieldset class="mt-2">
+  <% if @options.key?(:label) %>
+    <legend class="block text-sm text-slate-500"><%= @options[:label] %></legend>
+  <% end %>
+  <div class="mt-2 space-y-2">
+    <%= @form.collection_check_boxes @name, @choices, :last, :first do |choice| %>
+      <div class="flex items-center gap-3">
+        <%= choice.check_box(class: "h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-custom") %>
+        <%= choice.label(class: "cursor-pointer text-sm text-gray-900") %>
+      </div>
+    <% end %>
+  </div>
+  <% if @options.key?(:description) %>
+    <p class="mt-1 text-xs text-gray-400"><%= @options[:description] %></p>
+  <% end %>
+  <% if @form.error?(@name) %>
+    <%= @form.error(@name, class: "text-red-500 text-sm mt-1") %>
+  <% end %>
+</fieldset>

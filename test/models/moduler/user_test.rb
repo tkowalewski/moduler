@@ -382,5 +382,19 @@ module Moduler
         end
       end
     end
+
+    test "memberships and organizations return the organizations of the user" do
+      user = moduler_users(:default)
+      assert_includes user.memberships, moduler_memberships(:default_acme)
+      assert_equal [ moduler_organizations(:acme) ], user.organizations.to_a
+    end
+
+    test "destroying the user deletes their memberships" do
+      user = moduler_users(:default)
+
+      assert_difference -> { Moduler::Membership.count }, -1 do
+        user.destroy!
+      end
+    end
   end
 end
