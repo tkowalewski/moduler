@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-11
+
 ### Added
 
 - `Moduler::Organization` model (`name`, required and unique) stored in a new `moduler_organizations` table with a unique index on `name`. Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`).
@@ -194,7 +196,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.6.0...HEAD
+[0.6.0]: https://github.com/tkowalewski/moduler/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/tkowalewski/moduler/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/tkowalewski/moduler/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/tkowalewski/moduler/compare/0.2.0...0.3.0
