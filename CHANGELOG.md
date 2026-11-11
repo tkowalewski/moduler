@@ -27,11 +27,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Administrators can set a user's name when creating and editing users; the users list shows it and users can be searched by name. Users can set their name on the profile page.
 - The header links the signed-in user's `display_name` to the profile page instead of their email address.
 - `status` on `Moduler::Article` (`unpublished` or `published`, `unpublished` by default), stored in a new integer column `moduler_articles.status` (indexed, existing articles become `published`). Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`). Administrators can set the status when creating and editing articles, and the articles list shows it.
+- `allow_administrator_access` for controllers that administrators may use (see Changed), and the `current_home_path` helper: the administration area for administrators, the home page for everyone else.
 
 ### Changed
 
 - The current password on the profile page is required only to change the password; other changes can be saved without it.
 - The public articles list and article pages show only published articles; an unpublished article's page responds with not found.
+- Administrators no longer use the application: they are redirected to the administration area, except on the administration area, the profile and its sessions, signing in and out, signing up and the public articles pages. Controllers of host applications that inherit from `Moduler::ApplicationController` are restricted too; call `allow_administrator_access` in those administrators may use. Signing in, the header's "Home" link and the "not authorized" redirect lead administrators to the administration area.
+- The header no longer has an "Administration" link.
 
 ## [0.5.0] - 2026-11-04
 
