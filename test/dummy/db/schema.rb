@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_11_180000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_11_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -49,9 +49,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_180000) do
     t.string "description", null: false
     t.string "keywords", null: false
     t.string "path", null: false
+    t.integer "status", default: 0, null: false
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.index ["path"], name: "index_moduler_articles_on_path", unique: true
+    t.index ["status"], name: "index_moduler_articles_on_status"
   end
 
   create_table "moduler_documents", force: :cascade do |t|

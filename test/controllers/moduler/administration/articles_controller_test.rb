@@ -41,6 +41,8 @@ module Moduler
         assert_response :success
         assert_select "#articles > li", count: Moduler::Article.count
         assert_select "#articles", text: /#{@article.title}/
+        assert_select "##{dom_id(@article)} span", text: "Published"
+        assert_select "##{dom_id(moduler_articles(:draft))} span", text: "Unpublished"
         assert_select "a[href='/application/administration/articles/new']"
         assert_select "a[href='/application/administration/articles/#{@article.id}/edit']"
       end
@@ -96,6 +98,8 @@ module Moduler
         assert_response :success
         assert_select "form[action='/application/administration/articles']" do
           assert_select "input[name='article[title]']"
+          assert_select "select[name='article[status]'] option[selected][value='unpublished']"
+          assert_select "select[name='article[status]'] option[value='published']", text: "Published"
           assert_select "input[name='article[path]']"
           assert_select "textarea[name='article[description]']"
           assert_select "input[name='article[keywords]']"
@@ -115,6 +119,7 @@ module Moduler
         article = Moduler::Article.find_by!(path: "new-article")
         assert_equal "New article", article.title
         assert_equal "# Hello", article.content
+        assert article.unpublished?
       end
 
       test "create attaches uploaded images" do
@@ -191,6 +196,7 @@ module Moduler
         assert_select "form[action='/application/administration/articles/#{@article.id}']" do
           assert_select "input[name='_method'][value='patch']"
           assert_select "input[name='article[title]'][value='#{@article.title}']"
+          assert_select "select[name='article[status]'] option[selected][value='published']"
           assert_select "input[name='article[path]'][value='#{@article.path}']"
           assert_select "textarea[name='article[content]']", text: @article.content
         end
@@ -277,6 +283,33 @@ module Moduler
         end
 
         assert_redirected_to "/application/"
+      end
+
+      test "create creates a published article" do
+        sign_in_as @administrator
+
+        post "/application/administration/articles", params: { article: article_params(status: "published") }
+
+        assert Moduler::Article.find_by!(path: "new-article").published?
+      end
+
+      test "update unpublishes the article" do
+        sign_in_as @administrator
+
+        patch "/application/administration/articles/#{@article.id}", params: { article: { status: "unpublished" } }
+
+        assert_redirected_to "/application/administration/articles"
+        assert @article.reload.unpublished?
+      end
+
+      test "update re-renders the form with an unknown status" do
+        sign_in_as @administrator
+
+        assert_no_changes -> { @article.reload.status } do
+          patch "/application/administration/articles/#{@article.id}", params: { article: { status: "archived" } }
+        end
+
+        assert_response :unprocessable_entity
       end
     end
   end

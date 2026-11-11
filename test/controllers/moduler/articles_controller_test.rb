@@ -23,13 +23,13 @@ module Moduler
     test "index lists articles with links to them" do
       get "/application/articles"
 
-      assert_select "#articles > li", count: Moduler::Article.count
+      assert_select "#articles > li", count: Moduler::Article.published.count
       assert_select "#articles a[href='/application/articles/#{@article.path}']", text: /#{@article.title}/
       assert_select "#articles", text: /#{@article.description}/
     end
 
     test "index lists the newest articles first" do
-      newer = Moduler::Article.create!(path: "newer", title: "Newer article", description: "Newer.", keywords: "newer", content: "Newer.")
+      newer = Moduler::Article.create!(path: "newer", title: "Newer article", description: "Newer.", keywords: "newer", content: "Newer.", status: :published)
 
       get "/application/articles"
 
@@ -85,6 +85,28 @@ module Moduler
 
     test "show responds with not found for an unknown path" do
       get "/application/articles/unknown"
+
+      assert_response :not_found
+    end
+
+    test "index does not list unpublished articles" do
+      get "/application/articles"
+
+      assert_select "#articles a[href='/application/articles/#{moduler_articles(:draft).path}']", count: 0
+      assert_no_match moduler_articles(:draft).title, response.body
+    end
+
+    test "index renders an empty message when no article is published" do
+      Moduler::Article.update_all(status: Moduler::Article.statuses[:unpublished])
+
+      get "/application/articles"
+
+      assert_select "#articles", count: 0
+      assert_select "p", text: "No articles have been published yet."
+    end
+
+    test "show responds with not found for an unpublished article" do
+      get "/application/articles/#{moduler_articles(:draft).path}"
 
       assert_response :not_found
     end

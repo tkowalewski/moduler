@@ -4,3 +4,11 @@ default:
   description: Learn how to get started with Moduler.
   keywords: moduler, getting started, guide
   content: Moduler is a modular Rails engine.
+  status: published
+
+draft:
+  path: upcoming-features
+  title: Upcoming features
+  description: Features we are working on.
+  keywords: moduler, roadmap
+  content: Not ready yet.

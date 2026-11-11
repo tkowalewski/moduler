@@ -2,6 +2,9 @@ en:
   moduler:
     administration:
       articles:
+        statuses:
+          unpublished: Unpublished
+          published: Published
         index:
           title: Articles
           description: Posts published on your own public site
@@ -25,11 +28,13 @@ en:
           title: Article
           label:
             title: Title
+            status: Status
             path: Path
             description: Description
             keywords: Keywords
             content: Content
           description:
+            status: Only published articles are shown on the public site.
             path: The article's URL -- letters, numbers, and hyphens only.
             description: Shown in search results and social previews.
             keywords: Comma-separated, for search results and social previews.

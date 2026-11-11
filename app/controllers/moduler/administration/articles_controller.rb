@@ -46,7 +46,7 @@ module Moduler
       end
 
       def permitted_parameters
-        params.expect(article: [ :path, :title, :description, :keywords, :content, images: [] ])
+        params.expect(article: [ :status, :path, :title, :description, :keywords, :content, images: [] ])
       end
 
       def permitted_filter_parameters

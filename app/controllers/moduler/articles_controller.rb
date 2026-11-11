@@ -6,11 +6,11 @@ module Moduler
     skip_document_acceptance
 
     def index
-      @articles = Article.order(created_at: :desc).page(params[:page])
+      @articles = Article.published.order(created_at: :desc).page(params[:page])
     end
 
     def show
-      @article = Article.find_by!(path: params[:path])
+      @article = Article.published.find_by!(path: params[:path])
     end
   end
 end

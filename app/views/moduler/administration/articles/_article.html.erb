@@ -1,4 +1,6 @@
 <%= render(Moduler::ListItemComponent.new(article.title, id: dom_id(article))) do |item| %>
+  <% item.with_badge(t("moduler.administration.articles.statuses.#{article.status}"), variant: article.published? ? :success : :muted) %>
+
   <% item.with_meta do %>
     <%= time_tag article.created_at, t(".created", time: time_ago_in_words(article.created_at)), title: l(article.created_at, format: :long) %>
   <% end %>

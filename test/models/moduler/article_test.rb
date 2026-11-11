@@ -176,5 +176,27 @@ module Moduler
       article = build_article(content: "<script>alert('xss')</script>")
       assert_not_includes article.to_html, "<script>"
     end
+
+    test "is unpublished by default" do
+      assert build_article.unpublished?
+    end
+
+    test "can be published" do
+      article = build_article(status: :published)
+      article.save!
+
+      assert article.reload.published?
+    end
+
+    test "is invalid with an unknown status" do
+      article = build_article(status: "archived")
+      assert_not article.valid?
+      assert_includes article.errors[:status], "is not included in the list"
+    end
+
+    test "published returns only published articles" do
+      assert_includes Moduler::Article.published, moduler_articles(:default)
+      assert_not_includes Moduler::Article.published, moduler_articles(:draft)
+    end
   end
 end

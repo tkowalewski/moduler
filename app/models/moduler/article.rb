@@ -7,6 +7,8 @@ module Moduler
 
     has_many_attached :images
 
+    enum :status, { unpublished: 0, published: 1 }, default: :unpublished, validate: true
+
     validates :path, presence: true, uniqueness: true, format: { with: PATH_FORMAT }
     validates :title, presence: true
     validates :description, presence: true
