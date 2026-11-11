@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Moduler::Organization` model (`name`, required and unique) stored in a new `moduler_organizations` table with a unique index on `name`. Host applications need to copy and run the new migration (`bin/rails moduler:install:migrations && bin/rails db:migrate`).
+- Organizations page in the administration area (`administration_organizations_path`, `/administration/organizations`) listing organizations newest first and 10 per page, with their creation time. Organizations can be searched by name. Administrators can create organizations and edit their name (`Moduler::Administration::OrganizationPolicy`); organizations cannot be deleted. The page is linked from the administration sidebar.
+
 ## [0.5.0] - 2026-11-04
 
 ### Added
