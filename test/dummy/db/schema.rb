@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_11_200000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_11_210002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -63,6 +63,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_200000) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "moduler_emails", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.string "event"
+    t.string "kind", null: false
+    t.string "sender"
+    t.string "subject", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event"], name: "index_moduler_emails_on_event", unique: true, where: "(event IS NOT NULL)"
+  end
+
   create_table "moduler_memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.uuid "moduler_organization_id", null: false
@@ -99,6 +110,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_200000) do
     t.index ["moduler_organization_id", "name"], name: "index_moduler_roles_on_moduler_organization_id_and_name", unique: true
   end
 
+  create_table "moduler_sent_emails", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.uuid "moduler_user_id"
+    t.string "subject", null: false
+    t.string "to_address", null: false
+    t.datetime "updated_at", null: false
+    t.index ["moduler_user_id"], name: "index_moduler_sent_emails_on_moduler_user_id"
+  end
+
   create_table "moduler_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -119,6 +140,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_200000) do
     t.index ["moduler_user_id"], name: "index_moduler_user_documents_on_moduler_user_id"
   end
 
+  create_table "moduler_user_emails", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "moduler_email_id", null: false
+    t.uuid "moduler_user_id", null: false
+    t.datetime "sent_at"
+    t.datetime "updated_at", null: false
+    t.index ["moduler_email_id", "moduler_user_id"], name: "idx_on_moduler_email_id_moduler_user_id_a60bc288cc", unique: true
+    t.index ["moduler_user_id"], name: "index_moduler_user_emails_on_moduler_user_id"
+  end
+
   create_table "moduler_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
@@ -137,7 +168,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_200000) do
   add_foreign_key "moduler_memberships", "moduler_roles"
   add_foreign_key "moduler_memberships", "moduler_users"
   add_foreign_key "moduler_roles", "moduler_organizations"
+  add_foreign_key "moduler_sent_emails", "moduler_users"
   add_foreign_key "moduler_sessions", "moduler_users"
   add_foreign_key "moduler_user_documents", "moduler_documents"
   add_foreign_key "moduler_user_documents", "moduler_users"
+  add_foreign_key "moduler_user_emails", "moduler_emails"
+  add_foreign_key "moduler_user_emails", "moduler_users"
 end

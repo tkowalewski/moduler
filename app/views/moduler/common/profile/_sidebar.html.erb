@@ -2,5 +2,6 @@
   <nav class="flex gap-1 overflow-x-auto md:flex-col text-sm p-2">
     <%= render(Moduler::SidebarActionComponent.new(t(".action.profile"), moduler.edit_profile_path, "moduler/profile")) %>
     <%= render(Moduler::SidebarActionComponent.new(t(".action.sessions"), moduler.profile_sessions_path, "moduler/profile/sessions")) %>
+    <%= render(Moduler::SidebarActionComponent.new(t(".action.sent_emails"), moduler.profile_sent_emails_path, "moduler/profile/sent_emails")) %>
   </nav>
 </aside>

@@ -2,6 +2,8 @@ require "test_helper"
 
 module Moduler
   class UsersControllerTest < ActionDispatch::IntegrationTest
+    include ActiveJob::TestHelper
+
     setup do
       @user = moduler_users(:default)
     end
@@ -283,6 +285,20 @@ module Moduler
       post "/application/session", params: {
         user: { email_address: user.email_address, password: password }
       }
+    end
+
+    test "create sends the registration email to the new user" do
+      assert_enqueued_jobs 1, only: Moduler::EmailDeliveryJob do
+        post "/application/user", params: { user: { email_address: "new@domain.tld", password: "password123", password_confirmation: "password123" } }
+      end
+
+      assert moduler_emails(:welcome).user_emails.exists?(user: Moduler::User.find_by!(email_address: "new@domain.tld"))
+    end
+
+    test "create does not send the registration email when the user is invalid" do
+      assert_no_enqueued_jobs do
+        post "/application/user", params: { user: { email_address: "", password: "password123", password_confirmation: "password123" } }
+      end
     end
   end
 end

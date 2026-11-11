@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+default_newsletter:
+  user: default
+  to_address: test@domain.tld
+  subject: November news
+  body: "<p>Hello test@domain.tld, here is what is new.</p>"
+
+administrator_notice:
+  user: administrator
+  to_address: admin@domain.tld
+  subject: Administrator notice
+  body: "<p>For administrators.</p>"

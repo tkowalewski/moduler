@@ -23,6 +23,7 @@ module Moduler
       @user = User.new(permitted_parameters)
 
       if @user.save
+        Email.deliver_event("user.signup", to: @user)
         redirect_to moduler.new_session_path, notice: t("moduler.users.create.success")
       else
         render :new

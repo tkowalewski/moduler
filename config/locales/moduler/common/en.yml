@@ -8,6 +8,7 @@ en:
             sessions: Sessions
             articles: Articles
             documents: Documents
+            emails: Emails
             preferences: Preferences
             organizations: Organizations
             roles: Roles
@@ -17,6 +18,7 @@ en:
           action:
             profile: Profile
             sessions: Sessions
+            sent_emails: Emails
       header:
         nav:
           home: Home

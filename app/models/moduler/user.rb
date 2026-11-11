@@ -7,6 +7,9 @@ module Moduler
     has_many :documents, class_name: "Moduler::Document", through: :user_documents
     has_many :memberships, class_name: "Moduler::Membership", foreign_key: "moduler_user_id", dependent: :destroy
     has_many :organizations, class_name: "Moduler::Organization", through: :memberships
+    has_many :user_emails, class_name: "Moduler::UserEmail", foreign_key: "moduler_user_id", dependent: :destroy
+    has_many :emails, class_name: "Moduler::Email", through: :user_emails
+    has_many :sent_emails, class_name: "Moduler::SentEmail", foreign_key: "moduler_user_id", dependent: :nullify
 
     has_secure_password
 

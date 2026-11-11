@@ -12,6 +12,7 @@ Moduler::Engine.routes.draw do
       resource :revocation, only: :destroy, controller: :revocation
     end
     resources :sessions, only: %i[ index destroy ]
+    resources :sent_emails, only: %i[ index show ]
   end
 
   namespace :administration do
@@ -21,6 +22,11 @@ Moduler::Engine.routes.draw do
     resources :articles
     resources :documents, only: %i[ index new create edit update ]
     resources :preferences, only: %i[ index new create edit update destroy ]
+    resources :emails, only: %i[ index new create edit update destroy ] do
+      scope module: :emails do
+        resources :deliveries, only: %i[ new create ]
+      end
+    end
     resources :organizations, only: %i[ index new create edit update ]
     resources :roles, only: %i[ index new create edit update ]
     resources :memberships, only: %i[ index new create edit update destroy ]

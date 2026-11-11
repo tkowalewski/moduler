@@ -1,0 +1,11 @@
+en:
+  moduler:
+    profile:
+      sent_emails:
+        index:
+          title: Emails
+          description: Emails sent to your address.
+          empty: No emails have been sent to you yet.
+          action:
+            show: View
+            download: Download %{filename}

@@ -1,0 +1,33 @@
+<%= render(Moduler::ListItemComponent.new(email.subject, id: dom_id(email))) do |item| %>
+  <% item.with_badge(t("moduler.administration.emails.kinds.#{email.kind}")) %>
+  <% if email.event %>
+    <% item.with_badge(email.event, variant: :muted) %>
+  <% end %>
+
+  <% item.with_meta do %>
+    <%= t(".sent", count: email.sent_count) %>
+    <span aria-hidden="true">&middot;</span>
+    <%= time_tag email.updated_at, t(".updated", time: time_ago_in_words(email.updated_at)), title: l(email.updated_at, format: :long) %>
+  <% end %>
+
+  <% policy = Moduler::Administration::EmailPolicy.new(current_user, email) %>
+
+  <% if policy.deliver? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.deliver"), moduler.new_administration_email_delivery_path(email), size: :sm)) %>
+    <% end %>
+  <% end %>
+
+  <% if policy.edit? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonLinkComponent.new(t(".action.edit"), moduler.edit_administration_email_path(email), size: :sm)) %>
+    <% end %>
+  <% end %>
+
+  <% if policy.destroy? %>
+    <% item.with_action do %>
+      <%= render(Moduler::ButtonComponent.new(t(".action.destroy"), moduler.administration_email_path(email), method: :delete, size: :sm,
+            confirm: t(".confirmation.destroy", subject: email.subject))) %>
+    <% end %>
+  <% end %>
+<% end %>

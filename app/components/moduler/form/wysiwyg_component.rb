@@ -54,7 +54,7 @@ module Moduler
 
       data.merge(
         wysiwyg_direct_upload_url_value: helpers.main_app.rails_direct_uploads_path,
-        wysiwyg_blob_url_value: helpers.main_app.rails_service_blob_path(":signed_id", ":filename"),
+        wysiwyg_blob_url_value: helpers.main_app.rails_service_blob_url(":signed_id", ":filename"),
         wysiwyg_attachments_field_name_value: attachments_field_name
       )
     end

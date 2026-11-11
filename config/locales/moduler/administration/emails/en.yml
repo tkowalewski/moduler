@@ -1,0 +1,75 @@
+en:
+  moduler:
+    administration:
+      emails:
+        kinds:
+          custom: Custom
+          system: System
+          newsletter: Newsletter
+        index:
+          title: Emails
+          description: Emails composed here and sent to chosen users, or from code by their event.
+          empty: No emails found
+          action:
+            new: Compose
+        email:
+          sent:
+            zero: Not sent yet
+            one: Sent to 1 user
+            other: Sent to %{count} users
+          updated: Updated %{time} ago
+          action:
+            deliver: Send
+            edit: Edit
+            destroy: Delete
+          confirmation:
+            destroy: Delete "%{subject}"? Copies already sent stay in the recipients' profiles.
+        create:
+          notice: Email has been created
+        update:
+          notice: Email has been updated
+        destroy:
+          notice: Email has been deleted
+        form:
+          title: Email
+          label:
+            subject: Subject
+            sender: Sender
+            kind: Kind
+            event: Event
+            body: Body
+            attachments: Attachments
+          placeholder:
+            sender: Support <support@example.com>
+            event: order.paid
+          description:
+            sender: Optional. Overrides the default From address. An address or "Name <address>".
+            event: 'Optional. Lets code send the email with Moduler::Email.deliver_event("order.paid", to: user). Lowercase letters, digits and underscores, separated by dots. Each event can have one email. The application sends user.signup after a user signs up.'
+            body: Markdown.
+          action:
+            save: Save
+        deliveries:
+          new:
+            title: Send "%{subject}"
+            description: Choose who receives the email. Users it has already been sent or queued for cannot be chosen again.
+            empty: No users found
+            placeholder:
+              role: Any role
+              sent: Sent or not
+            sent:
+              "true": Sent
+              "false": Not sent
+            per_page:
+              other: "%{count} per page"
+            status:
+              sent: Sent %{time}
+              queued: Queued
+              not_sent: Not sent
+            action:
+              select_all: Select all on this page
+              submit: Send to selected
+          create:
+            notice:
+              zero: The email has not been queued for anyone
+              one: The email has been queued for 1 user
+              other: The email has been queued for %{count} users

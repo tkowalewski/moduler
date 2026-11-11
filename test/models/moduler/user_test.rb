@@ -427,5 +427,18 @@ module Moduler
 
       assert_includes Moduler::User.search_by_query("Kowalski"), user
     end
+
+    test "destroying the user deletes their user emails" do
+      assert_difference -> { Moduler::UserEmail.count }, -1 do
+        moduler_users(:default).destroy!
+      end
+    end
+
+    test "emails and sent_emails return the emails of the user" do
+      user = moduler_users(:default)
+
+      assert_equal [ moduler_emails(:newsletter) ], user.emails.to_a
+      assert_equal [ moduler_sent_emails(:default_newsletter) ], user.sent_emails.to_a
+    end
   end
 end

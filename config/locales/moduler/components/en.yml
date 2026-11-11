@@ -11,6 +11,10 @@ en:
       list:
         empty: No results found.
       form:
+        attachments:
+          action:
+            add: Add attachment
+            remove: Remove
         wysiwyg:
           action:
             bold: B

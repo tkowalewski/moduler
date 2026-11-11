@@ -992,6 +992,9 @@
   .shrink-0 {
     flex-shrink: 0;
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .translate-x-2 {
     --tw-translate-x: calc(var(--spacing) * 2);
     translate: var(--tw-translate-x) var(--tw-translate-y);
@@ -1373,6 +1376,9 @@
   .italic {
     font-style: italic;
   }
+  .underline {
+    text-decoration-line: underline;
+  }
   .accent-custom {
     accent-color: var(--color-custom);
   }
@@ -1472,6 +1478,10 @@
     --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
     --tw-prose-invert-th-borders: oklch(44.6% 0.043 257.281);
     --tw-prose-invert-td-borders: oklch(37.2% 0.044 257.287);
+  }
+  .select-all {
+    -webkit-user-select: all;
+    user-select: all;
   }
   .ring-inset {
     --tw-ring-inset: inset;

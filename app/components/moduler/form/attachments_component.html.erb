@@ -1,0 +1,32 @@
+<div class="mt-2" data-controller="attachments" data-attachments-remove-field-name-value="<%= remove_field_name %>">
+  <% if @options.key?(:label) %>
+    <p class="block text-sm text-slate-500"><%= @options[:label] %></p>
+  <% end %>
+
+  <ul class="mt-2 space-y-2" data-attachments-target="list">
+    <% attached.each do |attachment| %>
+      <li class="flex items-center justify-between gap-3 rounded-md border border-slate-200 px-3 py-2" data-attachment-id="<%= attachment.id %>">
+        <%= link_to attachment.filename, helpers.main_app.rails_blob_path(attachment, disposition: "attachment"), class: "truncate text-sm text-gray-900 hover:underline" %>
+        <button type="button" data-action="attachments#remove" class="shrink-0 cursor-pointer text-sm text-slate-500 hover:text-red-600"><%= t("moduler.components.form.attachments.action.remove") %></button>
+      </li>
+    <% end %>
+  </ul>
+
+  <template data-attachments-target="template">
+    <li class="flex items-center justify-between gap-3 rounded-md border border-slate-200 px-3 py-2">
+      <input type="file" name="<%= field_name %>" class="block w-full text-sm text-gray-900 file:mr-3 file:rounded-md file:border-0 file:bg-white file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-gray-900 file:shadow-xs file:ring-1 file:ring-inset file:ring-gray-300 hover:file:bg-gray-50">
+      <button type="button" data-action="attachments#remove" class="shrink-0 cursor-pointer text-sm text-slate-500 hover:text-red-600"><%= t("moduler.components.form.attachments.action.remove") %></button>
+    </li>
+  </template>
+
+  <button type="button" data-action="attachments#add" class="mt-2 cursor-pointer rounded-md bg-white px-2.5 py-1 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 hover:text-slate-900">
+    <%= t("moduler.components.form.attachments.action.add") %>
+  </button>
+
+  <% if @options.key?(:description) %>
+    <p class="mt-1 text-xs text-gray-400"><%= @options[:description] %></p>
+  <% end %>
+  <% if @form.error?(@name) %>
+    <%= @form.error(@name, class: "text-red-500 text-sm mt-1") %>
+  <% end %>
+</div>

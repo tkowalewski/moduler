@@ -46,7 +46,7 @@ class Moduler::Form::WysiwygComponentTest < ViewComponent::TestCase
 
     assert_not_empty fragment.css("button[data-action='click->wysiwyg#upload']")
     assert_not_empty fragment.css("[data-wysiwyg-direct-upload-url-value='/rails/active_storage/direct_uploads']")
-    assert_not_empty fragment.css("[data-wysiwyg-blob-url-value='/rails/active_storage/blobs/redirect/:signed_id/:filename']")
+    assert_not_empty fragment.css("[data-wysiwyg-blob-url-value='http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename']")
     assert_not_empty fragment.css("[data-wysiwyg-attachments-field-name-value='article[images][]']")
   end
 

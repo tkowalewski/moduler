@@ -1,0 +1,23 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"))) %>
+
+  <%= form_with model: @email, url: @email.persisted? ? moduler.administration_email_path(@email) : moduler.administration_emails_path, multipart: true, data: { turbo: false }, class: "w-full space-y-6" do |form| %>
+    <%= render(::Moduler::Form::BaseErrorComponent.new(form)) %>
+
+    <div class="max-w-lg space-y-6">
+      <%= render(::Moduler::Form::TextComponent.new(form, :subject, label: t(".label.subject"))) %>
+      <%= render(::Moduler::Form::TextComponent.new(form, :sender, label: t(".label.sender"), placeholder: t(".placeholder.sender"), description: t(".description.sender"))) %>
+      <%= render(::Moduler::Form::SelectComponent.new(form, :kind, Moduler::Email::KINDS.map { |kind| [ t("moduler.administration.emails.kinds.#{kind}"), kind ] },
+            label: t(".label.kind"), include_blank: true)) %>
+      <%= render(::Moduler::Form::TextComponent.new(form, :event, label: t(".label.event"), placeholder: t(".placeholder.event"), description: t(".description.event"))) %>
+    </div>
+
+    <%= render(::Moduler::Form::WysiwygComponent.new(form, :body, label: t(".label.body"), description: t(".description.body"))) %>
+
+    <div class="max-w-lg space-y-6">
+      <%= render(::Moduler::Form::AttachmentsComponent.new(form, :attachments, label: t(".label.attachments"))) %>
+    </div>
+
+    <%= render(::Moduler::Form::SubmitComponent.new(form, text: t(".action.save"))) %>
+  <% end %>
+<% end %>
