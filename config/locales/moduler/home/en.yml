@@ -1,0 +1,7 @@
+en:
+  moduler:
+    home:
+      index:
+        title: "Welcome, %{name}"
+        description: Choose an organization to continue.
+        empty: You don't belong to any organization yet. Ask an administrator to add you to one.

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Organization dashboard (`organization_path`, `/organizations/:id`) for organizations of the signed-in user; other organizations (for example after the user was removed from one) redirect to the home page with an alert. Its sidebar starts with an organization switcher: a dropdown with the current organization that lists all of the user's organizations by name and links to their dashboards, followed by a Dashboard link. The organization is kept in the URL, so every browser tab can work in a different organization.
+- `Moduler::OrganizationScoped` concern for controllers nested under `/organizations/:organization_id`: it looks the organization up among the signed-in user's organizations (redirecting to the home page with an alert otherwise) and sets `Moduler::Current.organization`, also available as the `current_organization` helper.
+- `dropdown` Stimulus controller closing a `<details>` dropdown on a click outside it or on Escape.
+
+### Changed
+
+- The application home page (`root_path`) is now a welcome page without the sidebar, listing the signed-in user's organizations by name with their role, each linking to its dashboard, or telling users without organizations to ask an administrator.
+- The application sidebar is shown on organization pages only and links the `resources` from `config/moduler.yml` within the current organization (`[current_organization, resource]`, for example `organization_tasks_path`). Host applications need to nest those routes under organizations (`resources :organizations, only: [] do resources :tasks end` in the `moduler` routes block) and include `Moduler::OrganizationScoped` in their controllers.
+
 ## [0.6.0] - 2026-11-11
 
 ### Added

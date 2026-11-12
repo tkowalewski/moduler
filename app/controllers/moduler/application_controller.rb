@@ -9,12 +9,16 @@ module Moduler
 
     rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
-    helper_method :current_user
+    helper_method :current_user, :current_organization
 
     private
 
     def current_user
       Current.user
+    end
+
+    def current_organization
+      Current.organization
     end
 
     def not_authorized

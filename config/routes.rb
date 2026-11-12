@@ -6,6 +6,8 @@ Moduler::Engine.routes.draw do
 
   resource :document_acceptance, only: %i[ new create ]
 
+  resources :organizations, only: :show
+
   resource :profile, only: %i[ edit update ], controller: :profile
   namespace :profile do
     namespace :sessions do
