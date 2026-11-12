@@ -11,6 +11,14 @@ module Moduler
       Moduler::Membership.new(user: @user, organization: @organization, role: moduler_roles(:acme_viewer), **attributes)
     end
 
+    test "permission? checks the permissions of the role" do
+      membership = build_membership
+
+      assert membership.permission?("tasks.read")
+      assert membership.permission?(:"tasks.read")
+      assert_not membership.permission?("tasks.write")
+    end
+
     test "is valid with all required attributes" do
       membership = build_membership
       assert membership.valid?, "Expected membership to be valid, got: #{membership.errors.full_messages}"

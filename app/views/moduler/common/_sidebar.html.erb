@@ -3,8 +3,9 @@
 
   <nav class="flex gap-1 overflow-x-auto md:flex-col text-sm p-2">
     <%= render(Moduler::SidebarActionComponent.new(t(".action.dashboard"), moduler.organization_path(current_organization), "moduler/organizations")) %>
-    <% Array(Moduler.configuration.dig(:resources)).each do |resource| %>
-      <%= render(Moduler::SidebarActionComponent.new(t(".action.#{resource}"), moduler.url_for([current_organization, resource.to_sym]), "moduler/#{resource}")) %>
+    <% Moduler.configuration.resources.each do |resource| %>
+      <% next if resource.permission && !can?(resource.permission) %>
+      <%= render(Moduler::SidebarActionComponent.new(t(".action.#{resource.name}"), moduler.url_for([current_organization, resource.name.to_sym]), "moduler/#{resource.name}")) %>
     <% end %>
   </nav>
 </aside>

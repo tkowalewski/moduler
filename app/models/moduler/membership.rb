@@ -6,6 +6,8 @@ module Moduler
     belongs_to :organization, class_name: "Moduler::Organization", foreign_key: "moduler_organization_id"
     belongs_to :role, class_name: "Moduler::Role", foreign_key: "moduler_role_id"
 
+    delegate :permission?, to: :role
+
     validates :user, uniqueness: { scope: :moduler_organization_id }
     validate :user_must_be_member
     validate :role_must_belong_to_organization

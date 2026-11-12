@@ -29,6 +29,25 @@ module Moduler
       assert_select "aside nav a[href='/application/organizations/#{@globex.id}']", text: "Dashboard"
     end
 
+    test "show links the sidebar resources the user's role grants" do
+      sign_in_as @user
+
+      get "/application/organizations/#{@acme.id}"
+
+      assert_select "aside nav a[href$='/application/organizations/#{@acme.id}/reports']", text: "Reports"
+      assert_select "aside nav a[href$='/application/organizations/#{@acme.id}/projects']", text: "Projects"
+    end
+
+    test "show hides sidebar resources whose permission the user's role does not grant" do
+      @user.memberships.find_by!(organization: @acme).update!(role: moduler_roles(:acme_viewer))
+      sign_in_as @user
+
+      get "/application/organizations/#{@acme.id}"
+
+      assert_select "aside nav a[href$='/application/organizations/#{@acme.id}/reports']", text: "Reports"
+      assert_select "aside nav a[href$='/application/organizations/#{@acme.id}/projects']", count: 0
+    end
+
     test "show redirects to the home page for an organization the user is not a member of" do
       sign_in_as @user
 

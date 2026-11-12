@@ -1,4 +1,8 @@
 shared:
+  resources:
+    - reports
+    - name: projects
+      permission: tasks.write
   administration:
     resources:
       - tasks

@@ -1,6 +1,10 @@
 en:
   moduler:
     common:
+      sidebar:
+        action:
+          reports: Reports
+          projects: Projects
       administration:
         sidebar:
           action:

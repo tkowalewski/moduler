@@ -9,7 +9,7 @@ module Moduler
 
     rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
-    helper_method :current_user, :current_organization
+    helper_method :current_user, :current_organization, :current_membership, :can?
 
     private
 
@@ -19,6 +19,17 @@ module Moduler
 
     def current_organization
       Current.organization
+    end
+
+    def current_membership
+      Current.membership
+    end
+
+    # Whether the signed-in user's role in the current organization grants the
+    # permission (one of `permissions` in config/moduler.yml). Always false
+    # outside an organization (see OrganizationScoped).
+    def can?(permission)
+      current_membership&.permission?(permission) || false
     end
 
     def not_authorized
