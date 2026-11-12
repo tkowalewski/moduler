@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Per-user time zone: users can choose a time zone in their profile (`moduler_users.time_zone`, one of the `ActiveSupport::TimeZone` names, or empty for the application default from `config.time_zone`). The `Moduler::UserTimeZone` concern, included in `Moduler::ApplicationController`, runs each request in the signed-in user's time zone, so `Time.zone`, `l(...)` and `time_tag` use it; visitors who are not signed in get the application time zone. Host applications need to run `bin/rails moduler:install:migrations` and `bin/rails db:migrate`.
+
 ## [0.8.0] - 2026-11-12
 
 ### Added
