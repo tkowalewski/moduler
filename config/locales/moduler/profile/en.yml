@@ -6,13 +6,16 @@ en:
         label:
           email_address: Email address
           name: Name
+          time_zone: Time zone
           password: New password
           password_confirmation: Confirm new password
           password_challenge: Current password
         description:
           name: Optional. Shown instead of your email address.
+          time_zone: Dates and times in the application are shown in this time zone.
           password_confirmation: Leave blank to keep your current password. Changing it signs out your other active sessions.
           password_challenge: Required to save changes to password.
+        time_zone_default: "Application default %{time_zone}"
         action:
           save: Save
         section:

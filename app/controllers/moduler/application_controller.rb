@@ -3,6 +3,7 @@ module Moduler
     include Authentication
     include RestrictAdministratorAccess
     include RequireDocumentAcceptance
+    include UserTimeZone
     include Pundit::Authorization
 
     default_form_builder FormBuilder

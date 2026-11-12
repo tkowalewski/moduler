@@ -440,5 +440,23 @@ module Moduler
       assert_equal [ moduler_emails(:newsletter) ], user.emails.to_a
       assert_equal [ moduler_sent_emails(:default_newsletter) ], user.sent_emails.to_a
     end
+    test "time zone is optional" do
+      user = moduler_users(:default)
+      user.time_zone = ""
+
+      assert user.valid?
+      assert_nil user.time_zone
+    end
+
+    test "time zone must be a known time zone" do
+      user = moduler_users(:default)
+
+      user.time_zone = "Warsaw"
+      assert user.valid?
+
+      user.time_zone = "Mars/Olympus_Mons"
+      assert_not user.valid?
+      assert user.errors.added?(:time_zone, :inclusion, value: "Mars/Olympus_Mons")
+    end
   end
 end

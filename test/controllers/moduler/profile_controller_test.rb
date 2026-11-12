@@ -102,6 +102,47 @@ module Moduler
       assert_nil @user.reload.name
     end
 
+    test "edit renders the time zone select with the application default" do
+      sign_in_as @user
+
+      get "/application/profile/edit"
+
+      assert_select "select[name='user[time_zone]']" do
+        assert_select "option[value='']", text: "Application default #{Time.zone_default}"
+        assert_select "option[value='Warsaw']", text: ActiveSupport::TimeZone["Warsaw"].to_s
+      end
+    end
+
+    test "update changes the time zone without the current password" do
+      sign_in_as @user
+
+      patch "/application/profile", params: { user: { time_zone: "Warsaw", password_challenge: "", password: "", password_confirmation: "" } }
+
+      assert_redirected_to "/application/profile/edit"
+      assert_equal "Warsaw", @user.reload.time_zone
+      follow_redirect!
+      assert_select "select[name='user[time_zone]'] option[value='Warsaw'][selected]"
+    end
+
+    test "update resets the time zone to the application default" do
+      @user.update!(time_zone: "Warsaw")
+      sign_in_as @user
+
+      patch "/application/profile", params: { user: { time_zone: "", password_challenge: "", password: "", password_confirmation: "" } }
+
+      assert_redirected_to "/application/profile/edit"
+      assert_nil @user.reload.time_zone
+    end
+
+    test "update with an unknown time zone re-renders the form" do
+      sign_in_as @user
+
+      patch "/application/profile", params: { user: { time_zone: "Mars/Olympus_Mons", password_challenge: "", password: "", password_confirmation: "" } }
+
+      assert_response :unprocessable_entity
+      assert_nil @user.reload.time_zone
+    end
+
     test "update redirects to the login page when not authenticated" do
       patch "/application/profile", params: {
         user: { password_challenge: "password123", password: "new_password1", password_confirmation: "new_password1" }

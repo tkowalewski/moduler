@@ -12,6 +12,7 @@
       <%= render(::Moduler::Form::SectionComponent.new(t(".section.data"))) do %>
         <%= render(::Moduler::Form::EmailComponent.new(form, :email_address, label: t(".label.email_address"), disabled: :disabled)) %>
         <%= render(::Moduler::Form::TextComponent.new(form, :name, label: t(".label.name"), description: t(".description.name"))) %>
+        <%= render(::Moduler::Form::SelectComponent.new(form, :time_zone, ActiveSupport::TimeZone.all.map { |zone| [ zone.to_s, zone.name ] }, label: t(".label.time_zone"), description: t(".description.time_zone"), include_blank: t(".time_zone_default", time_zone: Time.zone_default.to_s))) %>
       <% end %>
 
       <%= render(::Moduler::Form::SectionComponent.new(t(".section.password"), divider: true)) do %>

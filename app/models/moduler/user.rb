@@ -15,10 +15,12 @@ module Moduler
 
     normalizes :email_address, with: ->(email_address) { email_address.strip.downcase }
     normalizes :name, with: ->(name) { name.strip.presence }
+    normalizes :time_zone, with: ->(time_zone) { time_zone.strip.presence }
 
     validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :password, length: { minimum: 8 }, allow_nil: true
     validates :name, length: { maximum: 100 }
+    validates :time_zone, inclusion: { in: ->(_) { ActiveSupport::TimeZone.all.map(&:name) } }, allow_nil: true
 
     enum :role, { member: 0, administrator: 1 }
     enum :status, { waitlisted: 0, active: 1, inactive: 2 }, default: :active
