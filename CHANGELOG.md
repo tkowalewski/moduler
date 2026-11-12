@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-12
+
 ### Added
 
 - Organization dashboard (`organization_path`, `/organizations/:id`) for organizations of the signed-in user; other organizations (for example after the user was removed from one) redirect to the home page with an alert. Its sidebar starts with an organization switcher: a dropdown with the current organization that lists all of the user's organizations by name and links to their dashboards, followed by a Dashboard link. The organization is kept in the URL, so every browser tab can work in a different organization.
@@ -207,7 +209,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/tkowalewski/moduler/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/tkowalewski/moduler/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/tkowalewski/moduler/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/tkowalewski/moduler/compare/0.3.0...0.4.0
