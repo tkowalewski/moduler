@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Per-user time zone: users can choose a time zone in their profile (`moduler_users.time_zone`, one of the `ActiveSupport::TimeZone` names, or empty for the application default from `config.time_zone`). The `Moduler::UserTimeZone` concern, included in `Moduler::ApplicationController`, runs each request in the signed-in user's time zone, so `Time.zone`, `l(...)` and `time_tag` use it; visitors who are not signed in get the application time zone. Host applications need to run `bin/rails moduler:install:migrations` and `bin/rails db:migrate`.
+- `Moduler::Membership#visible_resources`, the sidebar resources from `config/moduler.yml` the member may see in their configured order, and `Moduler::Membership#home_resource`, the first of them (`nil` when there is none).
+
+### Changed
+
+- Organizations no longer have an empty dashboard page. `organization_path` (linked from the home page and the organization switcher) redirects to the first resource from `resources` in `config/moduler.yml` the member's role grants, so the order of `resources` decides where members of each role land, or back to the home page with an alert when the role grants none. The Dashboard link is removed from the application sidebar.
+
+### Removed
+
+- The `moduler/organizations/show` view and the `moduler.common.sidebar.action.dashboard` translation.
 
 ## [0.8.0] - 2026-11-12
 
