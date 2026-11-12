@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-12
+
 ### Added
 
 - Sidebar resources in `config/moduler.yml` can require a permission: besides a name (`- reports`), a resource can be given as `- name: tasks` with `permission: tasks.read`, and is then linked from the application sidebar only for members whose role grants that permission. The permission has to be one of `permissions`; an unknown permission or a resource without a name raises `ArgumentError`. `Moduler.configuration.resources` returns the resources as `Moduler::Configuration::Resource` (`name` and `permission`, `nil` for resources every member sees), and `Moduler.configuration.administration_resources` the names of the administration resources.
@@ -216,7 +218,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/tkowalewski/moduler/compare/0.7.0...0.8.0
 [0.7.0]: https://github.com/tkowalewski/moduler/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/tkowalewski/moduler/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/tkowalewski/moduler/compare/0.4.0...0.5.0
