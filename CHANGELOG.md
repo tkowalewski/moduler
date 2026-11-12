@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Sidebar resources in `config/moduler.yml` can require a permission: besides a name (`- reports`), a resource can be given as `- name: tasks` with `permission: tasks.read`, and is then linked from the application sidebar only for members whose role grants that permission. The permission has to be one of `permissions`; an unknown permission or a resource without a name raises `ArgumentError`. `Moduler.configuration.resources` returns the resources as `Moduler::Configuration::Resource` (`name` and `permission`, `nil` for resources every member sees), and `Moduler.configuration.administration_resources` the names of the administration resources.
+- `Moduler::Current.membership`, set by `Moduler::OrganizationScoped` to the signed-in user's membership in the organization from the URL and also available as the `current_membership` helper.
+- `can?(permission)` controller and view helper telling whether the role of the signed-in user in the current organization grants a permission; it is `false` outside an organization.
+- `Moduler::Membership#permission?`, delegated to the membership's role.
+
 ## [0.7.0] - 2026-11-12
 
 ### Added
