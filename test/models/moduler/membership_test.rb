@@ -19,6 +19,38 @@ module Moduler
       assert_not membership.permission?("tasks.write")
     end
 
+    test "visible_resources returns the resources the role grants in the configured order" do
+      resources = [
+        Moduler::Configuration::Resource.new(name: "projects", permission: "tasks.write"),
+        Moduler::Configuration::Resource.new(name: "tasks", permission: "tasks.read"),
+        Moduler::Configuration::Resource.new(name: "reports", permission: nil)
+      ]
+
+      assert_equal %w[ tasks reports ], build_membership.visible_resources(resources).map(&:name)
+      assert_equal %w[ projects tasks reports ], build_membership(role: moduler_roles(:acme_owner)).visible_resources(resources).map(&:name)
+    end
+
+    test "visible_resources reads the resources from the configuration" do
+      assert_equal %w[ reports ], build_membership.visible_resources.map(&:name)
+    end
+
+    test "home_resource returns the first visible resource" do
+      resources = [
+        Moduler::Configuration::Resource.new(name: "projects", permission: "tasks.write"),
+        Moduler::Configuration::Resource.new(name: "reports", permission: nil)
+      ]
+
+      assert_equal "reports", build_membership.home_resource(resources).name
+      assert_equal "projects", build_membership(role: moduler_roles(:acme_owner)).home_resource(resources).name
+    end
+
+    test "home_resource is nil when no resource is visible" do
+      resources = [ Moduler::Configuration::Resource.new(name: "projects", permission: "tasks.write") ]
+
+      assert_nil build_membership.home_resource(resources)
+      assert_nil build_membership.home_resource([])
+    end
+
     test "is valid with all required attributes" do
       membership = build_membership
       assert membership.valid?, "Expected membership to be valid, got: #{membership.errors.full_messages}"

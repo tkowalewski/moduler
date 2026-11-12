@@ -14,6 +14,19 @@ module Moduler
 
     pg_search_scope :search_by_query, associated_against: { user: :email_address }, using: { trigram: { word_similarity: true } }
 
+    # Sidebar resources from config/moduler.yml the member may see: those
+    # without a permission and those whose permission the role grants, in
+    # the configured order.
+    def visible_resources(resources = Moduler.configuration.resources)
+      resources.select { |resource| resource.permission.nil? || permission?(resource.permission) }
+    end
+
+    # The page the member lands on when entering the organization: the first
+    # visible resource, or +nil+ when the member may see none.
+    def home_resource(resources = Moduler.configuration.resources)
+      visible_resources(resources).first
+    end
+
     private
 
     def user_must_be_member

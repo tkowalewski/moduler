@@ -16,9 +16,6 @@ en:
       organization_switcher:
         label: Organization
         current: Current organization
-      sidebar:
-        action:
-          dashboard: Dashboard
       profile:
         sidebar:
           action:
