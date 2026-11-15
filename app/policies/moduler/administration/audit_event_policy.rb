@@ -4,6 +4,10 @@ module Moduler
       def index?
         administrator?
       end
+
+      def show?
+        administrator?
+      end
     end
   end
 end

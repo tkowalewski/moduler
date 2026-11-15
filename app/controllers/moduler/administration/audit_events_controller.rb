@@ -7,6 +7,11 @@ module Moduler
         @filter, @audit_events = OrganizationQueryFilter.new(AuditEvent.includes(:user, :organization), permitted_filter_parameters).call
       end
 
+      def show
+        @audit_event = AuditEvent.find(params[:id])
+        authorize(@audit_event, policy_class: AuditEventPolicy)
+      end
+
       private
 
       def permitted_filter_parameters

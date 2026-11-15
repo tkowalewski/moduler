@@ -10,3 +10,21 @@ en:
           created: "%{time} ago"
           unknown_user: Unknown user
           unknown_ip: Unknown IP address
+          action:
+            show: Details
+        show:
+          action:
+            back: Back to audit log
+          label:
+            user: User
+            organization: Organization
+            subject: Subject
+            ip_address: IP address
+            request_id: Request ID
+            before: Before
+            after: After
+          changes: Changes
+          details: Details
+          empty: (empty)
+          unknown: Unknown
+          none: None

@@ -1,17 +1,24 @@
 module Moduler
   module Administration
     module AuditEventsHelper
-      # The details of an audit event in one line: "role: Viewer → Owner, reason: invalid_credentials".
-      def audit_event_details(event)
-        changes = event.metadata.fetch("changes", {}).map { |attribute, (from, to)| "#{attribute}: #{audit_value(from)} → #{audit_value(to)}" }
-        details = event.metadata.except("changes").map { |key, value| "#{key}: #{audit_value(value)}" }
-        (changes + details).join(", ")
+      # What an audit event was done to: "Role 6c2a4345" (the whole id with +full: true+).
+      def audit_event_subject(event, full: false)
+        return unless event.subject_type
+
+        id = event.subject_id.to_s
+        "#{event.subject_type.demodulize} #{full ? id : id.first(8)}"
       end
 
-      private
+      # A value of the details of an audit event as text: lists joined, hashes as JSON,
+      # "(empty)" for nothing.
+      def audit_event_value(value)
+        return t("moduler.administration.audit_events.show.empty") if value.nil? || value == "" || value == [] || value == {}
 
-      def audit_value(value)
-        value.nil? || value == "" ? "–" : Array(value).join(", ")
+        case value
+        when Hash then JSON.pretty_generate(value)
+        when Array then value.join(", ")
+        else value.to_s
+        end
       end
     end
   end
