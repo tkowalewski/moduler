@@ -32,6 +32,7 @@ Moduler::Engine.routes.draw do
     resources :organizations, only: %i[ index new create edit update ]
     resources :roles, only: %i[ index new create edit update ]
     resources :memberships, only: %i[ index new create edit update destroy ]
+    resources :audit_events, only: :index
 
     root "home#index"
   end

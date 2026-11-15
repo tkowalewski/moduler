@@ -23,15 +23,18 @@ module Moduler
       user = User.authenticate_by(params.require(:user).permit(:email_address, :password))
 
       if user&.active?
-        start_new_session_for user
+        Audit.record("session.signed_in", start_new_session_for(user))
 
         redirect_to after_authentication_url
       else
-        render_sign_in_error(user ? "inactive_account" : "invalid_credentials")
+        reason = user ? "inactive_account" : "invalid_credentials"
+        Audit.record("session.sign_in_failed", User.find_by(email_address: params.dig(:user, :email_address).to_s), reason:)
+        render_sign_in_error(reason)
       end
     end
 
     def destroy
+      Audit.record("session.signed_out", Current.session)
       terminate_session
       redirect_to moduler.new_session_path, status: :see_other
     end

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+signed_in:
+  user: default
+  action: session.signed_in
+  ip_address: "127.0.0.1"
+  created_at: <%= 2.hours.ago %>
+
+role_updated:
+  user: administrator
+  organization: acme
+  action: role.updated
+  subject_type: Moduler::Role
+  subject_id: <%= ActiveRecord::FixtureSet.identify(:acme_viewer, :uuid) %>
+  metadata: { "changes": { "name": [ "Reader", "Viewer" ] } }
+  ip_address: "10.0.0.1"
+  created_at: <%= 1.hour.ago %>

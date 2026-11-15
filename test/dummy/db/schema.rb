@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_150000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_15_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -54,6 +54,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150000) do
     t.datetime "updated_at", null: false
     t.index ["path"], name: "index_moduler_articles_on_path", unique: true
     t.index ["status"], name: "index_moduler_articles_on_status"
+  end
+
+  create_table "moduler_audit_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "action", null: false
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.jsonb "metadata", default: {}, null: false
+    t.uuid "moduler_organization_id"
+    t.uuid "moduler_user_id"
+    t.string "request_id"
+    t.string "subject_id"
+    t.string "subject_type"
+    t.index ["created_at"], name: "index_moduler_audit_events_on_created_at"
+    t.index ["moduler_organization_id", "created_at"], name: "idx_on_moduler_organization_id_created_at_6e093684a4"
+    t.index ["moduler_user_id", "created_at"], name: "index_moduler_audit_events_on_moduler_user_id_and_created_at"
+    t.index ["subject_type", "subject_id"], name: "index_moduler_audit_events_on_subject_type_and_subject_id"
   end
 
   create_table "moduler_documents", force: :cascade do |t|
@@ -165,6 +181,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "moduler_audit_events", "moduler_organizations", on_delete: :nullify
+  add_foreign_key "moduler_audit_events", "moduler_users", on_delete: :nullify
   add_foreign_key "moduler_memberships", "moduler_organizations"
   add_foreign_key "moduler_memberships", "moduler_roles"
   add_foreign_key "moduler_memberships", "moduler_users"

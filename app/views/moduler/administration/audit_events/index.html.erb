@@ -1,0 +1,10 @@
+<%= render(Moduler::Administration::PageComponent.new) do %>
+  <%= render(Moduler::PageHeaderComponent.new(t(".title"), description: t(".description"))) %>
+
+  <%= render(Moduler::FilterComponent.new(@filter, moduler.administration_audit_events_path,
+        selects: [ { name: :organization_id, choices: Moduler::Organization.order(:name).pluck(:name, :id), prompt: t("moduler.components.filter.placeholder.organization") } ])) %>
+
+  <%= render(Moduler::ListComponent.new(@audit_events, id: "audit_events", empty: t(".empty"))) do %>
+    <%= render partial: "moduler/administration/audit_events/audit_event", collection: @audit_events %>
+  <% end %>
+<% end %>

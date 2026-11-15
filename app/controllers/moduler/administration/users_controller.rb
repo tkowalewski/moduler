@@ -16,6 +16,7 @@ module Moduler
         @user = User.new(permitted_parameters)
 
         if @user.save
+          Audit.record("user.created", @user, changes: @user.saved_changes)
           redirect_to moduler.administration_users_path, notice: t(".notice")
         else
           render :new, status: :unprocessable_entity
@@ -27,6 +28,7 @@ module Moduler
 
       def update
         if @user.update(permitted_update_parameters)
+          Audit.record("user.updated", @user, changes: @user.saved_changes)
           redirect_to moduler.administration_users_path, notice: t(".notice")
         else
           render :edit, status: :unprocessable_entity

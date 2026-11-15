@@ -8,11 +8,19 @@ module Moduler
 
     default_form_builder FormBuilder
 
+    prepend_before_action :set_current_request
+
     rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
     helper_method :current_user, :current_organization, :current_membership, :can?
 
     private
+
+    # The request of audit events (see Moduler::Audit).
+    def set_current_request
+      Current.ip_address = request.remote_ip
+      Current.request_id = request.request_id
+    end
 
     def current_user
       Current.user

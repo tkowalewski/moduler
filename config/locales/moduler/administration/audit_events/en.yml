@@ -1,0 +1,12 @@
+en:
+  moduler:
+    administration:
+      audit_events:
+        index:
+          title: Audit log
+          description: What was done in the application, by whom and when. Search by action, email address or IP address.
+          empty: No events found.
+        audit_event:
+          created: "%{time} ago"
+          unknown_user: Unknown user
+          unknown_ip: Unknown IP address

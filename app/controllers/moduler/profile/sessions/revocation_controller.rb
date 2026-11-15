@@ -6,7 +6,8 @@ module Moduler
         allow_administrator_access
 
         def destroy
-          Current.user.sessions.active.update_all(signed_out_at: Time.current)
+          count = Current.user.sessions.active.update_all(signed_out_at: Time.current)
+          Audit.record("user.sessions_revoked", Current.user, count:)
           cookies.delete(:session_id)
 
           redirect_to moduler.new_session_path, status: :see_other

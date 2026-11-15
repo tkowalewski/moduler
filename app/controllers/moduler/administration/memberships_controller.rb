@@ -16,6 +16,7 @@ module Moduler
         @membership = Membership.new(permitted_parameters)
 
         if @membership.save
+          Audit.record("membership.created", @membership, changes: @membership.saved_changes)
           redirect_to moduler.administration_memberships_path, notice: t(".notice")
         else
           render :new, status: :unprocessable_entity
@@ -26,6 +27,7 @@ module Moduler
 
       def update
         if @membership.update(permitted_update_parameters)
+          Audit.record("membership.updated", @membership, changes: @membership.saved_changes)
           redirect_to moduler.administration_memberships_path, notice: t(".notice")
         else
           render :edit, status: :unprocessable_entity
@@ -34,6 +36,7 @@ module Moduler
 
       def destroy
         @membership.destroy!
+        Audit.record("membership.destroyed", @membership, user_id: @membership.moduler_user_id, role_id: @membership.moduler_role_id)
 
         redirect_to moduler.administration_memberships_path, status: :see_other, notice: t(".notice")
       end

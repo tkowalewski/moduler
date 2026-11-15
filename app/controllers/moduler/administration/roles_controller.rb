@@ -16,6 +16,7 @@ module Moduler
         @role = Role.new(permitted_parameters)
 
         if @role.save
+          Audit.record("role.created", @role, changes: @role.saved_changes)
           redirect_to moduler.administration_roles_path, notice: t(".notice")
         else
           render :new, status: :unprocessable_entity
@@ -26,6 +27,7 @@ module Moduler
 
       def update
         if @role.update(permitted_update_parameters)
+          Audit.record("role.updated", @role, changes: @role.saved_changes)
           redirect_to moduler.administration_roles_path, notice: t(".notice")
         else
           render :edit, status: :unprocessable_entity

@@ -13,6 +13,7 @@ module Moduler
       @user.assign_attributes(permitted_parameters)
 
       if @user.save(context: :self_service_update)
+        Audit.record("user.updated", @user, changes: @user.saved_changes, password_changed: @user.saved_change_to_password_digest?)
         @user.sessions.active.where.not(id: Current.session.id).update_all(signed_out_at: Time.current) if @user.saved_change_to_password_digest?
 
         redirect_to moduler.edit_profile_path, notice: t(".notice")

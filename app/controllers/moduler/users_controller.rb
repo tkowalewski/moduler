@@ -23,6 +23,7 @@ module Moduler
       @user = User.new(permitted_parameters)
 
       if @user.save
+        Audit.record("user.signed_up", @user, user: @user)
         Email.deliver_event("user.signup", to: @user)
         redirect_to moduler.new_session_path, notice: t("moduler.users.create.success")
       else

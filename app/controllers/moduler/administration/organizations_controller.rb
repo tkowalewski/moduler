@@ -16,6 +16,7 @@ module Moduler
         @organization = Organization.new(permitted_parameters)
 
         if @organization.save
+          Audit.record("organization.created", @organization, changes: @organization.saved_changes)
           redirect_to moduler.administration_organizations_path, notice: t(".notice")
         else
           render :new, status: :unprocessable_entity
@@ -26,6 +27,7 @@ module Moduler
 
       def update
         if @organization.update(permitted_parameters)
+          Audit.record("organization.updated", @organization, changes: @organization.saved_changes)
           redirect_to moduler.administration_organizations_path, notice: t(".notice")
         else
           render :edit, status: :unprocessable_entity

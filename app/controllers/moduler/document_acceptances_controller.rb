@@ -8,6 +8,7 @@ module Moduler
 
     def create
       if @document_acceptance.call
+        Audit.record("documents.accepted", Current.user, document_ids: @document_acceptance.pending_documents.map(&:id))
         redirect_to moduler.root_path, notice: t(".notice")
       else
         flash.now[:alert] = @document_acceptance.errors.full_messages.to_sentence

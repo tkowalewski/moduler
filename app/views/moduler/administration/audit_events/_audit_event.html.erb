@@ -1,0 +1,20 @@
+<% details = audit_event_details(audit_event) %>
+
+<%= render(Moduler::ListItemComponent.new(audit_event.action, id: dom_id(audit_event))) do |item| %>
+  <% item.with_badge(audit_event.organization.name) if audit_event.organization %>
+
+  <% item.with_meta do %>
+    <%= audit_event.user&.email_address || t(".unknown_user") %>
+    <% if audit_event.subject_type %>
+      <span aria-hidden="true">&middot;</span>
+      <%= audit_event.subject_type.demodulize %> <%= audit_event.subject_id.to_s.first(8) %>
+    <% end %>
+    <span aria-hidden="true">&middot;</span>
+    <%= audit_event.ip_address.presence || t(".unknown_ip") %>
+    <span aria-hidden="true">&middot;</span>
+    <%= time_tag audit_event.created_at, t(".created", time: time_ago_in_words(audit_event.created_at)), title: l(audit_event.created_at, format: :long) %>
+    <% if details.present? %>
+      <br><span class="text-slate-500"><%= details %></span>
+    <% end %>
+  <% end %>
+<% end %>

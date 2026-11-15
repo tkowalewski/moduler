@@ -11,6 +11,7 @@ module Moduler
       def destroy
         session = Current.user.sessions.active.find(params[:id])
         session.touch(:signed_out_at)
+        Audit.record("session.revoked", session)
 
         if session == Current.session
           cookies.delete(:session_id)
