@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Organizations no longer have an empty dashboard page. `organization_path` (linked from the home page and the organization switcher) redirects to the first resource from `resources` in `config/moduler.yml` the member's role grants, so the order of `resources` decides where members of each role land, or back to the home page with an alert when the role grants none. The Dashboard link is removed from the application sidebar.
+- Moduler now requires Rails 8.1.4.1 or newer (`~> 8.1`, `>= 8.1.4.1`).
+- Moduler now depends on the `pg` gem (`~> 1.6`), since it only works with PostgreSQL (trigram search with `pg_search`, `ILIKE`). Host applications no longer need to add `pg` to their Gemfile themselves, and bundling fails early for applications without a compatible `pg`.
 
 ### Removed
 
