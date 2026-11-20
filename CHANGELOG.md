@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-20
+
 ### Added
 
 - Per-user time zone: users can choose a time zone in their profile (`moduler_users.time_zone`, one of the `ActiveSupport::TimeZone` names, or empty for the application default from `config.time_zone`). The `Moduler::UserTimeZone` concern, included in `Moduler::ApplicationController`, runs each request in the signed-in user's time zone, so `Time.zone`, `l(...)` and `time_tag` use it; visitors who are not signed in get the application time zone. Host applications need to run `bin/rails moduler:install:migrations` and `bin/rails db:migrate`.
@@ -238,7 +240,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tailwind CSS build for the engine (`app:moduler:tailwindcss:build` and `app:moduler:tailwindcss:watch` tasks).
 - `docker-compose.yml` for PostgreSQL.
 
-[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.8.0...HEAD
+[Unreleased]: https://github.com/tkowalewski/moduler/compare/0.9.0...HEAD
+[0.9.0]: https://github.com/tkowalewski/moduler/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/tkowalewski/moduler/compare/0.7.0...0.8.0
 [0.7.0]: https://github.com/tkowalewski/moduler/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/tkowalewski/moduler/compare/0.5.0...0.6.0
