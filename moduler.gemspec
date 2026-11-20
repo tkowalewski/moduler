@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.required_ruby_version = ">= 3.2.0"
-  spec.add_dependency "rails", "~> 8.1", ">= 8.1.2"
+  spec.add_dependency "rails", "~> 8.1", ">= 8.1.4.1"
   spec.add_dependency "importmap-rails", "~> 2.2", ">= 2.2.3"
   spec.add_dependency "stimulus-rails", "~> 1.3", ">= 1.3.4"
   spec.add_dependency "turbo-rails", "~> 2.0", ">= 2.0.23"
